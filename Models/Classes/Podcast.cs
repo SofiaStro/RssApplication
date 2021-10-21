@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Models.Classes
 {
-    class Podcast
+    public class Podcast : Feed
     {
+        public Podcast(string name, int episodes, int timeInterval) :
+               base(name, episodes, timeInterval)
+        {
+        }
+
+        public override string Display()
+        {
+            return base.Display() + "Podcast";
+        }
     }
 }

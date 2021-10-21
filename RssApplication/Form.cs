@@ -16,5 +16,10 @@ namespace RssApplication
         {
             InitializeComponent();
         }
+
+        private void btnSubcribeAdd_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

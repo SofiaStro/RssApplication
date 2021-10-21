@@ -8,8 +8,9 @@ namespace Models.Classes
 {
     public class News : Feed
     {
-        public News(string name, int episodes, int timeInterval) :  
-                base(name, episodes, timeInterval)
+        public News(string name, int numberOfEpisodes, int timeInterval,
+                Category category, List<Episode> episodeList) :  
+                base(name, numberOfEpisodes, timeInterval, category, episodeList)
         {
         }
 

@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Models.Classes
 {
-    class Category
+    public class Category : Interfaces.INameable
     {
+        public string Name { get; set; }
+
+        public Category(string name)
+        {
+            Name = name;
+        }
     }
 }

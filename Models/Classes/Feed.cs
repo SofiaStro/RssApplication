@@ -9,14 +9,22 @@ namespace Models.Classes
     public abstract class Feed : Interfaces.INameable
     {
         public string Name { get; set; }
-        public int Episodes { get; set; }
+        public int NumberOfEpisodes { get; set; }
         public int TimeInterval { get; set; }
 
-        public Feed(string name, int episodes, int timeInterval)
+        public Category Category;
+
+        public List<Episode> EpisodeList;
+
+        public Feed(string name, int numberOfEpisodes, int timeInterval, 
+                   Category category , List<Episode> episodeList)
         {
             Name = name;
-            Episodes = episodes;
+            NumberOfEpisodes = numberOfEpisodes;
             TimeInterval = timeInterval;
+            Category = category;
+            EpisodeList = episodeList;
+
         }
 
         public virtual string Display()

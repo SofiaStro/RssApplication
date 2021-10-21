@@ -55,16 +55,17 @@ namespace RssApplication
             this.tbSubscribeName = new System.Windows.Forms.TextBox();
             this.lblUrl = new System.Windows.Forms.Label();
             this.lvSubscribe = new System.Windows.Forms.ListView();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cbType = new System.Windows.Forms.ComboBox();
-            this.lblType = new System.Windows.Forms.Label();
             this.chEpisode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbType = new System.Windows.Forms.ComboBox();
+            this.lblType = new System.Windows.Forms.Label();
+            this.tbWork = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblCategoryMsg
@@ -321,6 +322,30 @@ namespace RssApplication
             this.lvSubscribe.UseCompatibleStateImageBehavior = false;
             this.lvSubscribe.View = System.Windows.Forms.View.Details;
             // 
+            // chEpisode
+            // 
+            this.chEpisode.Text = "Avsnitt";
+            // 
+            // chName
+            // 
+            this.chName.Text = "Namn";
+            this.chName.Width = 170;
+            // 
+            // chTime
+            // 
+            this.chTime.Text = "Tidsintervall";
+            this.chTime.Width = 120;
+            // 
+            // chCategory
+            // 
+            this.chCategory.Text = "Kategori";
+            this.chCategory.Width = 100;
+            // 
+            // chType
+            // 
+            this.chType.Text = "Typ";
+            this.chType.Width = 100;
+            // 
             // label7
             // 
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -360,40 +385,25 @@ namespace RssApplication
             this.lblType.ForeColor = System.Drawing.SystemColors.InactiveBorder;
             this.lblType.Location = new System.Drawing.Point(625, 260);
             this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(45, 21);
+            this.lblType.Size = new System.Drawing.Size(36, 17);
             this.lblType.TabIndex = 77;
             this.lblType.Text = "Typ:";
             // 
-            // chEpisode
+            // tbWork
             // 
-            this.chEpisode.Text = "Avsnitt";
-            // 
-            // chName
-            // 
-            this.chName.Text = "Namn";
-            this.chName.Width = 170;
-            // 
-            // chTime
-            // 
-            this.chTime.Text = "Tidsintervall";
-            this.chTime.Width = 120;
-            // 
-            // chCategory
-            // 
-            this.chCategory.Text = "Kategori";
-            this.chCategory.Width = 100;
-            // 
-            // chType
-            // 
-            this.chType.Text = "Typ";
-            this.chType.Width = 100;
+            this.tbWork.Location = new System.Drawing.Point(1172, 51);
+            this.tbWork.Multiline = true;
+            this.tbWork.Name = "tbWork";
+            this.tbWork.Size = new System.Drawing.Size(529, 576);
+            this.tbWork.TabIndex = 79;
             // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1124, 676);
+            this.ClientSize = new System.Drawing.Size(1820, 676);
+            this.Controls.Add(this.tbWork);
             this.Controls.Add(this.cbType);
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.lblCategoryMsg);
@@ -470,6 +480,7 @@ namespace RssApplication
         private System.Windows.Forms.ColumnHeader chTime;
         private System.Windows.Forms.ColumnHeader chCategory;
         private System.Windows.Forms.ColumnHeader chType;
+        private System.Windows.Forms.TextBox tbWork;
     }
 }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BusinessLayer;
 
 namespace RssApplication
 {
@@ -19,6 +20,11 @@ namespace RssApplication
             Application.Run(new Form());
             Console.WriteLine("Moa testar GITHUB");
             Console.WriteLine("Sofia testar GIT");
+
+          
+                Bus objekt = new Bus();
+                objekt.KallaMetod();
+
         }
     }
 }

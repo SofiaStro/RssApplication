@@ -18,6 +18,7 @@ namespace RssApplication
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form());
             Console.WriteLine("Moa testar GITHUB");
+            Console.WriteLine("Sofia testar GIT");
         }
     }
 }

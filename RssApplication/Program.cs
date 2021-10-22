@@ -18,13 +18,12 @@ namespace RssApplication
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form());
-            Console.WriteLine("Moa testar GITHUB");
-            Console.WriteLine("Sofia testar GIT");
+
+            FeedService fs = new FeedService();
+            fs.CreateFeed();
 
           
-                Bus objekt = new Bus();
-                objekt.KallaMetod();
-
+             
         }
     }
 }

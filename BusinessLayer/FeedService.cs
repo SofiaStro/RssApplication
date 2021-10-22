@@ -18,15 +18,15 @@ namespace BusinessLayer
         {
             feedRepository = new FeedRepository();
         }
-        public void CreateFeed(string name, int numberOfEpisodes, int timeInterval, 
-                            Category category, List<Episode> listOfEpisodes )
+        public void CreateFeed()
         {
-            listOfEpisodes = Class1.GetFeed();
 
             Feed newFeed = null;
             //if (objectType.Equals("Podcast"))
             //{
-                newFeed = new Podcast(name, numberOfEpisodes, timeInterval, category, listOfEpisodes);
+            Class1 classf = new Class1();
+            Category category = new Category("Humor");
+                newFeed = new Podcast("NAMN", 30, 60, category, classf.GetFeed());
             //}
             ////if (objectType.Equals("Nyhet"))
             ////{

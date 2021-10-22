@@ -8,9 +8,12 @@ namespace Models.Classes
 {
     public class Podcast : Feed
     {
-        public Podcast(string name, int numberOfEpisodes, int timeInterval,
-               Category category, List<Episode> episodeList) :
-               base(name, numberOfEpisodes, timeInterval, category, episodeList)
+        public Podcast()
+        {
+        }
+
+        public Podcast(string name, int numberOfEpisodes, int timeInterval) :
+               base(name, numberOfEpisodes, timeInterval)
         {
         }
 

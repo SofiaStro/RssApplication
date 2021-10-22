@@ -18,18 +18,16 @@ namespace BusinessLayer
         {
             feedRepository = new FeedRepository();
         }
-        public void CreateFeed()
+        public void CreateFeed(string namn, int numberOfEpisodes, int timeInterval)
         {
-
             Feed newFeed = null;
+            //Class1 lista = new Class1();
             //if (objectType.Equals("Podcast"))
             //{
-            Class1 classf = new Class1();
-            Category category = new Category("Humor");
-                newFeed = new Podcast("NAMN", 30, 60, category, classf.GetFeed());
+                newFeed = new Podcast(namn, numberOfEpisodes, timeInterval);
             //}
-            ////if (objectType.Equals("Nyhet"))
-            ////{
+            //if (objectType.Equals("Nyhet"))
+            //{
             //    newFeed = new News(name, numberOfEpisodes, timeInterval, category, listOfEpisodes);
             //}
             feedRepository.Create(newFeed);

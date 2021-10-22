@@ -3,27 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using Models.Interfaces;
 
 namespace Models.Classes
 {
-    public abstract class Feed : Interfaces.INameable
+    [XmlInclude(typeof(Podcast))]
+    //[XmlInclude(typeof(News))]
+    public abstract class Feed : INameable
     {
         public string Name { get; set; }
         public int NumberOfEpisodes { get; set; }
         public int TimeInterval { get; set; }
 
-        public Category Category;
+        //public Category Category;
 
-        public List<Episode> EpisodeList;
-
-        public Feed(string name, int numberOfEpisodes, int timeInterval, 
-                   Category category , List<Episode> episodeList)
+        //public List<Episode> ListOfEpisodes;
+        public Feed()
+        {
+        }
+        public Feed(string name, int numberOfEpisodes, int timeInterval)
         {
             Name = name;
             NumberOfEpisodes = numberOfEpisodes;
             TimeInterval = timeInterval;
-            Category = category;
-            EpisodeList = episodeList;
+            //Category = category;
+            //ListOfEpisodes = listOfEpisodes;
 
         }
 

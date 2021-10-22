@@ -9,26 +9,44 @@ using System.Threading.Tasks;
 using System.Xml;
 using Models.Classes;
 using System.Xml.Serialization;
+using DataAccessLayer.Exceptions;
 
 namespace DataAccessLayer
 {
     internal class SerializerForXml
     {
-
-        public void Serializer(List<Feed> listOfFeed)
+        public void Serializer(List<Feed> listOfFeeds)
         {
             try
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Feed>));
-                using (FileStream fileStream = new FileStream("feedObj.txt", FileMode.OpenOrCreate, FileAccess.Write))
+                XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Feed>));
+                using (FileStream fileStream = new FileStream("feedObjects.xml", FileMode.OpenOrCreate, FileAccess.Write))
                 {
-                    xmlSerializer.Serialize(fileStream, listOfFeed);
+                    xmlWriter.Serialize(fileStream, listOfFeeds);
                 }
             }
-            catch(Exception e)
+            catch (Exception)
             {
-               
+                throw new SerializerException("feedObjects.xml", "Serializeringen av xml-filen misslyckades");
             }
+        }
+
+        public List<Feed> Deserialize()
+        {
+            try
+            {
+                XmlSerializer xmlReader = new XmlSerializer(typeof(List<Feed>));
+                using (FileStream fileStream = new FileStream("feedObjects.xml", FileMode.Open,
+                    FileAccess.Read))
+                {
+                    return (List<Feed>)xmlReader.Deserialize(fileStream);
+                }
+            }
+            catch (Exception)
+            {
+                throw new SerializerException("feedObjects.xml", "Deserializeringen av xml-filen misslyckades");
+            }
+
         }
     }
 }

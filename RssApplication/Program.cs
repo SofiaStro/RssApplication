@@ -18,11 +18,7 @@ namespace RssApplication
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form());
-
-            FeedService fs = new FeedService();
-            fs.CreateFeed();
-
-          
+       
              
         }
     }

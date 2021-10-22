@@ -9,32 +9,43 @@ namespace DataAccessLayer.Repositories
 {
     public class FeedRepository : IFeedRepository<Feed>
     {
-        SerializerForXml dataManager;
-        List<Feed> listOfFeed;
+        SerializerForXml serializerObject;
+        List<Feed> listOfFeeds;
 
         public FeedRepository()
         {
-            dataManager = new SerializerForXml();
-            listOfFeed = new List<Feed>();
-            // listOfFeed = GetAll();
+            serializerObject = new SerializerForXml();
+            listOfFeeds = new List<Feed>();
+            listOfFeeds = GetCurrentFeeds();
         }
 
-        public void Create(Feed entity)
+        public void Create(Feed feedObject)
         {
-            listOfFeed.Add(entity);
+            listOfFeeds.Add(feedObject);
             SaveChanges();
         }
 
         public void Delete(int index)
         {
-            listOfFeed.RemoveAt(index);
+            listOfFeeds.RemoveAt(index);
             SaveChanges();
         }
 
-        //public List<Feed> GetAll()
-        //{
-        //    List<Feed> 
-        //}
+        public List<Feed> GetCurrentFeeds()
+        {
+            List<Feed> listOfFeedsDeserialized = new List<Feed>();
+            try
+            {
+                listOfFeedsDeserialized = serializerObject.Deserialize();
+            }
+            catch (Exception)
+            {
+                //FIXA DENNA!! 
+
+            }
+
+            return listOfFeedsDeserialized;
+        }
 
         //public Feed GetByCategory(Category category)
         //{
@@ -53,14 +64,14 @@ namespace DataAccessLayer.Repositories
 
         public void SaveChanges()
         {
-            dataManager.Serializer(listOfFeed);
+            serializerObject.Serializer(listOfFeeds);
         }
 
-        public void Update(int index, Feed entity)
+        public void Update(int index, Feed feedObject)
         {
             if(index >= 0)
             {
-                listOfFeed[index] = entity;
+                listOfFeeds[index] = feedObject;
             }
             SaveChanges();
         }

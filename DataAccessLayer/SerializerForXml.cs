@@ -7,11 +7,30 @@ using System.ServiceModel.Syndication;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Models.Classes;
+using System.Xml.Serialization;
 
 namespace DataAccessLayer
 {
-    public class Class1
+    internal class SerializerForXml
     {
+
+        public void Serializer(List<Feed> listOfFeed)
+        {
+            try
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Feed>));
+                using (FileStream fileStream = new FileStream("feedObj.txt", FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    xmlSerializer.Serialize(fileStream, listOfFeed);
+                }
+            }
+            catch(Exception e)
+            {
+               
+            }
+        }
+
         public void GetFeed()
         {
             

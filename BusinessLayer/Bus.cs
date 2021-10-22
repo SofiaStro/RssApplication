@@ -11,7 +11,7 @@ namespace BusinessLayer
     {
         public void KallaMetod()
         {
-            Class1 objekt = new Class1();
+            SerializerForXml objekt = new SerializerForXml();
            objekt.GetFeed();
         }
     }

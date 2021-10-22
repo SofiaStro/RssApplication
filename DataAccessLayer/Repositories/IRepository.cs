@@ -12,7 +12,7 @@ namespace DataAccessLayer.Repositories
         void Delete(int index);
         void Update(int index, T entity);
         void SaveChanges();
-        List<T> GetAll();
+        //List<T> GetAll();
 
     }
 }

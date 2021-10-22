@@ -9,10 +9,10 @@ namespace DataAccessLayer.Repositories
 {
     public interface IFeedRepository<T> : IRepository<T> where T : Feed
     {
-        T GetByName(string name);
+        //T GetByName(string name);
 
-        T GetByCategory(Category category);
+        //T GetByCategory(Category category);
 
-        int GetIndex(string name);
+        //int GetIndex(string name);
     }
 }

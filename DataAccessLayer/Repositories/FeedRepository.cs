@@ -9,44 +9,60 @@ namespace DataAccessLayer.Repositories
 {
     public class FeedRepository : IFeedRepository<Feed>
     {
+        SerializerForXml dataManager;
+        List<Feed> listOfFeed;
+
+        public FeedRepository()
+        {
+            dataManager = new SerializerForXml();
+            listOfFeed = new List<Feed>();
+            // listOfFeed = GetAll();
+        }
+
         public void Create(Feed entity)
         {
-            throw new NotImplementedException();
+            listOfFeed.Add(entity);
+            SaveChanges();
         }
 
         public void Delete(int index)
         {
-            throw new NotImplementedException();
+            listOfFeed.RemoveAt(index);
+            SaveChanges();
         }
 
-        public List<Feed> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        //public List<Feed> GetAll()
+        //{
+        //    List<Feed> 
+        //}
 
-        public Feed GetByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
+        //public Feed GetByCategory(Category category)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public Feed GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
+        //public Feed GetByName(string name)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public int GetIndex(string name)
-        {
-            throw new NotImplementedException();
-        }
+        //public int GetIndex(string name)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            dataManager.Serializer(listOfFeed);
         }
 
         public void Update(int index, Feed entity)
         {
-            throw new NotImplementedException();
+            if(index >= 0)
+            {
+                listOfFeed[index] = entity;
+            }
+            SaveChanges();
         }
     }
 }

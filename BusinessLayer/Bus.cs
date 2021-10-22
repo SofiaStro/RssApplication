@@ -9,10 +9,6 @@ namespace BusinessLayer
 {
     public class Bus
     {
-        public void KallaMetod()
-        {
-            SerializerForXml objekt = new SerializerForXml();
-           objekt.GetFeed();
-        }
+
     }
 }

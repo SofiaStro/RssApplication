@@ -30,19 +30,5 @@ namespace DataAccessLayer
                
             }
         }
-
-        public void GetFeed()
-        {
-            
-            using (var webClient = new WebClient()) //Tillåter avläsning av webb-länkar
-            {
-                using (Stream fs = webClient.OpenRead("https://rss.acast.com/historiepodden")) //Öppnar en läsbar stream från data som är nedladdad från en källa
-                {
-                    XmlReader reader = XmlReader.Create(fs);
-                    SyndicationFeed feed = SyndicationFeed.Load(reader);
-                }
-            }
-
-        }
     }
 }

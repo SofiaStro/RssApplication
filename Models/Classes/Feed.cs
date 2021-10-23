@@ -12,26 +12,26 @@ namespace Models.Classes
     //[XmlInclude(typeof(News))]
     public abstract class Feed : INameable
     {
-        [XmlElement(Order = 1)]
+        //[XmlElement(Order = 1)]
         public string Name { get; set; }
-        [XmlElement(Order = 2)]
+        //[XmlElement(Order = 2)]
         public int NumberOfEpisodes { get; set; }
-        [XmlElement(Order = 3)]
+        //[XmlElement(Order = 3)]
         public int TimeInterval { get; set; }
-        [XmlElement(Order = 4)]
-        public Category Category;
-        [XmlElement(Order = 5, ElementName = "Episode")]
-        public List<Episode> ListOfEpisodes;
+        //[XmlElement(Order = 4)]
+        //public Category Category;
+        //[XmlElement(Order = 5, ElementName = "Episode")]
+        //public List<Episode> ListOfEpisodes;
         public Feed()
         {
         }
-        public Feed(string name, int numberOfEpisodes, int timeInterval, Category category, List<Episode> listOfEpisodes)
+        public Feed(string name, int numberOfEpisodes, int timeInterval)
         {
             Name = name;
             NumberOfEpisodes = numberOfEpisodes;
             TimeInterval = timeInterval;
-            Category = category;
-            ListOfEpisodes = listOfEpisodes;
+            //Category = category;
+            //ListOfEpisodes = listOfEpisodes;
 
         }
 

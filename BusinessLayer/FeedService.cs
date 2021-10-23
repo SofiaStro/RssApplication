@@ -21,10 +21,11 @@ namespace BusinessLayer
         public void CreateFeed(string namn, int numberOfEpisodes, int timeInterval)
         {
             Feed newFeed = null;
-            //Class1 lista = new Class1();
+            Class1 lista = new Class1();
+            Category category = new Category("Humor");
             //if (objectType.Equals("Podcast"))
             //{
-                newFeed = new Podcast(namn, numberOfEpisodes, timeInterval);
+            newFeed = new Podcast(namn, numberOfEpisodes, timeInterval, category, lista.GetFeed());
             //}
             //if (objectType.Equals("Nyhet"))
             //{

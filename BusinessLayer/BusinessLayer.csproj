@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FeedService.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\EpisodeService.cs" />
+    <Compile Include="Services\FeedService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

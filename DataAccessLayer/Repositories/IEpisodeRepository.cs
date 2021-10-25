@@ -7,7 +7,7 @@ using Models.Classes;
 
 namespace DataAccessLayer.Repositories
 {
-    public interface IEpisodeRepository<T> : IRepository<T> where T : Episode
+    public interface IEpisodeRepository<T> where T : Episode
     {
         List<T> GetCurrentEpisodes(string url);
     }

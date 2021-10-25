@@ -19,6 +19,17 @@ namespace BusinessLayer.Services
             feedRepository = new FeedRepository();
 
         }
+
+        private int count = 0;
+
+        public string GetFileName()
+        {
+            string fileName;
+            fileName = "feed" + Convert.ToString(count) + ".xml";
+            count++;
+
+            return fileName;
+        }
         public void CreateFeed(string url, string name, int timeInterval, string category, string type)
         {
             Feed newFeed = null;
@@ -27,16 +38,18 @@ namespace BusinessLayer.Services
             List<Episode> listOfEpisodes = episodeService.GetListOfEpisodes(url);
             int numberOfEpisodes = episodeService.NumberOfEpisodes(listOfEpisodes);
 
+            string fileName = GetFileName();
+
             if (type.Equals("Podcast"))
             {
-                newFeed = new Podcast(name, numberOfEpisodes, timeInterval, category, listOfEpisodes);
+                newFeed = new Podcast(name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
             }
             else if (type.Equals("Nyhet"))
             {
-                newFeed = new News(name, numberOfEpisodes, timeInterval, category, listOfEpisodes);
+                newFeed = new News(name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
             }
 
-            feedRepository.Create(newFeed);
+            feedRepository.Create(newFeed, fileName);
         }
 
         public Feed DisplayFeed()

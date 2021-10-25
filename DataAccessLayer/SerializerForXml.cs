@@ -15,32 +15,29 @@ namespace DataAccessLayer
 {
     internal class SerializerForXml
     {
-        private int count = 0;
-
-        public string GetFileName()
-        {
-            string fileName;
-            fileName = "feed" + Convert.ToString(count) + ".xml";
-            count++;
-
-            return fileName;
-        }
-        public void Serializer(List<Feed> listOfFeeds)
+       
+        public void Serializer(Feed listOfFeeds, string fileName)
         {
             try
             {
-
-
-                    XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Feed>));
-                    using (FileStream fileStream = new FileStream("feedObjects.xml", FileMode.Create, FileAccess.Write))
+                if (File.Exists(fileName)) 
+                {
+                    File.Delete(fileName);
+                }
+                else
+                {
+                    XmlSerializer xmlWriter = new XmlSerializer(typeof(Feed));
+                    using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
                     {
                         xmlWriter.Serialize(fileStream, listOfFeeds);
                     }
+                }
+                    
                
             }
             catch (Exception)
             {
-                throw new SerializerException("feedObjects.xml", "Serializeringen av xml-filen misslyckades");
+                throw new SerializerException(fileName, "Serializeringen av xml-filen misslyckades");
             }
         }
 

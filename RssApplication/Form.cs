@@ -29,7 +29,7 @@ namespace RssApplication
             cbType.Items.Add("Podcast");
             cbSubscribeCategory.Items.Add("Historia");
             cbSubscribeCategory.Items.Add("Humor");
-            DisplaySubscribeList();
+            //DisplaySubscribeList();
         }
 
         private void DisplaySubscribeList()

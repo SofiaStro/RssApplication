@@ -10,40 +10,40 @@ namespace DataAccessLayer.Repositories
     public class FeedRepository : IFeedRepository<Feed>
     {
         SerializerForXml serializerObject;
-        List<Feed> listOfFeeds;
+        //List<Feed> listOfFeeds;
         
 
         public FeedRepository()
         {
             serializerObject = new SerializerForXml();
-            listOfFeeds = new List<Feed>();
-            listOfFeeds = GetCurrentFeeds();
+            //listOfFeeds = new List<Feed>();
+            //listOfFeeds = GetCurrentFeeds();
         }
 
-        public void Create(Feed feedObject)
+        public void Create(Feed feedObject, string fileName)
         {
-            listOfFeeds.Add(feedObject);
-            SaveChanges();
+            //listOfFeeds.Add(feedObject);
+            SaveChanges(feedObject, fileName);
         }
 
-        public void Update(int index, Feed feedObject)
-        {
-            if (index >= 0)
-            {
-                listOfFeeds[index] = feedObject;
-            }
-            SaveChanges();
-        }
+        //public void Update(int index, Feed feedObject)
+        //{
+        //    if (index >= 0)
+        //    {
+        //        listOfFeeds[index] = feedObject;
+        //    }
+        //    SaveChanges();
+        //}
 
-        public void Delete(int index)
-        {
-            listOfFeeds.RemoveAt(index);
-            SaveChanges();
-        }
+        //public void Delete(int index)
+        //{
+        //    listOfFeeds.RemoveAt(index);
+        //    SaveChanges();
+        //}
 
-        public void SaveChanges()
+        public void SaveChanges(Feed feedObject, string fileName)
         {
-            serializerObject.Serializer(listOfFeeds);
+            serializerObject.Serializer(feedObject, fileName);
         }
 
        
@@ -74,12 +74,12 @@ namespace DataAccessLayer.Repositories
         //    throw new NotImplementedException();
         //}
 
-        public int GetIndex(string name)
-        {
+        //public int GetIndex(string name)
+        //{
 
-            return GetCurrentFeeds().FindIndex(e => e.Name.Equals(name));
+        //    return GetCurrentFeeds().FindIndex(e => e.Name.Equals(name));
 
-        }
+        //}
 
 
     }

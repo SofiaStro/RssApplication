@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLayer;
+using System.Timers;
 
 namespace RssApplication
 {
@@ -18,8 +19,14 @@ namespace RssApplication
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form());
-       
+
+        
              
         }
+
+
+
+        
+
     }
 }

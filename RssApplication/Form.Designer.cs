@@ -229,6 +229,7 @@ namespace RssApplication
             this.btnSubscribeChange.TabIndex = 60;
             this.btnSubscribeChange.Text = "Ändra";
             this.btnSubscribeChange.UseVisualStyleBackColor = true;
+            this.btnSubscribeChange.Click += new System.EventHandler(this.btnSubscribeChange_Click);
             // 
             // btnSubcribeDelete
             // 

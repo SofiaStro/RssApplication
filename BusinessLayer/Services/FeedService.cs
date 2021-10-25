@@ -12,12 +12,12 @@ namespace BusinessLayer.Services
     public class FeedService
     {
         IFeedRepository<Feed> feedRepository;
-        
+
 
         public FeedService()
         {
             feedRepository = new FeedRepository();
-            
+
         }
         public void CreateFeed(string url, string name, int timeInterval, string category, string type)
         {
@@ -37,6 +37,19 @@ namespace BusinessLayer.Services
             }
 
             feedRepository.Create(newFeed);
+        }
+
+        public Feed DisplayFeed()
+        {
+            List<Feed> listOfFeeds = feedRepository.GetCurrentFeeds();
+            Feed name = null;
+            //string name = Convert.ToString(listOfFeeds.Select(listOfFeed => listOfFeed.Name));
+            foreach(Feed item in listOfFeeds)
+            {
+                name = item;
+            }
+
+            return name;
         }
     }
 }

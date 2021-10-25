@@ -30,23 +30,13 @@ namespace DataAccessLayer
             try
             {
 
-                if (File.Exists("feedObjects.xml"))                     
-                {
-                    //File.Delete("feedObjects.xml");
+
                     XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Feed>));
                     using (FileStream fileStream = new FileStream("feedObjects.xml", FileMode.Create, FileAccess.Write))
                     {
                         xmlWriter.Serialize(fileStream, listOfFeeds);
                     }
-                }
-                //else
-                //{
-                //    XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Feed>));
-                //    using (FileStream fileStream = new FileStream("feedObjects.xml", FileMode.OpenOrCreate, FileAccess.Write))
-                //    {
-                //        xmlWriter.Serialize(fileStream, listOfFeeds);
-                //    }
-                //}
+               
             }
             catch (Exception)
             {

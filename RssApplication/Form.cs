@@ -29,6 +29,20 @@ namespace RssApplication
             cbType.Items.Add("Podcast");
             cbSubscribeCategory.Items.Add("Historia");
             cbSubscribeCategory.Items.Add("Humor");
+            DisplaySubscribeList();
+        }
+
+        private void DisplaySubscribeList()
+        {
+            
+            String[] row = { 
+                Convert.ToString(feedService.DisplayFeed().NumberOfEpisodes), 
+                feedService.DisplayFeed().Name, 
+                Convert.ToString(feedService.DisplayFeed().TimeInterval), 
+                feedService.DisplayFeed().Category};
+
+            ListViewItem List = new ListViewItem(row);
+            lvSubscribe.Items.Add(List);
         }
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)

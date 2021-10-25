@@ -11,6 +11,7 @@ namespace DataAccessLayer.Repositories
     {
         SerializerForXml serializerObject;
         List<Feed> listOfFeeds;
+        
 
         public FeedRepository()
         {
@@ -25,11 +26,27 @@ namespace DataAccessLayer.Repositories
             SaveChanges();
         }
 
+        public void Update(int index, Feed feedObject)
+        {
+            if (index >= 0)
+            {
+                listOfFeeds[index] = feedObject;
+            }
+            SaveChanges();
+        }
+
         public void Delete(int index)
         {
             listOfFeeds.RemoveAt(index);
             SaveChanges();
         }
+
+        public void SaveChanges()
+        {
+            serializerObject.Serializer(listOfFeeds);
+        }
+
+       
 
         public List<Feed> GetCurrentFeeds()
         {
@@ -57,23 +74,13 @@ namespace DataAccessLayer.Repositories
         //    throw new NotImplementedException();
         //}
 
-        //public int GetIndex(string name)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public void SaveChanges()
+        public int GetIndex(string name)
         {
-            serializerObject.Serializer(listOfFeeds);
+
+            return GetCurrentFeeds().FindIndex(e => e.Name.Equals(name));
+
         }
 
-        public void Update(int index, Feed feedObject)
-        {
-            if(index >= 0)
-            {
-                listOfFeeds[index] = feedObject;
-            }
-            SaveChanges();
-        }
+
     }
 }

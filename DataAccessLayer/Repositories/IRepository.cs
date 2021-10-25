@@ -13,6 +13,6 @@ namespace DataAccessLayer.Repositories
         void Update(int index, T instance);
         void SaveChanges();
         List<T> GetCurrentFeeds();
-
+        
     }
 }

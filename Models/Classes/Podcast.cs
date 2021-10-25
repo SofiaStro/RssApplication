@@ -12,7 +12,7 @@ namespace Models.Classes
         {
         }
 
-        public Podcast(string name, int numberOfEpisodes, int timeInterval, Category category, List<Episode> listOfEpisodes) :
+        public Podcast(string name, int numberOfEpisodes, int timeInterval, string category, List<Episode> listOfEpisodes) :
                base(name, numberOfEpisodes, timeInterval, category, listOfEpisodes)
         {
         }

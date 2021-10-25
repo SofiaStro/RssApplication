@@ -7,14 +7,8 @@ using Models.Classes;
 
 namespace DataAccessLayer.Repositories
 {
-    public interface IFeedRepository<T> : IRepository<T> where T : Feed
+    public interface IEpisodeRepository<T> : IRepository<T> where T : Episode
     {
-
-
-        //T GetByName(string name);
-
-        //T GetByCategory(Category category);
-
-        int GetIndex(string name);
+        List<T> GetCurrentEpisodes(string url);
     }
 }

@@ -39,53 +39,53 @@ namespace Models
         //    return listOfEpisode;
         //}
 
-        public List<Episode> GetFeed()
-        {
-            List<Episode> listOfEpisode = new List<Episode>();
+        //public List<Episode> GetFeed()
+        //{
+        //    List<Episode> listOfEpisode = new List<Episode>();
 
-            using (Stream fs = GetRSS()) //Öppnar en läsbar stream från data som är nedladdad från en källa
-                {
-                    XmlReader reader = XmlReader.Create(fs);
-                    SyndicationFeed feed = SyndicationFeed.Load(reader);
+        //    using (Stream fs = GetRSS()) //Öppnar en läsbar stream från data som är nedladdad från en källa
+        //        {
+        //            XmlReader reader = XmlReader.Create(fs);
+        //            SyndicationFeed feed = SyndicationFeed.Load(reader);
 
-                    foreach (SyndicationItem item in feed.Items)
-                    {
-                        string title = item.Title.Text;
-                        string description = item.Summary.Text;
-                        Episode episode = new Episode(title, description);
-                        listOfEpisode.Add(episode);
-                    }
-                }
+        //            foreach (SyndicationItem item in feed.Items)
+        //            {
+        //                string title = item.Title.Text;
+        //                string description = item.Summary.Text;
+        //                Episode episode = new Episode(title, description);
+        //                listOfEpisode.Add(episode);
+        //            }
+        //        }
             
-            return listOfEpisode;
-        }
+        //    return listOfEpisode;
+        //}
 
-        public Stream GetRSS() 
-        {
+        //public Stream GetRSS() 
+        //{
 
-            using (var webClient = new WebClient()) //Tillåter avläsning av webb-länkar
-            {
-                Stream fs = webClient.OpenRead("https://rss.acast.com/historiepodden"); //Öppnar en läsbar stream från data som är nedladdad från en källa
+        //    using (var webClient = new WebClient()) //Tillåter avläsning av webb-länkar
+        //    {
+        //        Stream fs = webClient.OpenRead("https://rss.acast.com/historiepodden"); //Öppnar en läsbar stream från data som är nedladdad från en källa
                 
-                    return fs;
+        //            return fs;
                 
-            }
+        //    }
 
-        }
+        //}
 
-        public void StartTimeInterval()
-        {
-            Timer aTimer = new Timer(2000);
-            aTimer.Elapsed += ATimer_Elapsed;
-            aTimer.Start();
+        //public void StartTimeInterval()
+        //{
+        //    Timer aTimer = new Timer(2000);
+        //    aTimer.Elapsed += ATimer_Elapsed;
+        //    aTimer.Start();
 
 
-        }
+        //}
 
-        private void ATimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            GetRSS();
-        }
+        //private void ATimer_Elapsed(object sender, ElapsedEventArgs e)
+        //{
+        //    GetRSS();
+        //}
 
     }
 }

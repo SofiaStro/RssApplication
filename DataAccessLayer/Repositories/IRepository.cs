@@ -12,7 +12,7 @@ namespace DataAccessLayer.Repositories
         void Delete(int index);
         void Update(int index, T instance);
         void SaveChanges();
-        List<T> GetCurrentFeeds();
+        List<T> GetCurrentCategorys();
         
     }
 }

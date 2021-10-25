@@ -52,7 +52,7 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        public List<Episode> GetCurrentFeeds()
+        public List<Episode> GetCurrentCategorys()
         {
             throw new NotImplementedException();
         }

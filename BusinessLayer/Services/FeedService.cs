@@ -41,7 +41,7 @@ namespace BusinessLayer.Services
 
         public Feed DisplayFeed()
         {
-            List<Feed> listOfFeeds = feedRepository.GetCurrentFeeds();
+            List<Feed> listOfFeeds = feedRepository.GetCurrentCategorys();
             Feed name = null;
             //string name = Convert.ToString(listOfFeeds.Select(listOfFeed => listOfFeed.Name));
             foreach(Feed item in listOfFeeds)

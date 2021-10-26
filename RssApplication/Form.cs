@@ -57,26 +57,22 @@ namespace RssApplication
 
         private void DisplayEpisodeList(Feed feedObject) 
         {
-            Feed test = feedObject;
-           
-   
+            DisplaySubscribeList();
             lbEpisode.Items.Clear();
-            List<Episode> episodeList = null;
-            episodeList = new List<Episode>();
 
-            episodeList = test.ListOfEpisodes;
-             tbEpisodeDescription.Text = Convert.ToString(episodeList);
-           
+            //episodeList = null;
+            //episodeList = new List<Episode>();
 
-            //    foreach (Episode episode in episodeList)
-            //    {
-            //        lbEpisode.Items.Add(episode.Title);
+            List<Episode> episodeList = feedObject.ListOfEpisodes;
+     
 
-            //    }
-            //} catch (Exception e)
-            //{
-            //    throw e;
-            //}
+
+            foreach (Episode episode in episodeList)
+            {
+                lbEpisode.Items.Add(episode.Title);
+
+            }
+
         }
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)
@@ -103,22 +99,18 @@ namespace RssApplication
         {
             string fileName = "";
             var selectedRow = this.lvSubscribe.SelectedItems;
-            
-            
 
 
             foreach (ListViewItem item in selectedRow)
             {
                 //Hämtar filnamnet från kolumnen som är hidden
-               
                 fileName = item.SubItems[4].Text;
-                tbEpisodeDescription.Text = fileName;
             }
 
             Feed feedObject = feedService.CompareFeedObjects(fileName);
-            
             DisplayEpisodeList(feedObject);
 
         }
+
     }
 }

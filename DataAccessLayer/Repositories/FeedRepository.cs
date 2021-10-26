@@ -51,7 +51,10 @@ namespace DataAccessLayer.Repositories
 
         public List<Feed> GetCurrentFeeds(List<string> listFileNames)
         {
-            List<Feed> listOfFeedsDeserialized = new List<Feed>();
+            List<Feed> listOfFeedsDeserialized;
+            listOfFeedsDeserialized = null;
+            listOfFeedsDeserialized = new List<Feed>();
+            //List<Feed> listOfFeedsDeserialized = new List<Feed>();
             try
             {
                 List<string> fileNames = listFileNames;
@@ -63,7 +66,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception)
             {
-                //FIXA DENNA!! 
+                throw new Exception();
 
             }
 

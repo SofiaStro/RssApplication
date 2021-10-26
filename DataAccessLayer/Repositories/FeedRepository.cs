@@ -47,12 +47,10 @@ namespace DataAccessLayer.Repositories
             serializerObject.Serializer(feedObject, fileName);
         }
 
-       public string[] GetFileNames()
+       public List<string> GetFileNames()
         {
-            //List<String> fileNames = new List<string> { "feed2.xml", "feed4.xml", "feed5.xml" };
-
-            string[] fileNames = new string[3];
-            fileNames = Directory.GetFiles(@"C:\Users\strom\OneDrive\Skrivbord\ht21-oru-informatik-fort\IK202G-op-cSharp\RssApplication\RssApplication\RssApplication\bin\Debug", "*.xml");
+            List<string> fileNames = Directory.GetFiles(@"C:\Users\moahe\OneDrive\Dokument\GitHub\RssApplication\RssApplication\bin\Debug", "*.xml").ToList();
+            
 
             return fileNames;
         }
@@ -62,7 +60,7 @@ namespace DataAccessLayer.Repositories
             List<Feed> listOfFeedsDeserialized = new List<Feed>();
             try
             {
-                string[] fileNames = GetFileNames();
+                List<string> fileNames = GetFileNames();
                 foreach(string fileName in fileNames)
                 {
                     listOfFeedsDeserialized.Add(serializerObject.Deserialize(fileName));

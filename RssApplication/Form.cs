@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using BusinessLayer.Services;
+using Models.Classes;
 
 
 
@@ -29,20 +30,27 @@ namespace RssApplication
             cbType.Items.Add("Podcast");
             cbSubscribeCategory.Items.Add("Historia");
             cbSubscribeCategory.Items.Add("Humor");
-            //DisplaySubscribeList();
+            DisplaySubscribeList();
         }
 
         private void DisplaySubscribeList()
         {
-            
-            String[] row = { 
-                Convert.ToString(feedService.DisplayFeed().NumberOfEpisodes), 
-                feedService.DisplayFeed().Name, 
-                Convert.ToString(feedService.DisplayFeed().TimeInterval), 
-                feedService.DisplayFeed().Category};
+            List<Feed> listOfFeeds = feedService.DisplayFeed();
 
-            ListViewItem List = new ListViewItem(row);
-            lvSubscribe.Items.Add(List);
+            foreach(Feed item in listOfFeeds)
+            {
+                String[] row = {
+                Convert.ToString(item.NumberOfEpisodes),
+                item.Name,
+                Convert.ToString(item.TimeInterval),
+                item.Category};
+
+                ListViewItem List = new ListViewItem(row);
+                lvSubscribe.Items.Add(List);
+            }
+
+
+           
         }
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)

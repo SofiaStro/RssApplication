@@ -41,20 +41,20 @@ namespace DataAccessLayer
             }
         }
 
-        public List<Feed> Deserialize()
+        public Feed Deserialize(string fileName)
         {
             try
             {
-                XmlSerializer xmlReader = new XmlSerializer(typeof(List<Feed>));
-                using (FileStream fileStream = new FileStream("feedObjects.xml", FileMode.Open,
+                XmlSerializer xmlReader = new XmlSerializer(typeof(Feed));
+                using (FileStream fileStream = new FileStream(fileName, FileMode.Open,
                     FileAccess.Read))
                 {
-                    return (List<Feed>)xmlReader.Deserialize(fileStream);
+                    return (Feed)xmlReader.Deserialize(fileStream);
                 }
             }
             catch (Exception)
             {
-                throw new SerializerException("feedObjects.xml", "Deserializeringen av xml-filen misslyckades");
+                throw new SerializerException(fileName, "Deserializeringen av xml-filen misslyckades");
             }
 
         }

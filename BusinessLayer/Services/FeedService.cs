@@ -20,13 +20,13 @@ namespace BusinessLayer.Services
 
         }
 
-        private int count = 0;
+        public int Count { get; set; }
 
         public string GetFileName()
         {
             string fileName;
-            fileName = "feed" + Convert.ToString(count) + ".xml";
-            count++;
+            fileName = "feed" + Convert.ToString(Count) + ".xml";
+            Count++;
 
             return fileName;
         }
@@ -52,17 +52,17 @@ namespace BusinessLayer.Services
             feedRepository.Create(newFeed, fileName);
         }
 
-        public Feed DisplayFeed()
+        public List<Feed> DisplayFeed()
         {
             List<Feed> listOfFeeds = feedRepository.GetCurrentFeeds();
-            Feed name = null;
-            //string name = Convert.ToString(listOfFeeds.Select(listOfFeed => listOfFeed.Name));
-            foreach(Feed item in listOfFeeds)
-            {
-                name = item;
-            }
+            //Feed name = null;
+            ////string name = Convert.ToString(listOfFeeds.Select(listOfFeed => listOfFeed.Name));
+            //foreach (Feed item in listOfFeeds)
+            //{
+            //    name = item;
+            //}
 
-            return name;
+            return listOfFeeds;
         }
     }
 }

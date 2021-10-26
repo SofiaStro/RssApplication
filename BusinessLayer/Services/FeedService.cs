@@ -83,5 +83,21 @@ namespace BusinessLayer.Services
 
             return listOfFeeds;
         }
+
+        public Feed CompareFeedObjects (string fileName)
+        {
+            List<Feed> listOfFeeds = DisplayFeed();
+            Feed feedObject = null;
+            
+            foreach(Feed item in listOfFeeds)
+            {
+                if(fileName.Equals(item.FileName))
+                {
+                    feedObject = item;
+                }
+               
+            }
+            return feedObject;
+        }
     }
 }

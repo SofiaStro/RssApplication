@@ -45,14 +45,28 @@ namespace RssApplication
                 Convert.ToString(item.NumberOfEpisodes),
                 item.Name,
                 Convert.ToString(item.TimeInterval),
-                item.Category};
+                item.Category, item.FileName };
 
                 ListViewItem List = new ListViewItem(row);
                 lvSubscribe.Items.Add(List);
             }
-
+            
 
            
+        }
+
+        private void DisplayEpisodeList(Feed feedObject) 
+        {
+            lbEpisode.Items.Clear();
+            
+            List<Episode> episodeList = feedObject.ListOfEpisodes;
+
+            foreach(Episode episode in episodeList)
+            {   
+                lbEpisode.Items.Add(episode.Title);
+       
+            }
+        
         }
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)
@@ -77,12 +91,18 @@ namespace RssApplication
 
         private void lvSubscribe_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string fileName = "";
             var selectedRow = lvSubscribe.SelectedItems;
+           
 
             foreach (ListViewItem item in selectedRow ) 
             {
-                var hej = item.SubItems[0].Text;
+                fileName = item.SubItems[4].Text;
             }
+
+            Feed feedObject = feedService.CompareFeedObjects(fileName);
+            DisplayEpisodeList(feedObject);
+
         }
     }
 }

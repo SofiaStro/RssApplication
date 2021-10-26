@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataAccessLayer.Repositories;
 using Models.Classes;
 using Models;
+using System.IO;
 
 namespace BusinessLayer.Services
 {
@@ -20,15 +21,32 @@ namespace BusinessLayer.Services
 
         }
 
-        public int Count { get; set; }
 
-        public string GetFileName()
+        public string SetNewFileName()
         {
+            int number;
             string fileName;
-            fileName = "feed" + Convert.ToString(Count) + ".xml";
-            Count++;
-
+            List<string> listFileNames = GetFileNameList();
+            if (listFileNames.Count == 0)
+            {
+                number = 0;
+            }
+            else
+            {
+                string latestFileName = listFileNames.Last();
+                number = Convert.ToInt32(latestFileName.Substring(latestFileName.Length - 5, 1));
+                number++;
+            }
+            fileName = "feed" + Convert.ToString(number) + ".xml";
+        
             return fileName;
+        }
+
+        public List<string> GetFileNameList()
+        {
+            List<string> fileNames = Directory.GetFiles(@"C:\Users\moahe\OneDrive\Dokument\GitHub\RssApplication\RssApplication\bin\Debug", "*.xml").ToList();
+
+            return fileNames;
         }
         public void CreateFeed(string url, string name, int timeInterval, string category, string type)
         {
@@ -38,7 +56,7 @@ namespace BusinessLayer.Services
             List<Episode> listOfEpisodes = episodeService.GetListOfEpisodes(url);
             int numberOfEpisodes = episodeService.NumberOfEpisodes(listOfEpisodes);
 
-            string fileName = GetFileName();
+            string fileName = SetNewFileName();
 
             if (type.Equals("Podcast"))
             {
@@ -54,7 +72,8 @@ namespace BusinessLayer.Services
 
         public List<Feed> DisplayFeed()
         {
-            List<Feed> listOfFeeds = feedRepository.GetCurrentFeeds();
+            List<string> listFileNames = GetFileNameList();
+            List<Feed> listOfFeeds = feedRepository.GetCurrentFeeds(listFileNames);
             //Feed name = null;
             ////string name = Convert.ToString(listOfFeeds.Select(listOfFeed => listOfFeed.Name));
             //foreach (Feed item in listOfFeeds)

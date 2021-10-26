@@ -35,6 +35,8 @@ namespace RssApplication
 
         private void DisplaySubscribeList()
         {
+            lvSubscribe.Items.Clear();
+
             List<Feed> listOfFeeds = feedService.DisplayFeed();
 
             foreach(Feed item in listOfFeeds)
@@ -62,11 +64,25 @@ namespace RssApplication
             string type = Convert.ToString(cbType.SelectedItem);
 
             feedService.CreateFeed(url, name, timeInterval, category, type);
+
+            DisplaySubscribeList();
+
+
         }
 
         private void btnSubscribeChange_Click(object sender, EventArgs e)
         {
             tbEpisodeDescription.Text = "Testar tidsintervall";
+        }
+
+        private void lvSubscribe_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedRow = lvSubscribe.SelectedItems;
+
+            foreach (ListViewItem item in selectedRow ) 
+            {
+                var hej = item.SubItems[0].Text;
+            }
         }
     }
 }

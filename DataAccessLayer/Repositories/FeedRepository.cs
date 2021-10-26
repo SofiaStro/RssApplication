@@ -47,13 +47,7 @@ namespace DataAccessLayer.Repositories
             serializerObject.Serializer(feedObject, fileName);
         }
 
-       //public List<string> GetFileNames()
-       // {
-       //     List<string> fileNames = Directory.GetFiles(@"C:\Users\moahe\OneDrive\Dokument\GitHub\RssApplication\RssApplication\bin\Debug", "*.xml").ToList();
-            
 
-       //     return fileNames;
-       // }
 
         public List<Feed> GetCurrentFeeds(List<string> listFileNames)
         {

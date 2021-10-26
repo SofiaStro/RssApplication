@@ -47,6 +47,7 @@ namespace BusinessLayer.Services
             List<string> fileNames = Directory.GetFiles(@"C:\Users\moahe\OneDrive\Dokument\GitHub\RssApplication\RssApplication\bin\Debug", "*.xml").ToList();
 
             return fileNames;
+
         }
         public void CreateFeed(string url, string name, int timeInterval, string category, string type)
         {

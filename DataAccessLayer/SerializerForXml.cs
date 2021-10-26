@@ -11,6 +11,7 @@ using Models.Classes;
 using System.Xml.Serialization;
 using DataAccessLayer.Exceptions;
 
+
 namespace DataAccessLayer
 {
     internal class SerializerForXml
@@ -97,7 +98,6 @@ namespace DataAccessLayer
             {
                 throw new SerializerException("categoryObjects.xml", "Deserializeringen av xml-filen misslyckades");
             }
-
         }
     }
 }

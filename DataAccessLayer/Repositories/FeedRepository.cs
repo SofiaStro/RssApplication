@@ -80,7 +80,5 @@ namespace DataAccessLayer.Repositories
             return GetCurrentCategorys().FindIndex(e => e.Name.Equals(name));
 
         }
-
-
     }
 }

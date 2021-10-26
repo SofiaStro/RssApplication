@@ -9,7 +9,9 @@ namespace DataAccessLayer.Repositories
 {
     public interface ICategoryRepository<T> : IRepository<T> where T : Category
     {
+        //T GetByName(string name);
 
+        int GetIndex(string name);
 
     }
 }

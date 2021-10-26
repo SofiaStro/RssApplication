@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,12 +69,33 @@ namespace RssApplication
         // för att kunna hämta vid stängning och öppning av applikationen
         private void btnCategoryAdd_Click(object sender, EventArgs e)
         {
+            bool exist = false;
             string name = tbCategoryName.Text;
+            string nameFirst = name.Substring(0, 1).ToUpperInvariant();
+            string nameLast = name.Substring(1).ToLowerInvariant();
 
-            categoryService.Create(name);
+            List<string> categoryNames = new List<string>();
+            categoryNames = categoryService.InputCategory();
 
-            lbCategory.Items.Add(name);
-            cbSubscribeCategory.Items.Add(name);
+            foreach (string categoryName in categoryNames)
+            {
+                if(categoryName.Equals(nameFirst + nameLast))
+                {
+                    exist = true;
+                }
+            }
+            if (exist == false)
+            { 
+                categoryService.Create(nameFirst + nameLast);
+
+                InputCategoryList();
+                tbCategoryName.Text = "";
+            }
+            else
+            {
+                tbCategoryName.Text = ""; // Ska detta hända? Eller ska det stå kvar?
+                lblCategoryMsg.Text = "Denna kategori finns redan!";
+            }   
         }
         
         // hämtar de sparade kategorier i xml-filen vid öppnining av applikationen
@@ -81,14 +103,82 @@ namespace RssApplication
         // och listan "catagoryNames" kommer ju då vara tom i början
         private void InputCategoryList()
         {
+            cbSubscribeCategory.Items.Clear();
+            lbCategory.Items.Clear();
+
             List<string> categoryNames = new List<string>();
             categoryNames = categoryService.InputCategory();
             if (categoryNames.Count != 0)
             { 
-                foreach (String catagoryName in categoryNames)
+                foreach (string catagoryName in categoryNames)
                 {
                     cbSubscribeCategory.Items.Add(catagoryName);
                     lbCategory.Items.Add(catagoryName);
+                }
+            }
+        }
+
+        private void btnCategoryChange_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool newExist = false;
+                string newCategoryName = tbCategoryName.Text;
+                string newCategoryNameFirst = newCategoryName.Substring(0, 1).ToUpperInvariant();
+                string newCategoryNameLast = newCategoryName.Substring(1).ToLowerInvariant();
+
+                List<string> categoryNames = new List<string>();
+                categoryNames = categoryService.InputCategory();
+                foreach (string categoryName in categoryNames)
+                {
+                    newExist = false;
+                    if (categoryName.Equals(newCategoryNameFirst + newCategoryNameLast))
+                    {
+                        newExist = true;
+                    }
+                }
+                if (newExist == true)
+                {
+                    lblCategoryMsg.Text = "Denna kategori finns redan!";
+                }
+                if(lbCategory.SelectedIndex == -1)
+                {
+                    lblCategoryMsg.Text = "Välj en kategori att ändra!";
+                }
+                if (newExist == false && lbCategory.SelectedIndex != -1)
+                {
+                    string oldName = lbCategory.GetItemText(lbCategory.SelectedItem);
+                    categoryService.ChangeCategoryName(oldName, newCategoryNameFirst + newCategoryNameLast);
+
+                    InputCategoryList();
+                    tbCategoryName.Text = "";
+                    // Lägg till så att värder på propertien i rätt feeden ändras! + displayfeed-metoden
+                }
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+                lblCategoryMsg.Text = "Ange ett nytt namn på en kategori!"; // Eller en validering ist? 
+            }
+        }
+
+        private void btnCategoryDelete_Click(object sender, EventArgs e)
+        {
+            if (lbCategory.SelectedIndex == -1)
+            {
+                lblCategoryMsg.Text = "Välj en kategori att ta bort!";
+            }
+            if (lbCategory.SelectedIndex != -1)
+            {
+                string valdKategori = lbCategory.GetItemText(lbCategory.SelectedItem);
+                DialogResult popUp = MessageBox.Show("Vill du ta bort kategori: " + valdKategori, "Är du säker?", MessageBoxButtons.YesNoCancel, 
+                MessageBoxIcon.Information);
+
+                if (popUp == DialogResult.Yes)
+                {
+                    categoryService.Delete(valdKategori);
+                    InputCategoryList();
+
+                    // Lägg till så att feeden inom denna kategori också tas bort! + displayfeed - metoden
                 }
             }
         }

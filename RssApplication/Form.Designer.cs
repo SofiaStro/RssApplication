@@ -130,6 +130,7 @@ namespace RssApplication
             this.btnCategoryChange.TabIndex = 68;
             this.btnCategoryChange.Text = "Ändra";
             this.btnCategoryChange.UseVisualStyleBackColor = true;
+            this.btnCategoryChange.Click += new System.EventHandler(this.btnCategoryChange_Click);
             // 
             // btnCategoryDelete
             // 
@@ -140,6 +141,7 @@ namespace RssApplication
             this.btnCategoryDelete.TabIndex = 69;
             this.btnCategoryDelete.Text = "Ta bort";
             this.btnCategoryDelete.UseVisualStyleBackColor = true;
+            this.btnCategoryDelete.Click += new System.EventHandler(this.btnCategoryDelete_Click);
             // 
             // btnCategoryAdd
             // 

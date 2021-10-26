@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DataAccessLayer.Repositories
 {
@@ -43,7 +44,6 @@ namespace DataAccessLayer.Repositories
                 //FIXA DENNA!! 
 
             }
-
             return listOfCategorysDeserialized;
         }
 
@@ -59,6 +59,12 @@ namespace DataAccessLayer.Repositories
                 listOfCategorys[index] = categoryObejct;
             }
             SaveChanges();
+        }
+
+        public int GetIndex(string name)
+        {
+            return GetCurrentCategorys().FindIndex(c => c.Name.Equals(name));
+
         }
     }
 }

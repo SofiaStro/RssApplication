@@ -23,6 +23,12 @@ namespace BusinessLayer.Services
             categoryRepository.Create(newCategory);
         }
 
+        public void Delete(string name)
+        {
+            int index = categoryRepository.GetIndex(name);
+            categoryRepository.Delete(index);
+        }
+
         public List<string> InputCategory()
         {
             List<string> catagoryNames = new List<string>();
@@ -37,14 +43,18 @@ namespace BusinessLayer.Services
                     catagoryNames.Add(item.Name);
                     index++;
                 }
-            
-                //return names;
-
             }
             catch (Exception) { }
             
             return catagoryNames;
-            
+        }
+
+        public void ChangeCategoryName(string oldName, string newName)
+        {
+            int index = categoryRepository.GetIndex(oldName);
+
+            Category newCategory = new Category(newName);
+            categoryRepository.Update(index, newCategory);
         }
     }    
 }

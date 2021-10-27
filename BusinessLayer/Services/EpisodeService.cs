@@ -25,7 +25,21 @@ namespace BusinessLayer.Services
 
             return listOfEpisodes;
         }
+        //private void DisplayEpisodeDescription(Feed feedObject)
+        //{
+        //    List<Episode> episodeList = null;
+        //    episodeList = new List<Episode>();
 
+        //    episodeList = feedObject.ListOfEpisodes;
+        //    var listE = new List<KeyValuePair<string, string>>();
+
+        //    foreach (Episode episode in episodeList)
+        //    {
+        //        new KeyValuePair<string, string>(episode.Title, episode.Description);
+
+        //    }
+        
+        
         public int NumberOfEpisodes(List<Episode> listOfEpisodes)
         {
             int counter = 0;
@@ -39,3 +53,4 @@ namespace BusinessLayer.Services
         }
     }
 }
+

@@ -19,11 +19,13 @@ namespace RssApplication
     {
         FeedService feedService;
         CategoryService categoryService;
+        EpisodeService episodeService;
         public Form()
         {
             InitializeComponent();
             feedService = new FeedService();
             categoryService = new CategoryService();
+            episodeService = new EpisodeService();
 
             cbTime.Items.Add("5");
             cbTime.Items.Add("15");
@@ -74,8 +76,9 @@ namespace RssApplication
 
             }
             DisplaySubscribeList();
-
+            
         }
+
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)
         {
@@ -261,6 +264,18 @@ namespace RssApplication
 
             Feed feedObject = feedService.CompareFeedObjects(fileName);
             DisplayEpisodeList(feedObject);
+        }
+
+        private void lbEpisode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Välja ett asvnitt för att ta fram beskrivningen
+
+            var episode = lbEpisode.SelectedItem;
+            //tbEpisodeDescription.Text = episode.ToString();
+
+            //List<Episode> episodeList =
+
+
         }
     }
 }

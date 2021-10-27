@@ -224,6 +224,7 @@ namespace RssApplication
             this.lbEpisode.Name = "lbEpisode";
             this.lbEpisode.Size = new System.Drawing.Size(636, 354);
             this.lbEpisode.TabIndex = 61;
+            this.lbEpisode.SelectedIndexChanged += new System.EventHandler(this.lbEpisode_SelectedIndexChanged);
             // 
             // btnSubscribeChange
             // 

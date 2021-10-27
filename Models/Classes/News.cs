@@ -11,9 +11,9 @@ namespace Models.Classes
         public News()
         {
         }
-        public News(string name, int numberOfEpisodes, int timeInterval,
+        public News(string url, string name, int numberOfEpisodes, int timeInterval,
                 string category, List<Episode> listOfEpisodes, string fileName) :
-                base(name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName)
+                base(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName)
         {
         }
 

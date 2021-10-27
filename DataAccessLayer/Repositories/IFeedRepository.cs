@@ -17,7 +17,7 @@ namespace DataAccessLayer.Repositories
 
         //int GetIndex(string name);
         void Create(T instance, string fileName);
-        void SaveChanges(T instance, string fileName);
+        void Save(T instance, string fileName);
 
         List<T> GetCurrentFeeds(List<string> list);
         Feed GetCurrentFeed(string fileName);

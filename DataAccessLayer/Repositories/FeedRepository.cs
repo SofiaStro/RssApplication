@@ -26,7 +26,7 @@ namespace DataAccessLayer.Repositories
         public void Create(Feed feedObject, string fileName)
         {
             //listOfFeeds.Add(feedObject);
-            SaveChanges(feedObject, fileName);
+            //SaveChanges(feedObject, fileName);
         }
 
         public void Update(int index, Feed feedObject)
@@ -44,13 +44,10 @@ namespace DataAccessLayer.Repositories
             //SaveChanges();
         }
 
-        public void SaveChanges(Feed feedObject, string fileName)
+        public void Save(Feed feedObject, string fileName)
         {
             serializerObject.Serializer(feedObject, fileName);
         }
-
-
-
 
         public List<Feed> GetCurrentFeeds(List<string> listFileNames)
 

@@ -63,14 +63,43 @@ namespace BusinessLayer.Services
 
             if (type.Equals("Podcast"))
             {
-                newFeed = new Podcast(name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
+                newFeed = new Podcast(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
             }
             else if (type.Equals("Nyhet"))
             {
-                newFeed = new News(name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
+                newFeed = new News(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
             }
 
-            feedRepository.Create(newFeed, fileName);
+            feedRepository.Save(newFeed, fileName);
+        }
+
+        public void ChangeFeed(string url, string name, int timeInterval, string category, string fileName)
+        {
+            Feed oldFeed = feedRepository.GetCurrentFeed(fileName);
+            //string url = oldFeed.Url;
+            string newName;
+            int newTimeInterval;
+            string newCategory;
+
+
+            if (name != "") { newName = name; }
+            else { newName = oldFeed.Name; }
+
+            if (timeInterval != null) { newName = name; }
+            else { newName = oldFeed.Name; }
+
+            if (name != "") { newName = name; }
+            else { newName = oldFeed.Name; }
+
+            if (name != "") { newName = name; }
+            else { newName = oldFeed.Name; }
+
+            //Feed newFeed = new Feed()
+        }
+        
+        public void DeleteFeed(string fileName)
+        {
+            File.Delete(fileName);
         }
 
         public List<Feed> DisplayFeed()

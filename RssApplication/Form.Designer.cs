@@ -246,6 +246,7 @@ namespace RssApplication
             this.btnSubcribeDelete.TabIndex = 58;
             this.btnSubcribeDelete.Text = "Ta bort";
             this.btnSubcribeDelete.UseVisualStyleBackColor = true;
+            this.btnSubcribeDelete.Click += new System.EventHandler(this.btnSubcribeDelete_Click);
             // 
             // btnSubcribeAdd
             // 

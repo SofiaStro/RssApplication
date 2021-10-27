@@ -13,23 +13,26 @@ namespace Models.Classes
     public abstract class Feed : INameable
     {
         [XmlElement(Order = 1)]
-        public string Name { get; set; }
+        public string Url { get; set; }
         [XmlElement(Order = 2)]
-        public int NumberOfEpisodes { get; set; }
+        public string Name { get; set; }
         [XmlElement(Order = 3)]
-        public int TimeInterval { get; set; }
+        public int NumberOfEpisodes { get; set; }
         [XmlElement(Order = 4)]
-        public string Category;
-        [XmlElement(Order = 6, ElementName = "Episode")]
-        public List<Episode> ListOfEpisodes;
+        public int TimeInterval { get; set; }
         [XmlElement(Order = 5)]
+        public string Category;
+        [XmlElement(Order = 7, ElementName = "Episode")]
+        public List<Episode> ListOfEpisodes;
+        [XmlElement(Order = 6)]
         public string FileName { get; set; }
         public Feed()
         {
         }
-        public Feed(string name, int numberOfEpisodes, int timeInterval, string category, 
+        public Feed(string url, string name, int numberOfEpisodes, int timeInterval, string category, 
             List<Episode> listOfEpisodes, string fileName)
         {
+            Url = url;
             Name = name;
             NumberOfEpisodes = numberOfEpisodes;
             TimeInterval = timeInterval;

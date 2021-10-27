@@ -46,7 +46,7 @@ namespace BusinessLayer.Services
         {
             string localPath = Directory.GetCurrentDirectory();
             List<string> fileNames = Directory.GetFiles(localPath, "feed*.xml").ToList();
-            //List<string> fileNames = Directory.GetFiles(@"C:\Users\moahe\OneDrive\Dokument\GitHub\RssApplication\RssApplication\bin\Debug", "*.xml").ToList();
+            //List<string> fileNames = Directory.GetFiles(@"C:\Users\moahe\OneDrive\Dokument\GitHub\RssApplication\RssApplication\bin\Debug", "8.xml").ToList();
 
             return fileNames;
 

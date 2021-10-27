@@ -94,7 +94,7 @@ namespace RssApplication
 
         private void btnSubscribeChange_Click(object sender, EventArgs e)
         {
-            tbEpisodeDescription.Text = "Testar tidsintervall";
+            //tbEpisodeDescription.Text = "Testar tidsintervall";
         }
 
 
@@ -103,6 +103,7 @@ namespace RssApplication
             
             string fileName = "";
             var selectedRow = this.lvSubscribe.SelectedItems;
+            
             //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
             //var selectedIndex = this.lvSubscribe.SelectedItems;
 

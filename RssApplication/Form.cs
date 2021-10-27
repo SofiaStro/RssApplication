@@ -145,7 +145,10 @@ namespace RssApplication
         {
 
             try
-            {
+            { if(lvSubscribe.SelectedItems.Count > 0)
+                {
+
+                
                 string fileName = "";
                 var selectedRow = this.lvSubscribe.SelectedItems;
 
@@ -168,6 +171,11 @@ namespace RssApplication
 
 
                 DisplayEpisodeList(feedObject);
+                }
+                else
+                {
+                    lblSubcribeMsg.Text = "Ladda om sidan";
+                }
             }
             catch (NullReferenceException)
             {

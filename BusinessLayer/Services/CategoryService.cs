@@ -36,12 +36,12 @@ namespace BusinessLayer.Services
             {
                 List<Category> listOfCategorys = categoryRepository.GetCurrentCategorys();
                 
-                int index = 0;
+                //int index = 0;
 
                 foreach (Category item in listOfCategorys)
                 {
                     catagoryNames.Add(item.Name);
-                    index++;
+                    //index++;
                 }
             }
             catch (Exception) { }

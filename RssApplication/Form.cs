@@ -148,7 +148,6 @@ namespace RssApplication
             }
             else
             {
-                tbCategoryName.Text = ""; // Ska detta hända? Eller ska det stå kvar?
                 lblCategoryMsg.Text = "Denna kategori finns redan!";
             }   
         }
@@ -238,5 +237,9 @@ namespace RssApplication
             }
         }
 
+        private void lbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

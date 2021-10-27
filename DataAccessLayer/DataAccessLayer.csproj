@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\SerializerException.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\EpisodeRepository.cs" />
+    <Compile Include="Repositories\ICategoryRepository.cs" />
     <Compile Include="Repositories\IEpisodeRepository.cs" />
     <Compile Include="RssReader.cs" />
     <Compile Include="SerializerForXml.cs" />

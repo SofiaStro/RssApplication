@@ -89,11 +89,13 @@ namespace BusinessLayer.Services
 
         public Feed CompareFeedObjects (string fileName)
         {
+
             List<Feed> listOfFeeds = DisplayFeed();
             Feed feedObject = null;
             //Feed feedObject = feedRepository.GetCurrentFeed(fileName);
 
             foreach (Feed item in listOfFeeds)
+
             {
                 if (fileName.Equals(item.FileName))
                 {

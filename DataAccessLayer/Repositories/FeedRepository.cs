@@ -17,8 +17,10 @@ namespace DataAccessLayer.Repositories
         public FeedRepository()
         {
             serializerObject = new SerializerForXml();
+
             //listOfFeeds = new List<Feed>();
             //listOfFeeds = GetCurrentFeeds();
+
         }
 
         public void Create(Feed feedObject, string fileName)
@@ -49,7 +51,9 @@ namespace DataAccessLayer.Repositories
 
 
 
+
         public List<Feed> GetCurrentFeeds(List<string> listFileNames)
+
         {
 
             List<Feed> listOfFeedsDeserialized = new List<Feed>();
@@ -104,9 +108,11 @@ namespace DataAccessLayer.Repositories
         //public int GetIndex(string name)
         //{
 
+
         //    return GetCurrentFeeds().FindIndex(e => e.Name.Equals(name));
 
         //}
+
 
 
     }

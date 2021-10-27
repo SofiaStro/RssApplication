@@ -445,6 +445,7 @@ namespace RssApplication
             this.btnShowEpisodes.TabIndex = 79;
             this.btnShowEpisodes.Text = "Visa";
             this.btnShowEpisodes.UseVisualStyleBackColor = true;
+            this.btnShowEpisodes.Click += new System.EventHandler(this.btnShowEpisodes_Click);
             // 
             // lblShowEpisodes
             // 

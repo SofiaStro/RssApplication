@@ -100,23 +100,26 @@ namespace RssApplication
 
         private void lvSubscribe_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Tror inte att vi kommer behöva detta men sparar så länge
             
-            string fileName = "";
-            var selectedRow = this.lvSubscribe.SelectedItems;
-            //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
-            //var selectedIndex = this.lvSubscribe.SelectedItems;
+            //string fileName = "";
+            //var selectedRow = this.lvSubscribe.SelectedItems;
+            ////tbEpisodeDescription.Text = Convert.ToString(selectedRow);
+            ////var selectedIndex = this.lvSubscribe.SelectedItems;
 
-            foreach (ListViewItem item in selectedRow)
-            {
-                //Hämtar filnamnet från kolumnen som är hidden
-                fileName = item.SubItems[0].Text;
-                //tbEpisodeDescription.Text = fileName;
-            }
+            //foreach (ListViewItem item in selectedRow)
+            //{
+            //    //Hämtar filnamnet från kolumnen som är hidden
+            //    fileName = item.SubItems[0].Text;
+            //    //tbEpisodeDescription.Text = fileName;
+            //}
 
-            Feed feedObject = feedService.CompareFeedObjects(fileName);
-            DisplayEpisodeList(feedObject);
+            //Feed feedObject = feedService.CompareFeedObjects(fileName);
+            //DisplayEpisodeList(feedObject);
+         
 
         }
+
 
 
         // lägger till kategori i listbox och combobox,
@@ -240,6 +243,24 @@ namespace RssApplication
         private void lbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnShowEpisodes_Click(object sender, EventArgs e)
+        {
+            string fileName = "";
+            var selectedRow = this.lvSubscribe.SelectedItems;
+            //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
+            //var selectedIndex = this.lvSubscribe.SelectedItems;
+
+            foreach (ListViewItem item in selectedRow)
+            {
+                //Hämtar filnamnet från kolumnen som är hidden
+                fileName = item.SubItems[0].Text;
+                //tbEpisodeDescription.Text = fileName;
+            }
+
+            Feed feedObject = feedService.CompareFeedObjects(fileName);
+            DisplayEpisodeList(feedObject);
         }
     }
 }

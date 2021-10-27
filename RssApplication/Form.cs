@@ -20,6 +20,7 @@ namespace RssApplication
         FeedService feedService;
         CategoryService categoryService;
         EpisodeService episodeService;
+
         public Form()
         {
             InitializeComponent();
@@ -107,6 +108,11 @@ namespace RssApplication
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)
         {
+            if (Validator.TextBoxIsPresent(tbUrl) && 
+                Validator.TextBoxIsPresent(tbSubscribeName) &&
+                Validator.ComboBoxIsPresent(cbTime) &&
+                Validator.ComboBoxIsPresent(cbSubscribeCategory) &&
+                Validator.ComboBoxIsPresent(cbType)){ 
             string url = tbUrl.Text;
             string name = tbSubscribeName.Text;
             int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
@@ -116,7 +122,11 @@ namespace RssApplication
             feedService.CreateFeed(url, name, timeInterval, category, type);
 
             DisplaySubscribeList();
-
+            }
+            else
+            {
+                lblSubcribeMsg.Text = "fyll";
+            }
 
         }
 
@@ -287,15 +297,15 @@ namespace RssApplication
                     tbCategoryName.Text = "";
 
                     List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(oldCategoryName);
-                    foreach(Feed item in listOfFeedInCategory)
-                    {
-                        //feedService.ChangeFeed(
-                        //    item.Url,
-                        //    item.Name,
-                        //    item.TimeInterval,
-                        //    newCategoryNameFirst + newCategoryNameLast,
-                        //    item.FileName); 
-                    }
+                    //foreach(Feed item in listOfFeedInCategory)
+                    //{
+                    //    feedService.ChangeFeed(
+                    //        item.Url,
+                    //        item.Name,
+                    //        item.TimeInterval,
+                    //        newCategoryNameFirst + newCategoryNameLast,
+                    //        item.FileName);
+                    //}
 
                     DisplaySubscribeList();
                 }

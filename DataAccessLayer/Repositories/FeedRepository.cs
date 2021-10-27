@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,58 +11,88 @@ namespace DataAccessLayer.Repositories
     public class FeedRepository : IFeedRepository<Feed>
     {
         SerializerForXml serializerObject;
-        List<Feed> listOfFeeds;
+        //List<Feed> listOfFeeds;
         
 
         public FeedRepository()
         {
             serializerObject = new SerializerForXml();
-            listOfFeeds = new List<Feed>();
-            listOfFeeds = GetCurrentCategorys();
+
+            //listOfFeeds = new List<Feed>();
+            //listOfFeeds = GetCurrentFeeds();
+
         }
 
-        public void Create(Feed feedObject)
+        public void Create(Feed feedObject, string fileName)
         {
-            listOfFeeds.Add(feedObject);
-            SaveChanges();
+            //listOfFeeds.Add(feedObject);
+            SaveChanges(feedObject, fileName);
         }
 
-        public void Update(int index, Feed feedObject)
+        //public void Update(int index, Feed feedObject)
+        //{
+        //    if (index >= 0)
+        //    {
+        //        listOfFeeds[index] = feedObject;
+        //    }
+        //    SaveChanges();
+        //}
+
+        //public void Delete(int index)
+        //{
+        //    listOfFeeds.RemoveAt(index);
+        //    SaveChanges();
+        //}
+
+        public void SaveChanges(Feed feedObject, string fileName)
         {
-            if (index >= 0)
-            {
-                listOfFeeds[index] = feedObject;
-            }
-            SaveChanges();
+            serializerObject.Serializer(feedObject, fileName);
         }
 
-        public void Delete(int index)
-        {
-            listOfFeeds.RemoveAt(index);
-            SaveChanges();
-        }
 
-        public void SaveChanges()
-        {
-            serializerObject.Serializer(listOfFeeds);
-        }
 
-       
 
-        public List<Feed> GetCurrentCategorys()
+        public List<Feed> GetCurrentFeeds(List<string> listFileNames)
+
         {
+
             List<Feed> listOfFeedsDeserialized = new List<Feed>();
             try
             {
-                listOfFeedsDeserialized = serializerObject.Deserialize();
+                List<string> fileNames = listFileNames;
+                foreach(string fileName in fileNames)
+                {
+                    listOfFeedsDeserialized.Add(serializerObject.Deserialize(fileName));
+                }
+                
             }
             catch (Exception)
             {
-                //FIXA DENNA!! 
+                throw new Exception();
 
             }
 
             return listOfFeedsDeserialized;
+        }
+
+        public Feed GetCurrentFeed(string fileName)
+        {
+            Feed feedObject;
+
+            try
+            {
+
+                feedObject = serializerObject.Deserialize(fileName);
+                
+
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+
+            }
+            return feedObject;
+
         }
 
         //public Feed GetByCategory(Category category)
@@ -74,11 +105,15 @@ namespace DataAccessLayer.Repositories
         //    throw new NotImplementedException();
         //}
 
-        public int GetIndex(string name)
-        {
+        //public int GetIndex(string name)
+        //{
 
-            return GetCurrentCategorys().FindIndex(e => e.Name.Equals(name));
 
-        }
+        //    return GetCurrentFeeds().FindIndex(e => e.Name.Equals(name));
+
+        //}
+
+
+
     }
 }

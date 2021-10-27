@@ -19,16 +19,7 @@ namespace DataAccessLayer.Repositories
             rssObject = new RssReader();
         }
 
-        public void Create(Episode instance)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int index)
-        {
-            throw new NotImplementedException();
-        }
-
+     
         public List<Episode> GetCurrentEpisodes(string url)
         {
             List<Episode> listOfEpisode = new List<Episode>();
@@ -52,21 +43,5 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        public List<Episode> GetCurrentCategorys()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveChanges()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(int index, Episode instance)
-        {
-            throw new NotImplementedException();
-        }
-
-        
     }
 }

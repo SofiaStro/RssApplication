@@ -20,18 +20,22 @@ namespace Models.Classes
         public int TimeInterval { get; set; }
         [XmlElement(Order = 4)]
         public string Category;
-        [XmlElement(Order = 5, ElementName = "Episode")]
+        [XmlElement(Order = 6, ElementName = "Episode")]
         public List<Episode> ListOfEpisodes;
+        [XmlElement(Order = 5)]
+        public string FileName { get; set; }
         public Feed()
         {
         }
-        public Feed(string name, int numberOfEpisodes, int timeInterval, string category, List<Episode> listOfEpisodes)
+        public Feed(string name, int numberOfEpisodes, int timeInterval, string category, 
+            List<Episode> listOfEpisodes, string fileName)
         {
             Name = name;
             NumberOfEpisodes = numberOfEpisodes;
             TimeInterval = timeInterval;
             Category = category;
             ListOfEpisodes = listOfEpisodes;
+            FileName = fileName;
 
         }
 

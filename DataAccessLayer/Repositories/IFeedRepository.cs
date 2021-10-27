@@ -15,6 +15,9 @@ namespace DataAccessLayer.Repositories
 
         //T GetByCategory(Category category);
 
-        int GetIndex(string name);
+        //int GetIndex(string name);
+
+        List<T> GetCurrentFeeds(List<string> list);
+        Feed GetCurrentFeed(string fileName);
     }
 }

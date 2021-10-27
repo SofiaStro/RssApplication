@@ -366,7 +366,7 @@ namespace RssApplication
         private void lbEpisode_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Välja ett asvnitt för att ta fram beskrivningen
-
+            //tbEpisodeDescription.Text = "";
             try
             {
                 if (lvSubscribe.SelectedItems.Count > 0)

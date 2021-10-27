@@ -101,6 +101,7 @@ namespace RssApplication
         }
 
 
+
         private void btnSubcribeAdd_Click(object sender, EventArgs e)
         {
             string url = tbUrl.Text;
@@ -329,29 +330,54 @@ namespace RssApplication
         {
             //Välja ett asvnitt för att ta fram beskrivningen
 
-            var episode = lbEpisode.SelectedItem;
-            //tbEpisodeDescription.Text = episode.ToString();
-
-            //List<Episode> episodeList =
-        }
-
-
-        private void btnSubcribeDelete_Click(object sender, EventArgs e)
-        {
-            string fileName = "";
-
-            var selectedRow = lvSubscribe.SelectedItems;
-
-            foreach (ListViewItem item in selectedRow)
+            try
             {
-                fileName = item.SubItems[0].Text;
-            }
+                if (lvSubscribe.SelectedItems.Count > 0)
+                {
+                    string fileName = "";
+                    var episode = lbEpisode.SelectedItem;
+                    var selectedRow = this.lvSubscribe.SelectedItems;
 
-            feedService.DeleteFeed(fileName);
+                    //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
+                    //var selectedIndex = this.lvSubscribe.SelectedItems;
 
-            DisplaySubscribeList();
+                    foreach (ListViewItem item in selectedRow)
+                    {
+                        //Hämtar filnamnet från kolumnen som är hidden
+                        fileName = item.SubItems[0].Text;
+                        //tbEpisodeDescription.Text = fileName;
+                    }
+
+                    Feed feedObject = feedService.CompareFeedObjects(fileName);
+                    string url = feedObject.Url;
+                    List<Episode> listEpisodes = episodeService.GetListOfEpisodes(url);
 
 
-        }
+
+
+                    //DisplayEpisodeList(feedObject);
+                }
+            } catch (Exception ) { }
+         }
+
+
+                private void btnSubcribeDelete_Click(object sender, EventArgs e)
+                {
+                    string fileName = "";
+
+                    var selectedRow = lvSubscribe.SelectedItems;
+
+                    foreach (ListViewItem item in selectedRow)
+                    {
+                        fileName = item.SubItems[0].Text;
+                    }
+
+                    feedService.DeleteFeed(fileName);
+
+                    DisplaySubscribeList();
+
+
+                }
+            
     }
 }

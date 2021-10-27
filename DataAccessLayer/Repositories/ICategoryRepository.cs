@@ -11,7 +11,10 @@ namespace DataAccessLayer.Repositories
     {
         //T GetByName(string name);
 
+        void Create(T instance);
+        void SaveChanges();
         int GetIndex(string name);
+        List<T> GetCurrentCategorys();
 
     }
 }

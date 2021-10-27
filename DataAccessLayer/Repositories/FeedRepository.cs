@@ -29,20 +29,20 @@ namespace DataAccessLayer.Repositories
             SaveChanges(feedObject, fileName);
         }
 
-        //public void Update(int index, Feed feedObject)
-        //{
-        //    if (index >= 0)
-        //    {
-        //        listOfFeeds[index] = feedObject;
-        //    }
-        //    SaveChanges();
-        //}
+        public void Update(int index, Feed feedObject)
+        {
+            if (index >= 0)
+            {
+                //listOfFeeds[index] = feedObject;
+            }
+            //SaveChanges();
+        }
 
-        //public void Delete(int index)
-        //{
-        //    listOfFeeds.RemoveAt(index);
-        //    SaveChanges();
-        //}
+        public void Delete(int index)
+        {
+            //listOfFeeds.RemoveAt(index);
+            //SaveChanges();
+        }
 
         public void SaveChanges(Feed feedObject, string fileName)
         {
@@ -95,10 +95,10 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        //public Feed GetByCategory(Category category)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public Feed GetByCategory(Category category)
+        {
+            throw new NotImplementedException();
+        }
 
         //public Feed GetByName(string name)
         //{

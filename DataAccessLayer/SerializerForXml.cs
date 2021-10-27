@@ -25,16 +25,12 @@ namespace DataAccessLayer
                 {
                     File.Delete(fileName);
                 }
-                else
-                {
-                    XmlSerializer xmlWriter = new XmlSerializer(typeof(Feed));
-                    using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
-                    {
-                        xmlWriter.Serialize(fileStream, listOfFeeds);
-                    }
-                }
                     
-               
+                XmlSerializer xmlWriter = new XmlSerializer(typeof(Feed));
+                using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                {
+                    xmlWriter.Serialize(fileStream, listOfFeeds);
+                }
             }
             catch (Exception)
             {

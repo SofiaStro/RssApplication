@@ -34,6 +34,9 @@ namespace RssApplication
             cbType.Items.Add("Podcast");
             cbSubscribeCategory.Items.Add("Historia");
             cbSubscribeCategory.Items.Add("Humor");
+            tbUrl.ReadOnly = false;
+            lblType.Visible = true;
+            cbType.Visible = true;
             DisplaySubscribeList();
             InputCategoryList();
         }
@@ -119,8 +122,10 @@ namespace RssApplication
 
         private void btnSubscribeChange_Click(object sender, EventArgs e)
         {
+            if (lvSubscribe.SelectedItems.Count > 0)
+            {
 
-            string fileName = "";
+                string fileName = "";
 
             var selectedRow = lvSubscribe.SelectedItems;
 
@@ -129,15 +134,18 @@ namespace RssApplication
                 fileName = item.SubItems[0].Text;
             }
 
-            string url = tbUrl.Text;
             string name = tbSubscribeName.Text;
             int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
             string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
-            string type = Convert.ToString(cbType.SelectedItem);
 
-            feedService.ChangeFeed(url, name, timeInterval, category, fileName);
+            feedService.ChangeFeed(name, timeInterval, category, fileName);
 
             DisplaySubscribeList();
+            }
+            else
+            {
+                lblSubcribeMsg.Text = "Ladda om sidan";
+            }
 
         }
 
@@ -165,9 +173,21 @@ namespace RssApplication
 
                 Feed feedObject = feedService.CompareFeedObjects(fileName);
                 tbUrl.Text = feedObject.Url;
+                    tbUrl.ReadOnly = true;
                 tbSubscribeName.Text = feedObject.Name;
                 cbTime.Text = Convert.ToString(feedObject.TimeInterval);
                 cbSubscribeCategory.Text = feedObject.Category;
+                    lblType.Visible = false;
+                    cbType.Visible = false;
+
+                    if(feedObject is Podcast)
+                    {
+                        cbType.Text = "Podcast";
+                    }
+                    if(feedObject is News)
+                    {
+                        cbType.Text = "Nyhet";
+                    }
 
 
 
@@ -269,12 +289,12 @@ namespace RssApplication
                     List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(oldCategoryName);
                     foreach(Feed item in listOfFeedInCategory)
                     {
-                        feedService.ChangeFeed(
-                            item.Url,
-                            item.Name,
-                            item.TimeInterval,
-                            newCategoryNameFirst + newCategoryNameLast,
-                            item.FileName); 
+                        //feedService.ChangeFeed(
+                        //    item.Url,
+                        //    item.Name,
+                        //    item.TimeInterval,
+                        //    newCategoryNameFirst + newCategoryNameLast,
+                        //    item.FileName); 
                     }
 
                     DisplaySubscribeList();

@@ -73,28 +73,27 @@ namespace BusinessLayer.Services
             feedRepository.Save(newFeed, fileName);
         }
 
-        public void ChangeFeed(string url, string name, int timeInterval, string category, string fileName)
+        public void ChangeFeed(string newName, int newTimeInterval, string newCategory, string fileName)
         {
             Feed oldFeed = feedRepository.GetCurrentFeed(fileName);
-            //string url = oldFeed.Url;
-            string newName;
-            int newTimeInterval;
-            string newCategory;
+            Feed newFeed = null;
 
+            string url = oldFeed.Url;
+            string name = newName;
+            int numberOfEpisodes = Convert.ToInt32(oldFeed.NumberOfEpisodes);
+            int timeInterval = newTimeInterval;
+            string category = newCategory;
+            List<Episode> listOfEpisodes = oldFeed.ListOfEpisodes;
+            if(oldFeed is Podcast)
+            {
+                newFeed = new Podcast(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
+            }
+            else if(oldFeed is News)
+            {
+                newFeed = new Podcast(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
+            }
 
-            if (name != "") { newName = name; }
-            else { newName = oldFeed.Name; }
-
-            if (timeInterval != null) { newName = name; }
-            else { newName = oldFeed.Name; }
-
-            if (name != "") { newName = name; }
-            else { newName = oldFeed.Name; }
-
-            if (name != "") { newName = name; }
-            else { newName = oldFeed.Name; }
-
-            //Feed newFeed = new Feed()
+            feedRepository.Save(newFeed, fileName);
         }
         
         public void DeleteFeed(string fileName)

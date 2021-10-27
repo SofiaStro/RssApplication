@@ -234,7 +234,7 @@ namespace RssApplication
         {
             try
             {
-                bool newExist = false;
+                bool newCategoryExist = false;
                 string newCategoryName = tbCategoryName.Text;
                 string newCategoryNameFirst = newCategoryName.Substring(0, 1).ToUpperInvariant();
                 string newCategoryNameLast = newCategoryName.Substring(1).ToLowerInvariant();
@@ -243,13 +243,13 @@ namespace RssApplication
                 categoryNames = categoryService.InputCategory();
                 foreach (string categoryName in categoryNames)
                 {
-                    newExist = false;
+                    newCategoryExist = false;
                     if (categoryName.Equals(newCategoryNameFirst + newCategoryNameLast))
                     {
-                        newExist = true;
+                        newCategoryExist = true;
                     }
                 }
-                if (newExist == true)
+                if (newCategoryExist == true)
                 {
                     lblCategoryMsg.Text = "Denna kategori finns redan!";
                 }
@@ -257,14 +257,26 @@ namespace RssApplication
                 {
                     lblCategoryMsg.Text = "Välj en kategori att ändra!";
                 }
-                if (newExist == false && lbCategory.SelectedIndex != -1)
+                if (newCategoryExist == false && lbCategory.SelectedIndex != -1)
                 {
-                    string oldName = lbCategory.GetItemText(lbCategory.SelectedItem);
-                    categoryService.ChangeCategoryName(oldName, newCategoryNameFirst + newCategoryNameLast);
+                    string oldCategoryName = lbCategory.GetItemText(lbCategory.SelectedItem);
+                    categoryService.ChangeCategoryName(oldCategoryName, newCategoryNameFirst + newCategoryNameLast);
 
                     InputCategoryList();
                     tbCategoryName.Text = "";
-                    // Lägg till så att värder på propertien i rätt feeden ändras! + displayfeed-metoden
+
+                    List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(oldCategoryName);
+                    foreach(Feed item in listOfFeedInCategory)
+                    {
+                        feedService.ChangeFeed(
+                            item.Url,
+                            item.Name,
+                            item.TimeInterval,
+                            newCategoryNameFirst + newCategoryNameLast,
+                            item.FileName); 
+                    }
+
+                    DisplaySubscribeList();
                 }
             }
             catch (ArgumentOutOfRangeException)
@@ -292,8 +304,13 @@ namespace RssApplication
                     categoryService.Delete(chosenCategory);
                     InputCategoryList();
 
+                    List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(chosenCategory);
+                    foreach(Feed item in listOfFeedInCategory)
+                    {
+                        feedService.DeleteFeed(item.FileName);
+                    }
 
-                    // Lägg till så att feeden inom denna kategori också tas bort! + displayfeed - metoden
+                    DisplaySubscribeList();
                 }
             }
         }

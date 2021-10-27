@@ -372,12 +372,11 @@ namespace RssApplication
                 if (lvSubscribe.SelectedItems.Count > 0)
                 {
                     string fileName = "";
-                    //var episode = lbEpisode.SelectedItem;
-                    string episode = lbEpisode.GetItemText(lbEpisode.SelectedItem);
+                    string episode = "";
+
+                    episode = lbEpisode.GetItemText(lbEpisode.SelectedItem);
                     var selectedRow = this.lvSubscribe.SelectedItems;
 
-                    //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
-                    //var selectedIndex = this.lvSubscribe.SelectedItems;
 
                     foreach (ListViewItem item in selectedRow)
                     {
@@ -403,6 +402,10 @@ namespace RssApplication
                         {
                             tbEpisodeDescription.Text = description;
                             break;
+                        }
+                        else
+                        {
+                            tbEpisodeDescription.Text = "Det finns ingen beskrivning för ditt valda avsnitt";
                         }
                     }
 

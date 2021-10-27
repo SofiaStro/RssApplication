@@ -65,8 +65,6 @@ namespace RssApplication
             this.label5 = new System.Windows.Forms.Label();
             this.cbType = new System.Windows.Forms.ComboBox();
             this.lblType = new System.Windows.Forms.Label();
-            this.btnShowEpisodes = new System.Windows.Forms.Button();
-            this.lblShowEpisodes = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblCategoryMsg
@@ -96,7 +94,7 @@ namespace RssApplication
             this.lblEpisodeDescription.AutoSize = true;
             this.lblEpisodeDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEpisodeDescription.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.lblEpisodeDescription.Location = new System.Drawing.Point(1216, 654);
+            this.lblEpisodeDescription.Location = new System.Drawing.Point(1222, 642);
             this.lblEpisodeDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEpisodeDescription.Name = "lblEpisodeDescription";
             this.lblEpisodeDescription.Size = new System.Drawing.Size(212, 42);
@@ -108,7 +106,7 @@ namespace RssApplication
             this.lblEpisode.AutoSize = true;
             this.lblEpisode.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEpisode.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.lblEpisode.Location = new System.Drawing.Point(1191, 166);
+            this.lblEpisode.Location = new System.Drawing.Point(1180, 55);
             this.lblEpisode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEpisode.Name = "lblEpisode";
             this.lblEpisode.Size = new System.Drawing.Size(215, 42);
@@ -204,25 +202,26 @@ namespace RssApplication
             // 
             // tbEpisodeDescription
             // 
-            this.tbEpisodeDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tbEpisodeDescription.BackColor = System.Drawing.SystemColors.Window;
             this.tbEpisodeDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbEpisodeDescription.Enabled = false;
-            this.tbEpisodeDescription.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.tbEpisodeDescription.Location = new System.Drawing.Point(1187, 722);
+            this.tbEpisodeDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbEpisodeDescription.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.tbEpisodeDescription.Location = new System.Drawing.Point(1187, 698);
             this.tbEpisodeDescription.Margin = new System.Windows.Forms.Padding(4);
             this.tbEpisodeDescription.Multiline = true;
             this.tbEpisodeDescription.Name = "tbEpisodeDescription";
-            this.tbEpisodeDescription.Size = new System.Drawing.Size(659, 233);
+            this.tbEpisodeDescription.Size = new System.Drawing.Size(759, 233);
             this.tbEpisodeDescription.TabIndex = 62;
             // 
             // lbEpisode
             // 
             this.lbEpisode.FormattingEnabled = true;
             this.lbEpisode.ItemHeight = 25;
-            this.lbEpisode.Location = new System.Drawing.Point(1187, 226);
+            this.lbEpisode.Location = new System.Drawing.Point(1187, 117);
             this.lbEpisode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lbEpisode.Name = "lbEpisode";
-            this.lbEpisode.Size = new System.Drawing.Size(636, 354);
+            this.lbEpisode.Size = new System.Drawing.Size(759, 354);
             this.lbEpisode.TabIndex = 61;
             this.lbEpisode.SelectedIndexChanged += new System.EventHandler(this.lbEpisode_SelectedIndexChanged);
             // 
@@ -414,7 +413,7 @@ namespace RssApplication
             this.label5.Location = new System.Drawing.Point(1155, 14);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(712, 998);
+            this.label5.Size = new System.Drawing.Size(811, 998);
             this.label5.TabIndex = 72;
             // 
             // cbType
@@ -438,36 +437,12 @@ namespace RssApplication
             this.lblType.TabIndex = 77;
             this.lblType.Text = "Typ:";
             // 
-            // btnShowEpisodes
-            // 
-            this.btnShowEpisodes.Location = new System.Drawing.Point(1198, 86);
-            this.btnShowEpisodes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnShowEpisodes.Name = "btnShowEpisodes";
-            this.btnShowEpisodes.Size = new System.Drawing.Size(108, 50);
-            this.btnShowEpisodes.TabIndex = 79;
-            this.btnShowEpisodes.Text = "Visa";
-            this.btnShowEpisodes.UseVisualStyleBackColor = true;
-            this.btnShowEpisodes.Click += new System.EventHandler(this.btnShowEpisodes_Click);
-            // 
-            // lblShowEpisodes
-            // 
-            this.lblShowEpisodes.AutoSize = true;
-            this.lblShowEpisodes.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.lblShowEpisodes.Location = new System.Drawing.Point(1182, 41);
-            this.lblShowEpisodes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblShowEpisodes.Name = "lblShowEpisodes";
-            this.lblShowEpisodes.Size = new System.Drawing.Size(602, 25);
-            this.lblShowEpisodes.TabIndex = 80;
-            this.lblShowEpisodes.Text = "Klicka här för att visa alla avsnitt för din valda prenumeration: ";
-            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1886, 1033);
-            this.Controls.Add(this.lblShowEpisodes);
-            this.Controls.Add(this.btnShowEpisodes);
+            this.ClientSize = new System.Drawing.Size(1979, 1033);
             this.Controls.Add(this.cbType);
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.lblCategoryMsg);
@@ -545,8 +520,6 @@ namespace RssApplication
         private System.Windows.Forms.ColumnHeader chTime;
         private System.Windows.Forms.ColumnHeader chCategory;
         private System.Windows.Forms.ColumnHeader chFileName;
-        private System.Windows.Forms.Button btnShowEpisodes;
-        private System.Windows.Forms.Label lblShowEpisodes;
     }
 }
 

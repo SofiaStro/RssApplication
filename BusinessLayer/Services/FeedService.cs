@@ -91,14 +91,15 @@ namespace BusinessLayer.Services
         {
             List<Feed> listOfFeeds = DisplayFeed();
             Feed feedObject = null;
-            
-            foreach(Feed item in listOfFeeds)
+            //Feed feedObject = feedRepository.GetCurrentFeed(fileName);
+
+            foreach (Feed item in listOfFeeds)
             {
-                if(fileName.Equals(item.FileName))
+                if (fileName.Equals(item.FileName))
                 {
                     feedObject = item;
                 }
-               
+
             }
             return feedObject;
         }

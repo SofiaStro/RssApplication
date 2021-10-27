@@ -36,43 +36,40 @@ namespace RssApplication
         private void DisplaySubscribeList()
         {
             lvSubscribe.Items.Clear();
-
             List<Feed> listOfFeeds = feedService.DisplayFeed();
 
-            foreach(Feed item in listOfFeeds)
+            foreach (Feed item in listOfFeeds)
             {
                 String[] row = {
-                Convert.ToString(item.NumberOfEpisodes),
-                item.Name,
-                Convert.ToString(item.TimeInterval),
-                item.Category, item.FileName };
+                    item.FileName,
+                    Convert.ToString(item.NumberOfEpisodes),
+                    item.Name,
+                    Convert.ToString(item.TimeInterval),
+                    item.Category};
 
                 ListViewItem List = new ListViewItem(row);
                 lvSubscribe.Items.Add(List);
             }
             
 
-           
         }
 
         private void DisplayEpisodeList(Feed feedObject) 
         {
-            DisplaySubscribeList();
+            
             lbEpisode.Items.Clear();
 
-            //episodeList = null;
-            //episodeList = new List<Episode>();
+            List<Episode> episodeList = null;
+            episodeList = new List<Episode>();
 
-            List<Episode> episodeList = feedObject.ListOfEpisodes;
-     
-
+            episodeList = feedObject.ListOfEpisodes;
 
             foreach (Episode episode in episodeList)
             {
                 lbEpisode.Items.Add(episode.Title);
 
             }
-
+            DisplaySubscribeList();
         }
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)
@@ -97,14 +94,17 @@ namespace RssApplication
 
         private void lvSubscribe_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             string fileName = "";
             var selectedRow = this.lvSubscribe.SelectedItems;
-
+            //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
+            //var selectedIndex = this.lvSubscribe.SelectedItems;
 
             foreach (ListViewItem item in selectedRow)
             {
                 //Hämtar filnamnet från kolumnen som är hidden
-                fileName = item.SubItems[4].Text;
+                fileName = item.SubItems[0].Text;
+                //tbEpisodeDescription.Text = fileName;
             }
 
             Feed feedObject = feedService.CompareFeedObjects(fileName);

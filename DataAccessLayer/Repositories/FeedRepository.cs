@@ -71,6 +71,26 @@ namespace DataAccessLayer.Repositories
             return listOfFeedsDeserialized;
         }
 
+        public Feed GetCurrentFeed(string fileName)
+        {
+            Feed feedObject;
+
+            try
+            {
+
+                feedObject = serializerObject.Deserialize(fileName);
+                
+
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+
+            }
+            return feedObject;
+
+        }
+
         //public Feed GetByCategory(Category category)
         //{
         //    throw new NotImplementedException();

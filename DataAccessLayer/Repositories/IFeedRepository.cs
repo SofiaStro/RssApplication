@@ -18,5 +18,6 @@ namespace DataAccessLayer.Repositories
         //int GetIndex(string name);
 
         List<T> GetCurrentFeeds(List<string> list);
+        Feed GetCurrentFeed(string fileName);
     }
 }

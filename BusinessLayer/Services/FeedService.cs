@@ -84,6 +84,7 @@ namespace BusinessLayer.Services
             int timeInterval = newTimeInterval;
             string category = newCategory;
             List<Episode> listOfEpisodes = oldFeed.ListOfEpisodes;
+
             if(oldFeed is Podcast)
             {
                 newFeed = new Podcast(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);

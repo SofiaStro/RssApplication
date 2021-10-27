@@ -112,49 +112,52 @@ namespace RssApplication
                 Validator.TextBoxIsPresent(tbSubscribeName) &&
                 Validator.ComboBoxIsPresent(cbTime) &&
                 Validator.ComboBoxIsPresent(cbSubscribeCategory) &&
-                Validator.ComboBoxIsPresent(cbType)){ 
-            string url = tbUrl.Text;
-            string name = tbSubscribeName.Text;
-            int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
-            string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
-            string type = Convert.ToString(cbType.SelectedItem);
+                Validator.ComboBoxIsPresent(cbType))
+            { 
+                string url = tbUrl.Text;
+                string name = tbSubscribeName.Text;
+                int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
+                string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
+                string type = Convert.ToString(cbType.SelectedItem);
 
-            feedService.CreateFeed(url, name, timeInterval, category, type);
+                feedService.CreateFeed(url, name, timeInterval, category, type);
 
-            DisplaySubscribeList();
+                DisplaySubscribeList();
             }
             else
             {
                 lblSubcribeMsg.Text = "fyll";
             }
-
         }
 
         private void btnSubscribeChange_Click(object sender, EventArgs e)
         {
-            if (lvSubscribe.SelectedItems.Count > 0)
+            if (Validator.TextBoxIsPresent(tbSubscribeName) &&
+                Validator.ComboBoxIsPresent(cbTime) &&
+                Validator.ComboBoxIsPresent(cbSubscribeCategory))
             {
-
+                
                 string fileName = "";
+                var selectedRow = lvSubscribe.SelectedItems;
 
-            var selectedRow = lvSubscribe.SelectedItems;
+                foreach (ListViewItem item in selectedRow)
+                {
+                    //Hämtar filnamnet från kolumnen som är hidden
+                    fileName = item.SubItems[0].Text;
+                }
 
-            foreach (ListViewItem item in selectedRow)
-            {
-                fileName = item.SubItems[0].Text;
-            }
+                string name = tbSubscribeName.Text;
+                int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
+                string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
 
-            string name = tbSubscribeName.Text;
-            int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
-            string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
+                feedService.ChangeFeed(name, timeInterval, category, fileName);
 
-            feedService.ChangeFeed(name, timeInterval, category, fileName);
-
-            DisplaySubscribeList();
+                DisplaySubscribeList();
+                
             }
             else
             {
-                lblSubcribeMsg.Text = "Ladda om sidan";
+                lblSubcribeMsg.Text = "Obligatoriska fält saknas";
             }
 
         }
@@ -163,54 +166,29 @@ namespace RssApplication
         private void lvSubscribe_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            try
-            { if(lvSubscribe.SelectedItems.Count > 0)
-                {
-
-                
+            if(lvSubscribe.SelectedItems.Count > 0)
+            {
                 string fileName = "";
                 var selectedRow = this.lvSubscribe.SelectedItems;
-
-                //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
-                //var selectedIndex = this.lvSubscribe.SelectedItems;
 
                 foreach (ListViewItem item in selectedRow)
                 {
                     //Hämtar filnamnet från kolumnen som är hidden
                     fileName = item.SubItems[0].Text;
-                    //tbEpisodeDescription.Text = fileName;
                 }
 
                 Feed feedObject = feedService.CompareFeedObjects(fileName);
                 tbUrl.Text = feedObject.Url;
-                    tbUrl.ReadOnly = true;
+                    
                 tbSubscribeName.Text = feedObject.Name;
                 cbTime.Text = Convert.ToString(feedObject.TimeInterval);
                 cbSubscribeCategory.Text = feedObject.Category;
-                    lblType.Visible = false;
-                    cbType.Visible = false;
 
-                    if(feedObject is Podcast)
-                    {
-                        cbType.Text = "Podcast";
-                    }
-                    if(feedObject is News)
-                    {
-                        cbType.Text = "Nyhet";
-                    }
-
-
+                tbUrl.ReadOnly = true;
+                lblType.Visible = false;
+                cbType.Visible = false;
 
                 DisplayEpisodeList(feedObject);
-                }
-                else
-                {
-                    lblSubcribeMsg.Text = "Ladda om sidan";
-                }
-            }
-            catch (NullReferenceException)
-            {
-                lblSubcribeMsg.Text = "Ladda om sidan";
             }
         }
 
@@ -426,23 +404,19 @@ namespace RssApplication
          }
 
 
-                private void btnSubcribeDelete_Click(object sender, EventArgs e)
-                {
-                    string fileName = "";
+        private void btnSubcribeDelete_Click(object sender, EventArgs e)
+        {
+            string fileName = "";
+            var selectedRow = lvSubscribe.SelectedItems;
 
-                    var selectedRow = lvSubscribe.SelectedItems;
+            foreach (ListViewItem item in selectedRow)
+            {
+                fileName = item.SubItems[0].Text;
+            }
 
-                    foreach (ListViewItem item in selectedRow)
-                    {
-                        fileName = item.SubItems[0].Text;
-                    }
-
-                    feedService.DeleteFeed(fileName);
-
-                    DisplaySubscribeList();
-
-
-                }
+            feedService.DeleteFeed(fileName);
+            DisplaySubscribeList();
+        }
             
     }
 }

@@ -352,7 +352,8 @@ namespace RssApplication
                 if (lvSubscribe.SelectedItems.Count > 0)
                 {
                     string fileName = "";
-                    var episode = lbEpisode.SelectedItem;
+                    //var episode = lbEpisode.SelectedItem;
+                    string episode = lbEpisode.GetItemText(lbEpisode.SelectedItem);
                     var selectedRow = this.lvSubscribe.SelectedItems;
 
                     //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
@@ -364,12 +365,26 @@ namespace RssApplication
                         fileName = item.SubItems[0].Text;
                         //tbEpisodeDescription.Text = fileName;
                     }
-
+                    bool match = false;
                     Feed feedObject = feedService.CompareFeedObjects(fileName);
                     string url = feedObject.Url;
                     List<Episode> listEpisodes = episodeService.GetListOfEpisodes(url);
 
+                    foreach(Episode episodeObject in listEpisodes)
+                    {
+                        string title = episodeObject.Title;
+                        string description = episodeObject.Description;
 
+                        if (episode.Equals(title))
+                        {
+                            match = true;
+                        }
+                        if(match == true)
+                        {
+                            tbEpisodeDescription.Text = description;
+                            break;
+                        }
+                    }
 
 
                     //DisplayEpisodeList(feedObject);

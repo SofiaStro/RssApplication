@@ -209,7 +209,7 @@ namespace RssApplication
             this.tbEpisodeDescription.Enabled = false;
             this.tbEpisodeDescription.ForeColor = System.Drawing.SystemColors.InactiveBorder;
             this.tbEpisodeDescription.Location = new System.Drawing.Point(1187, 722);
-            this.tbEpisodeDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbEpisodeDescription.Margin = new System.Windows.Forms.Padding(4);
             this.tbEpisodeDescription.Multiline = true;
             this.tbEpisodeDescription.Name = "tbEpisodeDescription";
             this.tbEpisodeDescription.Size = new System.Drawing.Size(659, 233);
@@ -352,7 +352,7 @@ namespace RssApplication
             this.lvSubscribe.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvSubscribe.HideSelection = false;
             this.lvSubscribe.Location = new System.Drawing.Point(41, 101);
-            this.lvSubscribe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvSubscribe.Margin = new System.Windows.Forms.Padding(4);
             this.lvSubscribe.MultiSelect = false;
             this.lvSubscribe.Name = "lvSubscribe";
             this.lvSubscribe.Size = new System.Drawing.Size(1059, 239);

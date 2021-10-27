@@ -41,8 +41,28 @@ namespace RssApplication
         private void DisplaySubscribeList()
         {
 
-            lvSubscribe.Items.Clear();
+            //lvSubscribe.Items.Clear();
             List<Feed> listOfFeeds = feedService.DisplayFeed();
+
+            //foreach (Feed item in listOfFeeds)
+            //{
+            //    String[] row = {
+            //        item.FileName,
+            //        Convert.ToString(item.NumberOfEpisodes),
+            //        item.Name,
+            //        Convert.ToString(item.TimeInterval),
+            //        item.Category};
+
+            //    ListViewItem List = new ListViewItem(row);
+            //    lvSubscribe.Items.Add(List);
+            //}
+
+            DisplaySubscribeList(listOfFeeds);
+        }
+
+        public void DisplaySubscribeList(List<Feed> listOfFeeds)
+        {
+            lvSubscribe.Items.Clear();
 
             foreach (Feed item in listOfFeeds)
             {
@@ -56,7 +76,6 @@ namespace RssApplication
                 ListViewItem List = new ListViewItem(row);
                 lvSubscribe.Items.Add(List);
             }
-
 
         }
 
@@ -156,11 +175,6 @@ namespace RssApplication
             }
         }
 
-
-
-        // lägger till kategori i listbox och combobox,
-        // samt skapar ett kategori-objekt som sparas i en xml-fil
-        // för att kunna hämta vid stängning och öppning av applikationen
         private void btnCategoryAdd_Click(object sender, EventArgs e)
         {
             bool exist = false;
@@ -191,9 +205,6 @@ namespace RssApplication
             }
         }
 
-        // hämtar de sparade kategorier i xml-filen vid öppnining av applikationen
-        // if:en används då xml-filen inte kommer att existera förrens man lägger in en applikationen
-        // och listan "catagoryNames" kommer ju då vara tom i början
         private void InputCategoryList()
         {
             cbSubscribeCategory.Items.Clear();
@@ -262,14 +273,17 @@ namespace RssApplication
             }
             if (lbCategory.SelectedIndex != -1)
             {
-                string valdKategori = lbCategory.GetItemText(lbCategory.SelectedItem);
-                DialogResult popUp = MessageBox.Show("Vill du ta bort kategori: " + valdKategori, "Är du säker?", MessageBoxButtons.YesNoCancel,
+
+                string chosenCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
+                DialogResult popUp = MessageBox.Show("Vill du ta bort kategori: " + chosenCategory, "Är du säker?", MessageBoxButtons.YesNoCancel, 
+
                 MessageBoxIcon.Information);
 
                 if (popUp == DialogResult.Yes)
                 {
-                    categoryService.Delete(valdKategori);
+                    categoryService.Delete(chosenCategory);
                     InputCategoryList();
+
 
                     // Lägg till så att feeden inom denna kategori också tas bort! + displayfeed - metoden
                 }
@@ -279,6 +293,9 @@ namespace RssApplication
 
         private void lbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string filterCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
+            List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(filterCategory);
+            DisplaySubscribeList(listOfFeedInCategory);
 
         }
 

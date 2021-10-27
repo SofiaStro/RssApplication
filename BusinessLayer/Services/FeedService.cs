@@ -134,5 +134,21 @@ namespace BusinessLayer.Services
             }
             return feedObject;
         }
+
+        public List<Feed> GetFeedInCategory(string filterCategory)
+        {
+            List<Feed> listOfFeedInCategory = new List<Feed>();
+            List<Feed> listOfFeeds = DisplayFeed();
+
+            foreach (Feed item in listOfFeeds)
+            {
+                string inCategory = item.Category;
+                if (inCategory.Equals(filterCategory))
+                {
+                    listOfFeedInCategory.Add(item);
+                }
+            }
+            return listOfFeedInCategory;
+        }
     }
 }

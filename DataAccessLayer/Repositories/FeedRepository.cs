@@ -23,41 +23,41 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        public void Create(Feed feedObject, string fileName)
-        {
-            //listOfFeeds.Add(feedObject);
-            //SaveChanges(feedObject, fileName);
-        }
+        //public void Create(Feed feedObject, string fileName)
+        //{
+        //    //listOfFeeds.Add(feedObject);
+        //    //SaveChanges(feedObject, fileName);
+        //}
 
-        public void Update(int index, Feed feedObject)
-        {
-            if (index >= 0)
-            {
-                //listOfFeeds[index] = feedObject;
-            }
-            //SaveChanges();
-        }
+        //public void Update(int index, Feed feedObject)
+        //{
+        //    if (index >= 0)
+        //    {
+        //        //listOfFeeds[index] = feedObject;
+        //    }
+        //    //SaveChanges();
+        //}
 
-        public void Delete(int index)
-        {
-            //listOfFeeds.RemoveAt(index);
-            //SaveChanges();
-        }
+        //public void Delete(int index)
+        //{
+        //    //listOfFeeds.RemoveAt(index);
+        //    //SaveChanges();
+        //}
 
-        public void Save(Feed feedObject, string fileName)
+        public void SaveFeed(Feed feedObject, string fileName)
         {
             serializerObject.Serializer(feedObject, fileName);
         }
 
-        public List<Feed> GetCurrentFeeds(List<string> listFileNames)
+        public List<Feed> GetListOfFeeds(List<string> listFileNames)
 
         {
 
             List<Feed> listOfFeedsDeserialized = new List<Feed>();
             try
             {
-                List<string> fileNames = listFileNames;
-                foreach(string fileName in fileNames)
+                //List<string> fileNames = listFileNames;
+                foreach(string fileName in listFileNames)
                 {
                     listOfFeedsDeserialized.Add(serializerObject.Deserialize(fileName));
                 }
@@ -72,7 +72,7 @@ namespace DataAccessLayer.Repositories
             return listOfFeedsDeserialized;
         }
 
-        public Feed GetCurrentFeed(string fileName)
+        public Feed GetFeed(string fileName)
         {
             Feed feedObject;
 
@@ -92,10 +92,10 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        public Feed GetByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
+        //public Feed GetByCategory(Category category)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         //public Feed GetByName(string name)
         //{

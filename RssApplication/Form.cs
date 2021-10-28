@@ -38,7 +38,8 @@ namespace RssApplication
             tbUrl.ReadOnly = false;
             lblType.Visible = true;
             cbType.Visible = true;
-            DisplaySubscribeList(feedService.DisplayFeed());
+
+            DisplaySubscribeList(feedService.GetListOfFeeds());
             InputCategoryList();
             timer.Interval = 30000;
             timer.Tick += Timer_Tick;
@@ -123,7 +124,7 @@ namespace RssApplication
 
                 feedService.CreateFeed(url, name, timeInterval, category, type);
 
-                DisplaySubscribeList(feedService.DisplayFeed());
+                DisplaySubscribeList(feedService.GetListOfFeeds());
             }
             else
             {
@@ -153,7 +154,7 @@ namespace RssApplication
 
                 feedService.ChangeFeed(name, timeInterval, category, fileName);
 
-                DisplaySubscribeList(feedService.DisplayFeed());
+                DisplaySubscribeList(feedService.GetListOfFeeds());
                 
             }
             else
@@ -178,7 +179,7 @@ namespace RssApplication
                     fileName = item.SubItems[0].Text;
                 }
 
-                Feed feedObject = feedService.CompareFeedObjects(fileName);
+                Feed feedObject = feedService.GetFeed(fileName);
                 tbUrl.Text = feedObject.Url;
                     
                 tbSubscribeName.Text = feedObject.Name;
@@ -285,7 +286,7 @@ namespace RssApplication
                             item.FileName);
                     }
 
-                    DisplaySubscribeList(feedService.DisplayFeed());
+                    DisplaySubscribeList(feedService.GetListOfFeeds());
                 }
             }
             catch (ArgumentOutOfRangeException)
@@ -319,7 +320,7 @@ namespace RssApplication
                         feedService.DeleteFeed(item.FileName);
                     }
 
-                    DisplaySubscribeList(feedService.DisplayFeed());
+                    DisplaySubscribeList(feedService.GetListOfFeeds());
                 }
             }
         }
@@ -347,7 +348,7 @@ namespace RssApplication
                 //tbEpisodeDescription.Text = fileName;
             }
 
-            Feed feedObject = feedService.CompareFeedObjects(fileName);
+            Feed feedObject = feedService.GetFeed(fileName);
             DisplayEpisodeList(feedObject);
         }
 
@@ -373,7 +374,7 @@ namespace RssApplication
                         //tbEpisodeDescription.Text = fileName;
                     }
                     bool match = false;
-                    Feed feedObject = feedService.CompareFeedObjects(fileName);
+                    Feed feedObject = feedService.GetFeed(fileName);
                     string url = feedObject.Url;
                     List<Episode> listEpisodes = episodeService.GetListOfEpisodes(url);
 
@@ -415,14 +416,14 @@ namespace RssApplication
             }
 
             feedService.DeleteFeed(fileName);
-            DisplaySubscribeList(feedService.DisplayFeed());
+            DisplaySubscribeList(feedService.GetListOfFeeds());
         }
 
         private Timer timer = new Timer();
 
         public void Timer_Tick(object sender, EventArgs e)
         {
-            List<Feed> listOfFeed = feedService.DisplayFeed();
+            List<Feed> listOfFeed = feedService.GetListOfFeeds();
             string fileName = "";
             foreach (Feed feedObject in listOfFeed)
             {
@@ -436,7 +437,7 @@ namespace RssApplication
                         fileName = item.SubItems[0].Text;
                     }
                  
-                    Feed selectedFeedObject = feedService.CompareFeedObjects(fileName);
+                    Feed selectedFeedObject = feedService.GetFeed(fileName);
                    
                     if (feedObject.FileName.Equals(selectedFeedObject.FileName))
                     {

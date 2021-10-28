@@ -12,6 +12,8 @@ namespace DataAccessLayer.Repositories
         //T GetByName(string name);
 
         void Create(T instance);
+        void Delete(int index);
+        void Update(int index, T instance);
         void SaveChanges();
         int GetIndex(string name);
         List<T> GetCurrentCategorys();

@@ -16,10 +16,10 @@ namespace DataAccessLayer.Repositories
         //T GetByCategory(Category category);
 
         //int GetIndex(string name);
-        void Create(T instance, string fileName);
-        void Save(T instance, string fileName);
+        //void Create(T instance, string fileName);
+        void SaveFeed(T instance, string fileName);
 
-        List<T> GetCurrentFeeds(List<string> list);
-        Feed GetCurrentFeed(string fileName);
+        List<T> GetListOfFeeds(List<string> list);
+        Feed GetFeed(string fileName);
     }
 }

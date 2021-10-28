@@ -10,8 +10,8 @@ namespace DataAccessLayer.Repositories
     {
 
         
-        void Delete(int index);
-        void Update(int index, T instance);
+        //void Delete(int index);
+        //void Update(int index, T instance);
         
         
 

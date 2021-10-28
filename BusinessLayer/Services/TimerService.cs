@@ -8,5 +8,9 @@ namespace BusinessLayer.Services
 {
     class TimerService
     {
+        public TimerService()
+        {
+            string message = "hej";
+        }
     }
 }

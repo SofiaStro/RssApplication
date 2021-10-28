@@ -17,9 +17,9 @@ namespace DataAccessLayer.Repositories
 
         //int GetIndex(string name);
         //void Create(T instance, string fileName);
-        void SaveFeed(T instance, string fileName);
+        Task SaveFeedAsync(T instance, string fileName);
 
-        List<T> GetListOfFeeds(List<string> list);
-        Feed GetFeed(string fileName);
+        Task<List<T>> GetListOfFeedsAsync(List<string> list);
+        Task<Feed> GetFeedAsync(string fileName);
     }
 }

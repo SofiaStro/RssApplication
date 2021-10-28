@@ -54,12 +54,12 @@ namespace BusinessLayer.Services
         //    return fileNames;
 
         //}
-        public void CreateFeed(string url, string name, int timeInterval, string category, string type)
+        public async Task CreateFeedAsync(string url, string name, int timeInterval, string category, string type)
         {
             Feed newFeed = null;
 
             
-            List<Episode> listOfEpisodes = episodeService.GetListOfEpisodes(url);
+            List<Episode> listOfEpisodes = await episodeService.GetListOfEpisodesAsync(url);
             int numberOfEpisodes = episodeService.NumberOfEpisodes(listOfEpisodes);
 
             string fileName = fileNameService.SetNewFileName();
@@ -73,12 +73,12 @@ namespace BusinessLayer.Services
                 newFeed = new News(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
             }
 
-            feedRepository.SaveFeed(newFeed, fileName);
+            await feedRepository.SaveFeedAsync(newFeed, fileName);
         }
 
-        public void ChangeFeed(string newName, int newTimeInterval, string newCategory, string fileName)
+        public async Task ChangeFeedAsync(string newName, int newTimeInterval, string newCategory, string fileName)
         {
-            Feed oldFeed = feedRepository.GetFeed(fileName);
+            Feed oldFeed = await feedRepository.GetFeedAsync(fileName);
             Feed newFeed = null;
 
             string url = oldFeed.Url;
@@ -86,7 +86,7 @@ namespace BusinessLayer.Services
             int numberOfEpisodes = Convert.ToInt32(oldFeed.NumberOfEpisodes);
             int timeInterval = newTimeInterval;
             string category = newCategory;
-            List<Episode> listOfEpisodes = episodeService.GetListOfEpisodes(url); 
+            List<Episode> listOfEpisodes = await episodeService.GetListOfEpisodesAsync(url); 
 
             if(oldFeed is Podcast)
             {
@@ -97,7 +97,7 @@ namespace BusinessLayer.Services
                 newFeed = new Podcast(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
             }
 
-            feedRepository.SaveFeed(newFeed, fileName);
+            await feedRepository.SaveFeedAsync(newFeed, fileName);
         }
         
         public void DeleteFeed(string fileName)
@@ -105,10 +105,10 @@ namespace BusinessLayer.Services
             File.Delete(fileName);
         }
 
-        public List<Feed> GetListOfFeeds()
+        public async Task<List<Feed>> GetListOfFeedsAsync()
         {
             List<string> listFileNames = fileNameService.GetFileNameList();
-            List<Feed> listOfFeeds = feedRepository.GetListOfFeeds(listFileNames);
+            List<Feed> listOfFeeds = await feedRepository.GetListOfFeedsAsync(listFileNames);
             //Feed name = null;
             ////string name = Convert.ToString(listOfFeeds.Select(listOfFeed => listOfFeed.Name));
             //foreach (Feed item in listOfFeeds)
@@ -120,12 +120,12 @@ namespace BusinessLayer.Services
             return listOfFeeds;
         }
 
-        public Feed GetFeed (string fileName)
+        public async Task<Feed> GetFeedAsync (string fileName)
         {
 
             //List<Feed> listOfFeeds = DisplayFeed();
             //Feed feedObject = null;
-            Feed feedObject = feedRepository.GetFeed(fileName);
+            Feed feedObject = await feedRepository.GetFeedAsync(fileName);
 
             //foreach (Feed item in listOfFeeds)
 
@@ -139,10 +139,10 @@ namespace BusinessLayer.Services
             return feedObject;
         }
 
-        public List<Feed> GetFeedInCategory(string filterCategory)
+        public async Task<List<Feed>> GetFeedInCategoryAsync(string filterCategory)
         {
             List<Feed> listOfFeedInCategory = new List<Feed>();
-            List<Feed> listOfFeeds = GetListOfFeeds();
+            List<Feed> listOfFeeds = await GetListOfFeedsAsync();
 
             foreach (Feed item in listOfFeeds)
             {

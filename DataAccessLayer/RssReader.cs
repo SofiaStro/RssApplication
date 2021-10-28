@@ -14,19 +14,17 @@ namespace DataAccessLayer
 {
     class RssReader
     {
-
-
-        public Stream GetRSS(string url)
+        public async Task<Stream> GetRSSAsync(string url)
         {
-
-            using (var webClient = new WebClient()) //Tillåter avläsning av webb-länkar
+            return await Task.Run(() =>
             {
-                Stream fs = webClient.OpenRead(url); //Öppnar en läsbar stream från data som är nedladdad från en källa
+                using (var webClient = new WebClient()) //Tillåter avläsning av webb-länkar
+                {
+                    Stream fs = webClient.OpenRead(url); //Öppnar en läsbar stream från data som är nedladdad från en källa
 
-                return fs;
-
-            }
-
+                    return fs;
+                }
+            });
         }
     }
 

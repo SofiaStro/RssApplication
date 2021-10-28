@@ -44,52 +44,43 @@ namespace DataAccessLayer.Repositories
         //    //SaveChanges();
         //}
 
-        public void SaveFeed(Feed feedObject, string fileName)
+        public async Task SaveFeedAsync(Feed feedObject, string fileName)
         {
-            serializerObject.Serializer(feedObject, fileName);
+            await serializerObject.SerializerAsync(feedObject, fileName);
         }
 
-        public List<Feed> GetListOfFeeds(List<string> listFileNames)
-
+        public async Task<List<Feed>> GetListOfFeedsAsync(List<string> listFileNames)
         {
-
             List<Feed> listOfFeedsDeserialized = new List<Feed>();
             try
             {
                 //List<string> fileNames = listFileNames;
                 foreach(string fileName in listFileNames)
                 {
-                    listOfFeedsDeserialized.Add(serializerObject.Deserialize(fileName));
-                }
-                
+                    listOfFeedsDeserialized.Add( await serializerObject.DeserializeAsync(fileName));
+                } 
             }
             catch (Exception)
             {
                 throw new Exception();
 
             }
-
             return listOfFeedsDeserialized;
         }
 
-        public Feed GetFeed(string fileName)
+        public async Task<Feed> GetFeedAsync(string fileName)
         {
             Feed feedObject;
 
             try
             {
-
-                feedObject = serializerObject.Deserialize(fileName);
-                
-
+                feedObject = await serializerObject.DeserializeAsync(fileName);
             }
             catch (Exception)
             {
                 throw new Exception();
-
             }
             return feedObject;
-
         }
 
         //public Feed GetByCategory(Category category)

@@ -20,11 +20,11 @@ namespace DataAccessLayer.Repositories
         }
 
      
-        public List<Episode> GetCurrentEpisodes(string url)
+        public async Task<List<Episode>> GetCurrentEpisodesAsync(string url)
         {
             List<Episode> listOfEpisode = new List<Episode>();
 
-                using (Stream fs = rssObject.GetRSS(url)) //Öppnar en läsbar stream från data som är nedladdad från en källa
+                using (Stream fs = await rssObject.GetRSSAsync(url)) //Öppnar en läsbar stream från data som är nedladdad från en källa
                 {
                     XmlReader reader = XmlReader.Create(fs);
                     SyndicationFeed feed = SyndicationFeed.Load(reader);

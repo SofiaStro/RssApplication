@@ -17,20 +17,25 @@ namespace DataAccessLayer
     internal class SerializerForXml
     {
        
-        public void Serializer(Feed listOfFeeds, string fileName)
+        public async Task SerializerAsync(Feed listOfFeeds, string fileName)
         {
             try
             {
-                if (File.Exists(fileName)) 
+                await Task.Run(() =>
                 {
-                    File.Delete(fileName);
-                }
+                    if (File.Exists(fileName)) 
+                    {
+                        File.Delete(fileName);
+                    }
                     
-                XmlSerializer xmlWriter = new XmlSerializer(typeof(Feed));
-                using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
-                {
-                    xmlWriter.Serialize(fileStream, listOfFeeds);
-                }
+                    XmlSerializer xmlWriter = new XmlSerializer(typeof(Feed));
+                    using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                    {
+                        xmlWriter.Serialize(fileStream, listOfFeeds);
+                    }
+
+                });
+                
             }
             catch (Exception)
             {
@@ -38,28 +43,26 @@ namespace DataAccessLayer
             }
         }
 
-        public Feed Deserialize(string fileName)
+        public async Task<Feed> DeserializeAsync(string fileName)
         {
-            
             try
             {
-                XmlSerializer xmlReader = new XmlSerializer(typeof(Feed));
-                using (FileStream fileStream = new FileStream(fileName, FileMode.Open,
-                    FileAccess.Read))
+                return await Task.Run(() =>
                 {
-                    return (Feed)xmlReader.Deserialize(fileStream);
-                }
+                    XmlSerializer xmlReader = new XmlSerializer(typeof(Feed));
+                    using (FileStream fileStream = new FileStream(fileName, FileMode.Open,
+                        FileAccess.Read))
+                    {
+                        return (Feed)xmlReader.Deserialize(fileStream);
+                    }
+                });
             }
             catch (Exception)
             {
                 throw new SerializerException(fileName, "Deserializeringen av xml-filen misslyckades");
             }
-
         }
 
-        // Nedan används för att skapa en xml-fil med kategorierna,
-        // vi borde kanske flytta till en ny serializer-class?
-        // En klass som hanterar det ovan (feed) och en för det under (category) :DD??
         public void CategorySerializer(List<Category> listOfCategorys)
         {
             try

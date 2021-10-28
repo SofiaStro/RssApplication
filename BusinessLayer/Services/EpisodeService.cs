@@ -19,9 +19,9 @@ namespace BusinessLayer.Services
             episodeRepository = new EpisodeRepository();
         }
 
-        public List<Episode> GetListOfEpisodes(string url)
+        public async Task<List<Episode>> GetListOfEpisodesAsync(string url)
         {
-            List<Episode> listOfEpisodes = episodeRepository.GetCurrentEpisodes(url);
+            List<Episode> listOfEpisodes = await episodeRepository.GetCurrentEpisodesAsync(url);
 
             return listOfEpisodes;
         }

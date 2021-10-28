@@ -9,6 +9,6 @@ namespace DataAccessLayer.Repositories
 {
     public interface IEpisodeRepository<T> where T : Episode
     {
-        List<T> GetCurrentEpisodes(string url);
+        Task<List<T>> GetCurrentEpisodesAsync(string url);
     }
 }

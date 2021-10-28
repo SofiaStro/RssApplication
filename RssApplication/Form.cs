@@ -424,16 +424,16 @@ namespace RssApplication
 
         public void Timer_Tick(object sender, EventArgs e)
         {
-            //List<Feed> listOfFeed = feedService.DisplayFeed();
+            List<Feed> listOfFeed = feedService.DisplayFeed();
 
-            //foreach (Feed feedObject in listOfFeed)
-            //{
-            //    if (feedObject.NeedsUpdate)
-            //    {
-            //        tbEpisodeDescription.Text += feedObject.Name;
-            //        feedObject.Update();
-            //    }
-            //}
+            foreach (Feed feedObject in listOfFeed)
+            {
+                if (feedObject.NeedsUpdate)
+                {
+                    feedService.ChangeFeed(feedObject.Name, feedObject.TimeInterval, feedObject.Category, feedObject.FileName);
+                    feedObject.Update();
+                }
+            }
         }
 
     }

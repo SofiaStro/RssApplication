@@ -15,11 +15,13 @@ namespace Models.Classes
                 string category, List<Episode> listOfEpisodes, string fileName) :
                 base(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName)
         {
+            
         }
 
         public override string Display()
         {
             return base.Display() + "Nyhet";
         }
+
     }
 }

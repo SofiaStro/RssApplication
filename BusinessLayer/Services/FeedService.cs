@@ -13,12 +13,13 @@ namespace BusinessLayer.Services
     public class FeedService
     {
         IFeedRepository<Feed> feedRepository;
+        EpisodeService episodeService;
 
 
         public FeedService()
         {
             feedRepository = new FeedRepository();
-
+            episodeService = new EpisodeService();
         }
 
 
@@ -55,7 +56,7 @@ namespace BusinessLayer.Services
         {
             Feed newFeed = null;
 
-            EpisodeService episodeService = new EpisodeService();
+            
             List<Episode> listOfEpisodes = episodeService.GetListOfEpisodes(url);
             int numberOfEpisodes = episodeService.NumberOfEpisodes(listOfEpisodes);
 
@@ -83,7 +84,7 @@ namespace BusinessLayer.Services
             int numberOfEpisodes = Convert.ToInt32(oldFeed.NumberOfEpisodes);
             int timeInterval = newTimeInterval;
             string category = newCategory;
-            List<Episode> listOfEpisodes = oldFeed.ListOfEpisodes;
+            List<Episode> listOfEpisodes = episodeService.GetListOfEpisodes(url); 
 
             if(oldFeed is Podcast)
             {
@@ -119,19 +120,19 @@ namespace BusinessLayer.Services
         public Feed CompareFeedObjects (string fileName)
         {
 
-            List<Feed> listOfFeeds = DisplayFeed();
-            Feed feedObject = null;
-            //Feed feedObject = feedRepository.GetCurrentFeed(fileName);
+            //List<Feed> listOfFeeds = DisplayFeed();
+            //Feed feedObject = null;
+            Feed feedObject = feedRepository.GetCurrentFeed(fileName);
 
-            foreach (Feed item in listOfFeeds)
+            //foreach (Feed item in listOfFeeds)
 
-            {
-                if (fileName.Equals(item.FileName))
-                {
-                    feedObject = item;
-                }
+            //{
+            //    if (fileName.Equals(item.FileName))
+            //    {
+            //        feedObject = item;
+            //    }
 
-            }
+            //}
             return feedObject;
         }
 

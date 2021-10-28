@@ -26,8 +26,9 @@ namespace Models.Classes
         public List<Episode> ListOfEpisodes;
         [XmlElement(Order = 6)]
         public string FileName { get; set; }
+        [XmlElement(Order = 8)]
+        public string NextUpdate { get; set; }
 
-        //public DateTime NextUpdate { get; set; }
 
         public Feed()
         {
@@ -42,7 +43,7 @@ namespace Models.Classes
             Category = category;
             ListOfEpisodes = listOfEpisodes;
             FileName = fileName;
-            //Update();
+            Update();
 
         }
 
@@ -51,19 +52,20 @@ namespace Models.Classes
             return "Det här är en: ";
         }
 
-        //public bool NeedsUpdate
-        //{
-        //    get
-        //    {
-        //        return NextUpdate <= DateTime.Now;
-        //    }
-        //}
+        public bool NeedsUpdate
+        {
+            get
+            {
+                DateTime nextUpdate = Convert.ToDateTime(NextUpdate);
+                return nextUpdate <= DateTime.Now;
+            }
+        }
 
-        //public void Update()
-        //{
-        //    int intervalMilliSeconds = TimeInterval * 60 * 1000;
-        //    NextUpdate = DateTime.Now.AddMilliseconds(intervalMilliSeconds);
-        //}
+        public void Update()
+        {
+            int intervalMilliSeconds = TimeInterval * 60 * 1000;
+            NextUpdate = DateTime.Now.AddMilliseconds(intervalMilliSeconds).ToString();
+        }
 
     }
 }

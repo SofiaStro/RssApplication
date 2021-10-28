@@ -49,7 +49,7 @@ namespace Models.Classes
 
         public virtual string Display()
         {
-            return "Det här är en: ";
+            return "Här visas en beskrivning för ditt valda asvnitt för din: ";
         }
 
         public bool NeedsUpdate

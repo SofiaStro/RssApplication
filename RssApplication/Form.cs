@@ -275,15 +275,14 @@ namespace RssApplication
                     tbCategoryName.Text = "";
 
                     List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(oldCategoryName);
-                    //foreach(Feed item in listOfFeedInCategory)
-                    //{
-                    //    feedService.ChangeFeed(
-                    //        item.Url,
-                    //        item.Name,
-                    //        item.TimeInterval,
-                    //        newCategoryNameFirst + newCategoryNameLast,
-                    //        item.FileName);
-                    //}
+                    foreach (Feed item in listOfFeedInCategory)
+                    {
+                        feedService.ChangeFeed(
+                            item.Name,
+                            item.TimeInterval,
+                            newCategoryNameFirst + newCategoryNameLast,
+                            item.FileName);
+                    }
 
                     DisplaySubscribeList();
                 }

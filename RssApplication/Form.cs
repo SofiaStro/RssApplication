@@ -28,11 +28,7 @@ namespace RssApplication
             categoryService = new CategoryService();
             episodeService = new EpisodeService();
 
-            cbTime.Items.Add("1");
-            cbTime.Items.Add("15");
-            cbTime.Items.Add("30");
-            cbType.Items.Add("Nyhet");
-            cbType.Items.Add("Podcast");
+            FillComboboxes();
             cbSubscribeCategory.Items.Add("Historia");
             cbSubscribeCategory.Items.Add("Humor");
             tbUrl.ReadOnly = false;
@@ -46,6 +42,14 @@ namespace RssApplication
             timer.Start();
         }
 
+        private void FillComboboxes()
+        {
+            cbTime.Items.Add("1");
+            cbTime.Items.Add("15");
+            cbTime.Items.Add("30");
+            cbType.Items.Add("Nyhet");
+            cbType.Items.Add("Podcast");
+        }
         //private void DisplaySubscribeList()
         //{
 

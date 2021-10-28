@@ -38,34 +38,34 @@ namespace RssApplication
             tbUrl.ReadOnly = false;
             lblType.Visible = true;
             cbType.Visible = true;
-            DisplaySubscribeList();
+            DisplaySubscribeList(feedService.DisplayFeed());
             InputCategoryList();
             timer.Interval = 30000;
             timer.Tick += Timer_Tick;
             timer.Start();
         }
 
-        private void DisplaySubscribeList()
-        {
+        //private void DisplaySubscribeList()
+        //{
 
-            //lvSubscribe.Items.Clear();
-            List<Feed> listOfFeeds = feedService.DisplayFeed();
+        //lvSubscribe.Items.Clear();
+        //List<Feed> listOfFeeds = feedService.DisplayFeed();
 
-            //foreach (Feed item in listOfFeeds)
-            //{
-            //    String[] row = {
-            //        item.FileName,
-            //        Convert.ToString(item.NumberOfEpisodes),
-            //        item.Name,
-            //        Convert.ToString(item.TimeInterval),
-            //        item.Category};
+        //foreach (Feed item in listOfFeeds)
+        //{
+        //    String[] row = {
+        //        item.FileName,
+        //        Convert.ToString(item.NumberOfEpisodes),
+        //        item.Name,
+        //        Convert.ToString(item.TimeInterval),
+        //        item.Category};
 
-            //    ListViewItem List = new ListViewItem(row);
-            //    lvSubscribe.Items.Add(List);
-            //}
+        //    ListViewItem List = new ListViewItem(row);
+        //    lvSubscribe.Items.Add(List);
+        //}
 
-            DisplaySubscribeList(listOfFeeds);
-        }
+        //    DisplaySubscribeList(listOfFeeds);
+        //}
 
         public void DisplaySubscribeList(List<Feed> listOfFeeds)
         {
@@ -123,7 +123,7 @@ namespace RssApplication
 
                 feedService.CreateFeed(url, name, timeInterval, category, type);
 
-                DisplaySubscribeList();
+                DisplaySubscribeList(feedService.DisplayFeed());
             }
             else
             {
@@ -153,7 +153,7 @@ namespace RssApplication
 
                 feedService.ChangeFeed(name, timeInterval, category, fileName);
 
-                DisplaySubscribeList();
+                DisplaySubscribeList(feedService.DisplayFeed());
                 
             }
             else
@@ -285,7 +285,7 @@ namespace RssApplication
                             item.FileName);
                     }
 
-                    DisplaySubscribeList();
+                    DisplaySubscribeList(feedService.DisplayFeed());
                 }
             }
             catch (ArgumentOutOfRangeException)
@@ -319,7 +319,7 @@ namespace RssApplication
                         feedService.DeleteFeed(item.FileName);
                     }
 
-                    DisplaySubscribeList();
+                    DisplaySubscribeList(feedService.DisplayFeed());
                 }
             }
         }
@@ -415,7 +415,7 @@ namespace RssApplication
             }
 
             feedService.DeleteFeed(fileName);
-            DisplaySubscribeList();
+            DisplaySubscribeList(feedService.DisplayFeed());
         }
 
         private Timer timer = new Timer();

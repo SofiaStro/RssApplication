@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models.Classes;
+using Models.Exceptions;
 using System.Xml;
 using System.ServiceModel.Syndication;
 
@@ -23,6 +24,7 @@ namespace DataAccessLayer.Repositories
         public List<Episode> GetCurrentEpisodes(string url)
         {
             List<Episode> listOfEpisode = new List<Episode>();
+            try { 
 
                 using (Stream fs = rssObject.GetRSS(url)) //Öppnar en läsbar stream från data som är nedladdad från en källa
                 {
@@ -39,7 +41,12 @@ namespace DataAccessLayer.Repositories
                 }
 
                 return listOfEpisode;
-            
+            }
+            catch (Exception)
+            {
+                throw new RssReaderException(url, "Url:en gick inte att läsa");
+                return listOfEpisode = null;
+            }
 
         }
 

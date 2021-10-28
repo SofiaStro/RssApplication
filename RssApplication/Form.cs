@@ -29,8 +29,6 @@ namespace RssApplication
             episodeService = new EpisodeService();
 
             FillComboboxes();
-            cbSubscribeCategory.Items.Add("Historia");
-            cbSubscribeCategory.Items.Add("Humor");
             tbUrl.ReadOnly = false;
             lblType.Visible = true;
             cbType.Visible = true;
@@ -114,8 +112,8 @@ namespace RssApplication
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)
         {
-            if (Validator.TextBoxIsPresent(tbUrl) && 
-                Validator.TextBoxIsPresent(tbSubscribeName) &&
+            if (Validator.TextBoxIsPresent(tbUrl, "Url") && 
+                Validator.TextBoxIsPresent(tbSubscribeName, "Namn") &&
                 Validator.ComboBoxIsPresent(cbTime) &&
                 Validator.ComboBoxIsPresent(cbSubscribeCategory) &&
                 Validator.ComboBoxIsPresent(cbType))
@@ -138,7 +136,7 @@ namespace RssApplication
 
         private void btnSubscribeChange_Click(object sender, EventArgs e)
         {
-            if (Validator.TextBoxIsPresent(tbSubscribeName) &&
+            if (Validator.TextBoxIsPresent(tbSubscribeName, "Namn") &&
                 Validator.ComboBoxIsPresent(cbTime) &&
                 Validator.ComboBoxIsPresent(cbSubscribeCategory))
             {
@@ -175,7 +173,7 @@ namespace RssApplication
             if(lvSubscribe.SelectedItems.Count > 0)
             {
                 string fileName = "";
-                var selectedRow = this.lvSubscribe.SelectedItems;
+                var selectedRow = lvSubscribe.SelectedItems;
 
                 foreach (ListViewItem item in selectedRow)
                 {

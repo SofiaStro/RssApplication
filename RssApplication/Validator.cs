@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Models.Exceptions;
 
 namespace RssApplication
 {
 	public class Validator { 
 
-		public static bool TextBoxIsPresent(TextBox textBox)
+		public static bool TextBoxIsPresent(TextBox textBox, string textBoxName)
 		{
 			if (textBox.Text == "")
 			{
-				textBox.Focus();
+				string msg = textBoxName + " måste anges";
+				//throw new ValidatorException(msg);
 				return false;
 			}
 			return true;

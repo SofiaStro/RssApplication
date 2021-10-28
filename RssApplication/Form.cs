@@ -93,6 +93,7 @@ namespace RssApplication
         {
 
             lbEpisode.Items.Clear();
+             
 
             List<Episode> episodeList = null;
             episodeList = new List<Episode>();
@@ -104,10 +105,10 @@ namespace RssApplication
                 lbEpisode.Items.Add(episode.Title);
 
             }
-
+            lblDescriptionType.Text = episodeService.DisplayType(feedObject);
 
         }
-
+        
 
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)

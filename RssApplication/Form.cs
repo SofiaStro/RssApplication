@@ -102,8 +102,6 @@ namespace RssApplication
 
             }
 
-            //DisplaySubscribeList();
-
 
         }
 
@@ -425,13 +423,26 @@ namespace RssApplication
         public void Timer_Tick(object sender, EventArgs e)
         {
             List<Feed> listOfFeed = feedService.DisplayFeed();
-
+            string fileName = "";
             foreach (Feed feedObject in listOfFeed)
             {
                 if (feedObject.NeedsUpdate)
                 {
                     feedService.ChangeFeed(feedObject.Name, feedObject.TimeInterval, feedObject.Category, feedObject.FileName);
                     feedObject.Update();
+                    var selectedRow = this.lvSubscribe.SelectedItems;
+                    foreach (ListViewItem item in selectedRow)
+                    {
+                        fileName = item.SubItems[0].Text;
+                    }
+                 
+                    Feed selectedFeedObject = feedService.CompareFeedObjects(fileName);
+                   
+                    if (feedObject.FileName.Equals(selectedFeedObject.FileName))
+                    {
+                        DisplayEpisodeList(selectedFeedObject);
+                        tbEpisodeDescription.Text = "";
+                    }
                 }
             }
         }

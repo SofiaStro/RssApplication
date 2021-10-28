@@ -65,14 +65,14 @@ namespace RssApplication
             this.label5 = new System.Windows.Forms.Label();
             this.cbType = new System.Windows.Forms.ComboBox();
             this.lblType = new System.Windows.Forms.Label();
-            this.lblDescriptionTyp = new System.Windows.Forms.Label();
+            this.lblDescriptionType = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblCategoryMsg
             // 
             this.lblCategoryMsg.AutoSize = true;
             this.lblCategoryMsg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lblCategoryMsg.Location = new System.Drawing.Point(533, 868);
+            this.lblCategoryMsg.Location = new System.Drawing.Point(528, 830);
             this.lblCategoryMsg.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCategoryMsg.Name = "lblCategoryMsg";
             this.lblCategoryMsg.Size = new System.Drawing.Size(166, 25);
@@ -95,7 +95,7 @@ namespace RssApplication
             this.lblEpisodeDescription.AutoSize = true;
             this.lblEpisodeDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEpisodeDescription.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.lblEpisodeDescription.Location = new System.Drawing.Point(1194, 538);
+            this.lblEpisodeDescription.Location = new System.Drawing.Point(1180, 508);
             this.lblEpisodeDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEpisodeDescription.Name = "lblEpisodeDescription";
             this.lblEpisodeDescription.Size = new System.Drawing.Size(212, 42);
@@ -128,7 +128,7 @@ namespace RssApplication
             // 
             // btnCategoryChange
             // 
-            this.btnCategoryChange.Location = new System.Drawing.Point(663, 792);
+            this.btnCategoryChange.Location = new System.Drawing.Point(663, 761);
             this.btnCategoryChange.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCategoryChange.Name = "btnCategoryChange";
             this.btnCategoryChange.Size = new System.Drawing.Size(108, 50);
@@ -139,7 +139,7 @@ namespace RssApplication
             // 
             // btnCategoryDelete
             // 
-            this.btnCategoryDelete.Location = new System.Drawing.Point(800, 792);
+            this.btnCategoryDelete.Location = new System.Drawing.Point(797, 761);
             this.btnCategoryDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCategoryDelete.Name = "btnCategoryDelete";
             this.btnCategoryDelete.Size = new System.Drawing.Size(108, 50);
@@ -150,7 +150,7 @@ namespace RssApplication
             // 
             // btnCategoryAdd
             // 
-            this.btnCategoryAdd.Location = new System.Drawing.Point(527, 792);
+            this.btnCategoryAdd.Location = new System.Drawing.Point(527, 761);
             this.btnCategoryAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCategoryAdd.Name = "btnCategoryAdd";
             this.btnCategoryAdd.Size = new System.Drawing.Size(108, 50);
@@ -161,7 +161,7 @@ namespace RssApplication
             // 
             // tbCategoryName
             // 
-            this.tbCategoryName.Location = new System.Drawing.Point(604, 722);
+            this.tbCategoryName.Location = new System.Drawing.Point(604, 706);
             this.tbCategoryName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbCategoryName.Name = "tbCategoryName";
             this.tbCategoryName.Size = new System.Drawing.Size(301, 31);
@@ -171,7 +171,7 @@ namespace RssApplication
             // 
             this.lblCategoryName.AutoSize = true;
             this.lblCategoryName.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.lblCategoryName.Location = new System.Drawing.Point(523, 726);
+            this.lblCategoryName.Location = new System.Drawing.Point(522, 706);
             this.lblCategoryName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCategoryName.Name = "lblCategoryName";
             this.lblCategoryName.Size = new System.Drawing.Size(74, 25);
@@ -183,7 +183,7 @@ namespace RssApplication
             this.lblCategory.AutoSize = true;
             this.lblCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCategory.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.lblCategory.Location = new System.Drawing.Point(53, 642);
+            this.lblCategory.Location = new System.Drawing.Point(53, 621);
             this.lblCategory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCategory.Name = "lblCategory";
             this.lblCategory.Size = new System.Drawing.Size(190, 42);
@@ -194,7 +194,7 @@ namespace RssApplication
             // 
             this.lbCategory.FormattingEnabled = true;
             this.lbCategory.ItemHeight = 25;
-            this.lbCategory.Location = new System.Drawing.Point(44, 725);
+            this.lbCategory.Location = new System.Drawing.Point(44, 687);
             this.lbCategory.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lbCategory.Name = "lbCategory";
             this.lbCategory.Size = new System.Drawing.Size(441, 254);
@@ -208,21 +208,21 @@ namespace RssApplication
             this.tbEpisodeDescription.Enabled = false;
             this.tbEpisodeDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbEpisodeDescription.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.tbEpisodeDescription.Location = new System.Drawing.Point(1187, 642);
+            this.tbEpisodeDescription.Location = new System.Drawing.Point(1167, 605);
             this.tbEpisodeDescription.Margin = new System.Windows.Forms.Padding(4);
             this.tbEpisodeDescription.Multiline = true;
             this.tbEpisodeDescription.Name = "tbEpisodeDescription";
-            this.tbEpisodeDescription.Size = new System.Drawing.Size(759, 337);
+            this.tbEpisodeDescription.Size = new System.Drawing.Size(722, 363);
             this.tbEpisodeDescription.TabIndex = 62;
             // 
             // lbEpisode
             // 
             this.lbEpisode.FormattingEnabled = true;
             this.lbEpisode.ItemHeight = 25;
-            this.lbEpisode.Location = new System.Drawing.Point(1187, 117);
+            this.lbEpisode.Location = new System.Drawing.Point(1167, 136);
             this.lbEpisode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lbEpisode.Name = "lbEpisode";
-            this.lbEpisode.Size = new System.Drawing.Size(759, 354);
+            this.lbEpisode.Size = new System.Drawing.Size(722, 354);
             this.lbEpisode.TabIndex = 61;
             this.lbEpisode.SelectedIndexChanged += new System.EventHandler(this.lbEpisode_SelectedIndexChanged);
             // 
@@ -396,7 +396,7 @@ namespace RssApplication
             this.label7.Location = new System.Drawing.Point(19, 605);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(1120, 430);
+            this.label7.Size = new System.Drawing.Size(1120, 385);
             this.label7.TabIndex = 70;
             // 
             // label6
@@ -414,7 +414,7 @@ namespace RssApplication
             this.label5.Location = new System.Drawing.Point(1155, 14);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(811, 998);
+            this.label5.Size = new System.Drawing.Size(758, 976);
             this.label5.TabIndex = 72;
             // 
             // cbType
@@ -438,24 +438,24 @@ namespace RssApplication
             this.lblType.TabIndex = 77;
             this.lblType.Text = "Typ:";
             // 
-            // lblDescriptionTyp
+            // lblDescriptionType
             // 
-            this.lblDescriptionTyp.AutoSize = true;
-            this.lblDescriptionTyp.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.lblDescriptionTyp.Location = new System.Drawing.Point(1196, 590);
-            this.lblDescriptionTyp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblDescriptionTyp.Name = "lblDescriptionTyp";
-            this.lblDescriptionTyp.Size = new System.Drawing.Size(74, 25);
-            this.lblDescriptionTyp.TabIndex = 79;
-            this.lblDescriptionTyp.Text = "Namn:";
+            this.lblDescriptionType.AutoSize = true;
+            this.lblDescriptionType.ForeColor = System.Drawing.SystemColors.InactiveBorder;
+            this.lblDescriptionType.Location = new System.Drawing.Point(1182, 567);
+            this.lblDescriptionType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDescriptionType.Name = "lblDescriptionType";
+            this.lblDescriptionType.Size = new System.Drawing.Size(74, 25);
+            this.lblDescriptionType.TabIndex = 79;
+            this.lblDescriptionType.Text = "Namn:";
             // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1979, 1033);
-            this.Controls.Add(this.lblDescriptionTyp);
+            this.ClientSize = new System.Drawing.Size(1928, 1005);
+            this.Controls.Add(this.lblDescriptionType);
             this.Controls.Add(this.cbType);
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.lblCategoryMsg);
@@ -489,6 +489,7 @@ namespace RssApplication
             this.Controls.Add(this.label5);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "RSS Applikation";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -533,7 +534,7 @@ namespace RssApplication
         private System.Windows.Forms.ColumnHeader chTime;
         private System.Windows.Forms.ColumnHeader chCategory;
         private System.Windows.Forms.ColumnHeader chFileName;
-        private System.Windows.Forms.Label lblDescriptionTyp;
+        private System.Windows.Forms.Label lblDescriptionType;
     }
 }
 

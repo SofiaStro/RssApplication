@@ -11,7 +11,7 @@ using System.Timers;
 using System.Windows.Forms;
 using BusinessLayer.Services;
 using Models.Classes;
-
+using Timer = System.Windows.Forms.Timer;
 
 namespace RssApplication
 {
@@ -28,7 +28,7 @@ namespace RssApplication
             categoryService = new CategoryService();
             episodeService = new EpisodeService();
 
-            cbTime.Items.Add("5");
+            cbTime.Items.Add("1");
             cbTime.Items.Add("15");
             cbTime.Items.Add("30");
             cbType.Items.Add("Nyhet");
@@ -40,6 +40,9 @@ namespace RssApplication
             cbType.Visible = true;
             DisplaySubscribeList();
             InputCategoryList();
+            timer.Interval = 30000;
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
 
         private void DisplaySubscribeList()
@@ -416,6 +419,23 @@ namespace RssApplication
             feedService.DeleteFeed(fileName);
             DisplaySubscribeList();
         }
-            
+
+        private Timer timer = new Timer();
+
+        public void Timer_Tick(object sender, EventArgs e)
+        {
+            //List<Feed> listOfFeed = feedService.DisplayFeed();
+
+            //foreach (Feed feedObject in listOfFeed)
+            //{
+            //    if (feedObject.NeedsUpdate)
+            //    {
+            //        tbEpisodeDescription.Text += feedObject.Name;
+            //        feedObject.Update();
+            //    }
+            //}
+        }
+
     }
+
 }

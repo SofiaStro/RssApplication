@@ -4,19 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using Models.Exceptions;
 
 namespace RssApplication
 {
-	public class Validator { 
+	public class Validator
+	{
 
 		public static bool TextBoxIsPresent(TextBox textBox, string textBoxName)
 		{
 			if (textBox.Text == "")
 			{
 				string msg = textBoxName + " måste anges";
-				//throw new ValidatorException(msg);
-				return false;
+				throw new ValidatorException(msg);
 			}
 			return true;
 		}
@@ -25,9 +26,22 @@ namespace RssApplication
 			if (comboBox.Text == "")
 			{
 				comboBox.Focus();
-				return false;
 			}
 			return true;
+		}
+
+		public static bool IsValidRSS(string url)
+		{
+			try
+			{
+				new XmlDocument().Load(url);
+				string msg = url + " är inte giltig";
+				throw new ValidatorException(msg);
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

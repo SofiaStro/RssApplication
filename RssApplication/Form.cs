@@ -29,9 +29,7 @@ namespace RssApplication
             episodeService = new EpisodeService();
 
             FillComboboxes();
-            tbUrl.ReadOnly = false;
-            lblType.Visible = true;
-            cbType.Visible = true;
+
 
             DisplaySubscribeList(feedService.GetListOfFeeds());
             InputCategoryList();
@@ -47,6 +45,19 @@ namespace RssApplication
             cbTime.Items.Add("30");
             cbType.Items.Add("Nyhet");
             cbType.Items.Add("Podcast");
+        }
+
+        private void ClearFields()
+        {
+            tbUrl.ReadOnly = false;
+            lblType.Visible = true;
+            cbType.Visible = true;
+
+            tbUrl.Text = "";
+            tbSubscribeName.Text = "";
+            cbTime.Text = "";
+            cbSubscribeCategory.Text = "";
+            cbType.Text = "";
         }
         //private void DisplaySubscribeList()
         //{
@@ -113,56 +124,71 @@ namespace RssApplication
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)
         {
-            if (Validator.TextBoxIsPresent(tbUrl, "Url") && 
-                Validator.TextBoxIsPresent(tbSubscribeName, "Namn") &&
-                Validator.ComboBoxIsPresent(cbTime) &&
-                Validator.ComboBoxIsPresent(cbSubscribeCategory) &&
-                Validator.ComboBoxIsPresent(cbType))
-            { 
-                string url = tbUrl.Text;
-                string name = tbSubscribeName.Text;
-                int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
-                string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
-                string type = Convert.ToString(cbType.SelectedItem);
-
-                feedService.CreateFeed(url, name, timeInterval, category, type);
-
-                DisplaySubscribeList(feedService.GetListOfFeeds());
-            }
-            else
+            try
             {
-                lblSubcribeMsg.Text = "fyll";
+                if (Validator.TextBoxIsPresent(tbUrl, "Url") && 
+                    Validator.IsValidRSS(tbUrl.Text) &&
+                    Validator.TextBoxIsPresent(tbSubscribeName, "Namn") &&
+                    Validator.ComboBoxIsPresent(cbTime) &&
+                    Validator.ComboBoxIsPresent(cbSubscribeCategory) &&
+                    Validator.ComboBoxIsPresent(cbType))
+                { 
+                    string url = tbUrl.Text;
+                    string name = tbSubscribeName.Text;
+                    int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
+                    string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
+                    string type = Convert.ToString(cbType.SelectedItem);
+
+                    feedService.CreateFeed(url, name, timeInterval, category, type);
+
+                    DisplaySubscribeList(feedService.GetListOfFeeds());
+                    ClearFields();
+                }
+                //else
+                //{
+                //    lblSubcribeMsg.Text = "fyll";
+                //}
+            }
+            catch (ValidatorException ex)
+            {
+                lblSubcribeMsg.Text = ex.Message;
             }
         }
 
         private void btnSubscribeChange_Click(object sender, EventArgs e)
         {
-            if (Validator.TextBoxIsPresent(tbSubscribeName, "Namn") &&
-                Validator.ComboBoxIsPresent(cbTime) &&
-                Validator.ComboBoxIsPresent(cbSubscribeCategory))
-            {
-                
-                string fileName = "";
-                var selectedRow = lvSubscribe.SelectedItems;
-
-                foreach (ListViewItem item in selectedRow)
+            try { 
+                if (Validator.TextBoxIsPresent(tbSubscribeName, "Namn") &&
+                    Validator.ComboBoxIsPresent(cbTime) &&
+                    Validator.ComboBoxIsPresent(cbSubscribeCategory))
                 {
-                    //Hämtar filnamnet från kolumnen som är hidden
-                    fileName = item.SubItems[0].Text;
-                }
-
-                string name = tbSubscribeName.Text;
-                int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
-                string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
-
-                feedService.ChangeFeed(name, timeInterval, category, fileName);
-
-                DisplaySubscribeList(feedService.GetListOfFeeds());
                 
+                    string fileName = "";
+                    var selectedRow = lvSubscribe.SelectedItems;
+
+                    foreach (ListViewItem item in selectedRow)
+                    {
+                        //Hämtar filnamnet från kolumnen som är hidden
+                        fileName = item.SubItems[0].Text;
+                    }
+
+                    string name = tbSubscribeName.Text;
+                    int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
+                    string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
+
+                    feedService.ChangeFeed(name, timeInterval, category, fileName);
+
+                    DisplaySubscribeList(feedService.GetListOfFeeds());
+                
+                }
+                //else
+                //{
+                //    lblSubcribeMsg.Text = "Obligatoriska fält saknas";
+                //}
             }
-            else
+            catch (ValidatorException ex)
             {
-                lblSubcribeMsg.Text = "Obligatoriska fält saknas";
+                lblSubcribeMsg.Text = ex.Message;
             }
 
         }
@@ -439,18 +465,29 @@ namespace RssApplication
                     {
                         fileName = item.SubItems[0].Text;
                     }
-                 
-                    Feed selectedFeedObject = feedService.GetFeed(fileName);
-                   
-                    if (feedObject.FileName.Equals(selectedFeedObject.FileName))
+
+                    if (fileName != "")
                     {
-                        DisplayEpisodeList(selectedFeedObject);
-                        tbEpisodeDescription.Text = "";
+                        Feed selectedFeedObject = feedService.GetFeed(fileName);
+
+                        if (feedObject.FileName.Equals(selectedFeedObject.FileName))
+                        {
+                            DisplayEpisodeList(selectedFeedObject);
+                            tbEpisodeDescription.Text = "";
+                        }
                     }
                 }
             }
         }
 
+        //private void Form_Load(object sender, EventArgs e)
+        //{
+        //    if (this.lvSubscribe.SelectedIndices.Count > 0)
+        //        for (int i = 0; i < this.lvSubscribe.SelectedIndices.Count; i++)
+        //        {
+        //            this.lvSubscribe.Items[this.lvSubscribe.SelectedIndices[i]].Selected = false;
+        //        }
+        //}
     }
 
 }

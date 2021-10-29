@@ -295,6 +295,8 @@ namespace RssApplication
         {
             try
             {
+                //bryta ut detta till en egen metod som kallas på vid knapptryck? 
+
                 bool newCategoryExist = false;
                 string newCategoryName = tbCategoryName.Text;
                 string newCategoryNameFirst = newCategoryName.Substring(0, 1).ToUpperInvariant();
@@ -405,8 +407,6 @@ namespace RssApplication
 
         private void lbEpisode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Välja ett asvnitt för att ta fram beskrivningen
-            //tbEpisodeDescription.Text = "";
             try
             {
                 if (lvSubscribe.SelectedItems.Count > 0)
@@ -451,11 +451,11 @@ namespace RssApplication
                             tbEpisodeDescription.Text = "Det finns ingen beskrivning för ditt valda avsnitt";
                         }
                     }
-
-
-                    //DisplayEpisodeList(feedObject);
                 }
-            } catch (Exception ) { }
+            } catch (Exception )
+            {
+                //Hantera exceptionet på något sätt?
+             }
          }
 
 

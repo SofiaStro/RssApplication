@@ -2,6 +2,7 @@
 using Models.Classes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLayer.Services
 {
@@ -31,22 +32,24 @@ namespace BusinessLayer.Services
 
         public List<string> InputCategory()
         {
-            List<string> catagoryNames = new List<string>();
+            //List<string> catagoryNames = new List<string>();
+            List<string> listOfCategoryNames = new List<string>();
             try
             {
                 List<Category> listOfCategorys = categoryRepository.GetCurrentCategorys();
-                
+                listOfCategoryNames = listOfCategorys.Select(category => category.Name).ToList();
                 //int index = 0;
 
-                foreach (Category item in listOfCategorys)
-                {
-                    catagoryNames.Add(item.Name);
-                    //index++;
-                }
+                //foreach (Category item in listOfCategorys)
+                //{
+                //    catagoryNames.Add(item.Name);
+                //    //index++;
+                //}
             }
             catch (Exception) { }
-            
-            return catagoryNames;
+
+            //return catagoryNames;
+            return listOfCategoryNames;
         }
 
         public void ChangeCategoryName(string oldName, string newName)

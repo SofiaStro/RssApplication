@@ -212,6 +212,8 @@ namespace RssApplication
             List<string> categoryNames = new List<string>();
             categoryNames = categoryService.InputCategory();
 
+
+
             foreach (string categoryName in categoryNames)
             {
                 if (categoryName.Equals(nameFirst + nameLast))

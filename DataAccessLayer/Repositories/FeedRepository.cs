@@ -55,10 +55,10 @@ namespace DataAccessLayer.Repositories
         {
 
             //List<Feed> listOfFeedsDeserialized = new List<Feed>();
-            List<Feed> listOfFeedsDeserializedLINQ = new List<Feed>();
+            List<Feed> listOfFeedsDeserialized = new List<Feed>();
             try
             {
-                listOfFeedsDeserializedLINQ = listFileNames.Select(filename => serializerObject.Deserialize(filename)).ToList();
+                listOfFeedsDeserialized = listFileNames.Select(filename => serializerObject.Deserialize(filename)).ToList();
                 //List<string> fileNames = listFileNames;
                 //foreach (string fileName in listFileNames)
                 //{
@@ -73,7 +73,7 @@ namespace DataAccessLayer.Repositories
             }
 
             //return listOfFeedsDeserialized;
-            return listOfFeedsDeserializedLINQ;
+            return listOfFeedsDeserialized;
         }
 
         public Feed GetFeed(string fileName)

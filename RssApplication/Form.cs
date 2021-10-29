@@ -223,6 +223,7 @@ namespace RssApplication
 
             //    Feed feedObject = feedService.GetFeed(fileName);
             //    tbUrl.Text = feedObject.Url;
+           
             tbEpisodeDescription.Text = "";
 
             if (lvSubscribe.SelectedItems.Count > 0)
@@ -282,10 +283,10 @@ namespace RssApplication
             categoryNames = categoryService.InputCategory();
             if (categoryNames.Count != 0)
             {
-                foreach (string catagoryName in categoryNames)
+                foreach (string categoryName in categoryNames)
                 {
-                    cbSubscribeCategory.Items.Add(catagoryName);
-                    lbCategory.Items.Add(catagoryName);
+                    cbSubscribeCategory.Items.Add(categoryName);
+                    lbCategory.Items.Add(categoryName);
                 }
             }
         }
@@ -326,6 +327,7 @@ namespace RssApplication
                     tbCategoryName.Text = "";
 
                     List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(oldCategoryName);
+
                     foreach (Feed item in listOfFeedInCategory)
                     {
                         feedService.ChangeFeed(

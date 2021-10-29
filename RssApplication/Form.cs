@@ -223,6 +223,7 @@ namespace RssApplication
 
             //    Feed feedObject = feedService.GetFeed(fileName);
             //    tbUrl.Text = feedObject.Url;
+            tbEpisodeDescription.Text = "";
 
             if (lvSubscribe.SelectedItems.Count > 0)
             {
@@ -395,9 +396,9 @@ namespace RssApplication
             //    fileName = item.SubItems[0].Text;
             //    //tbEpisodeDescription.Text = fileName;
             //}
-            string fileName = GetSelectedFeed();
-            Feed feedObject = feedService.GetFeed(fileName);
-            DisplayEpisodeList(feedObject);
+            //string fileName = GetSelectedFeed();
+            //Feed feedObject = feedService.GetFeed(fileName);
+            //DisplayEpisodeList(feedObject);
         }
 
         private void lbEpisode_SelectedIndexChanged(object sender, EventArgs e)
@@ -408,21 +409,23 @@ namespace RssApplication
             {
                 if (lvSubscribe.SelectedItems.Count > 0)
                 {
-                    string fileName = "";
+                    //string fileName = "";
                     string episode = "";
+                    bool match = false;
 
                     episode = lbEpisode.GetItemText(lbEpisode.SelectedItem);
-                    var selectedRow = this.lvSubscribe.SelectedItems;
+                    //var selectedRow = this.lvSubscribe.SelectedItems;
 
 
-                    foreach (ListViewItem item in selectedRow)
-                    {
-                        //Hämtar filnamnet från kolumnen som är hidden
-                        fileName = item.SubItems[0].Text;
-                        //tbEpisodeDescription.Text = fileName;
-                    }
-                    bool match = false;
+                    //foreach (ListViewItem item in selectedRow)
+                    //{
+                    //    //Hämtar filnamnet från kolumnen som är hidden
+                    //    fileName = item.SubItems[0].Text;
+                    //    //tbEpisodeDescription.Text = fileName;
+                    //}
+                    string fileName = GetSelectedFeed();
                     Feed feedObject = feedService.GetFeed(fileName);
+
                     string url = feedObject.Url;
                     List<Episode> listEpisodes = episodeService.GetListOfEpisodes(url);
 
@@ -435,6 +438,7 @@ namespace RssApplication
                         {
                             match = true;
                         }
+
                         if(match == true)
                         {
                             tbEpisodeDescription.Text = description;

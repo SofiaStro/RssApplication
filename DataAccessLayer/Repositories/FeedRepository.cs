@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Models.Classes;
 
+
 namespace DataAccessLayer.Repositories
 {
     public class FeedRepository : IFeedRepository<Feed>
@@ -53,15 +54,17 @@ namespace DataAccessLayer.Repositories
 
         {
 
-            List<Feed> listOfFeedsDeserialized = new List<Feed>();
+            //List<Feed> listOfFeedsDeserialized = new List<Feed>();
+            List<Feed> listOfFeedsDeserializedLINQ = new List<Feed>();
             try
             {
+                listOfFeedsDeserializedLINQ = listFileNames.Select(filename => serializerObject.Deserialize(filename)).ToList();
                 //List<string> fileNames = listFileNames;
-                foreach(string fileName in listFileNames)
-                {
-                    listOfFeedsDeserialized.Add(serializerObject.Deserialize(fileName));
-                }
-                
+                //foreach (string fileName in listFileNames)
+                //{
+                //    listOfFeedsDeserialized.Add(serializerObject.Deserialize(fileName));
+                //}
+
             }
             catch (Exception)
             {
@@ -69,7 +72,8 @@ namespace DataAccessLayer.Repositories
 
             }
 
-            return listOfFeedsDeserialized;
+            //return listOfFeedsDeserialized;
+            return listOfFeedsDeserializedLINQ;
         }
 
         public Feed GetFeed(string fileName)

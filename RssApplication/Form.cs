@@ -99,12 +99,17 @@ namespace RssApplication
             episodeList = new List<Episode>();
 
             episodeList = feedObject.ListOfEpisodes;
-
-            foreach (Episode episode in episodeList)
+            List<string> episodeListTitle = episodeList.Select(episode => episode.Title).ToList();
+            foreach (String episode in episodeListTitle)
             {
-                lbEpisode.Items.Add(episode.Title);
+                lbEpisode.Items.Add(episode);
 
             }
+            //foreach (Episode episode in episodeList)
+            //{
+            //    lbEpisode.Items.Add(episode.Title);
+
+            //}
             lblDescriptionType.Text = episodeService.DisplayType(feedObject);
 
         }

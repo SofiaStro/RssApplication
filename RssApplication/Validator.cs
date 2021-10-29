@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using Models.Classes;
 using Models.Exceptions;
 
 namespace RssApplication
@@ -12,25 +13,35 @@ namespace RssApplication
 	public class Validator
 	{
 
-		public static bool TextBoxIsPresent(TextBox textBox, string textBoxName)
+		public static bool TextBoxIsPresent(TextBox textBox, string msg)
 		{
 			if (textBox.Text == "")
 			{
-				string msg = textBoxName + " måste anges";
+				textBox.Focus();
 				throw new ValidatorException(msg);
 			}
 			return true;
 		}
-		public static bool ComboBoxIsPresent(ComboBox comboBox)
+		public static bool ComboBoxIsPresent(ComboBox comboBox, string msg)
 		{
 			if (comboBox.Text == "")
 			{
 				comboBox.Focus();
+				throw new ValidatorException(msg);
 			}
 			return true;
 		}
 
-		public static bool IsValidRSS(string url)
+		public static bool IsSelected(ListBox listBox, string msg)
+        {
+			if (listBox.SelectedIndex == -1)
+			{
+				throw new ValidatorException(msg);
+			}
+			return true;
+        }
+
+		public static bool IsValidUrl(string url)
 		{
             try
             {
@@ -40,9 +51,32 @@ namespace RssApplication
             }
             catch (Exception)
             {
-                string msg = url + " är inte giltig";
+                string msg = url + "Angiven URL är inte giltig, vänligen ange en RSS-url.";
                 throw new ValidatorException(msg);
             }
+		}
+
+		public static bool FileNameExist(string fileName)
+        {
+            if(fileName == "")
+            {
+				string msg = "Ett fel har inträffat, vänligen kontakta support.";
+				throw new ValidatorException(msg);
+			}
+			return true;
+        }
+
+		public static bool CategoryNotExist(List<string> list, string input)
+        {
+			string msg = "Denna kategori finns redan.";
+			foreach (string categoryName in list)
+			{
+				if (categoryName.Equals(input))
+				{
+					throw new ValidatorException(msg);
+				}
+			}
+			return true;
 		}
 	}
 }

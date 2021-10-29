@@ -104,7 +104,7 @@ namespace RssApplication
         {
 
             lbEpisode.Items.Clear();
-             
+
 
             List<Episode> episodeList = null;
             episodeList = new List<Episode>();
@@ -121,16 +121,17 @@ namespace RssApplication
         }
 
         private string GetSelectedFeed()
-        {  
-                string fileName = "";
-                var selectedRow = lvSubscribe.SelectedItems;
+        {
+            string fileName = "";
+            var selectedRow = lvSubscribe.SelectedItems;
 
                 foreach (ListViewItem item in selectedRow)
                 {
                     //Hämtar filnamnet från kolumn som är hidden
                     fileName = item.SubItems[0].Text;
-                }        
-                return fileName;
+                }
+
+            return fileName;
         }
 
 
@@ -139,13 +140,13 @@ namespace RssApplication
         {
             try
             {
-                if (Validator.TextBoxIsPresent(tbUrl, "Url") && 
-                    Validator.IsValidRSS(tbUrl.Text) &&
-                    Validator.TextBoxIsPresent(tbSubscribeName, "Namn") &&
-                    Validator.ComboBoxIsPresent(cbTime) &&
-                    Validator.ComboBoxIsPresent(cbSubscribeCategory) &&
-                    Validator.ComboBoxIsPresent(cbType))
-                { 
+                if (Validator.TextBoxIsPresent(tbUrl, "Vänligen angen en Url.") &&
+                    Validator.IsValidUrl(tbUrl.Text) &&
+                    Validator.TextBoxIsPresent(tbSubscribeName, "Vänligen ange ett namn.") &&
+                    Validator.ComboBoxIsPresent(cbTime, "Vänligen ange ett tidsintervall.") &&
+                    Validator.ComboBoxIsPresent(cbSubscribeCategory, "Vänligen ange en kategori.") &&
+                    Validator.ComboBoxIsPresent(cbType, "Vänligen ange en typ."))
+                {
                     string url = tbUrl.Text;
                     string name = tbSubscribeName.Text;
                     int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
@@ -156,10 +157,6 @@ namespace RssApplication
 
                     DisplaySubscribeList(feedService.GetListOfFeeds());
                 }
-                //else
-                //{
-                //    lblSubcribeMsg.Text = "fyll";
-                //}
             }
             catch (ValidatorException ex)
             {
@@ -169,12 +166,12 @@ namespace RssApplication
 
         private void btnSubscribeChange_Click(object sender, EventArgs e)
         {
-            try { 
-                if (Validator.TextBoxIsPresent(tbSubscribeName, "Namn") &&
-                    Validator.ComboBoxIsPresent(cbTime) &&
-                    Validator.ComboBoxIsPresent(cbSubscribeCategory))
+            try {
+                if (Validator.TextBoxIsPresent(tbSubscribeName, "Vänligen ange ett namn.") &&
+                    Validator.ComboBoxIsPresent(cbTime, "Vänligen ange ett tidsintervall.") &&
+                    Validator.ComboBoxIsPresent(cbSubscribeCategory, "Vänligen ange en kategori."))
                 {
-                
+
                     //string fileName = "";
                     //var selectedRow = lvSubscribe.SelectedItems;
 
@@ -192,12 +189,8 @@ namespace RssApplication
                     feedService.ChangeFeed(name, timeInterval, category, fileName);
 
                     DisplaySubscribeList(feedService.GetListOfFeeds());
-                
+
                 }
-                //else
-                //{
-                //    lblSubcribeMsg.Text = "Obligatoriska fält saknas";
-                //}
             }
             catch (ValidatorException ex)
             {
@@ -223,54 +216,83 @@ namespace RssApplication
 
             //    Feed feedObject = feedService.GetFeed(fileName);
             //    tbUrl.Text = feedObject.Url;
-           
-            tbEpisodeDescription.Text = "";
-
-            if (lvSubscribe.SelectedItems.Count > 0)
+            try
             {
-                string fileName = GetSelectedFeed();
-                Feed feedObject = feedService.GetFeed(fileName);
-                tbUrl.Text = feedObject.Url;
-                tbSubscribeName.Text = feedObject.Name;
-                cbTime.Text = Convert.ToString(feedObject.TimeInterval);
-                cbSubscribeCategory.Text = feedObject.Category;
+                tbEpisodeDescription.Text = "";
 
-                tbUrl.ReadOnly = true;
-                lblType.Visible = false;
-                cbType.Visible = false;
+                if (lvSubscribe.SelectedItems.Count > 0)
+                {
+                    string fileName = GetSelectedFeed();
 
-                DisplayEpisodeList(feedObject);
+                    if (Validator.FileNameExist(fileName))
+                    {
+                        Feed feedObject = feedService.GetFeed(fileName);
+                        tbUrl.Text = feedObject.Url;
+                        tbSubscribeName.Text = feedObject.Name;
+                        cbTime.Text = Convert.ToString(feedObject.TimeInterval);
+                        cbSubscribeCategory.Text = feedObject.Category;
+
+                        tbUrl.ReadOnly = true;
+                        lblType.Visible = false;
+                        cbType.Visible = false;
+
+                        DisplayEpisodeList(feedObject);
+                    }
+                }
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Oväntat fel");
+            }
         }
 
         private void btnCategoryAdd_Click(object sender, EventArgs e)
         {
-            bool exist = false;
-            string name = tbCategoryName.Text;
-            string nameFirst = name.Substring(0, 1).ToUpperInvariant();
-            string nameLast = name.Substring(1).ToLowerInvariant();
-
-            List<string> categoryNames = new List<string>();
-            categoryNames = categoryService.InputCategory();
-
-            foreach (string categoryName in categoryNames)
+            try
             {
-                if (categoryName.Equals(nameFirst + nameLast))
+                if (Validator.TextBoxIsPresent(tbCategoryName, "Vänligen ange ett kategori namn."))
                 {
-                    exist = true;
-                }
-            }
-            if (exist == false)
-            {
-                categoryService.Create(nameFirst + nameLast);
+                    //bool exist = false;
+                    string inputName = tbCategoryName.Text;
+                    string nameFirst = inputName.Substring(0, 1).ToUpperInvariant();
+                    string nameLast = inputName.Substring(1).ToLowerInvariant();
+                    string name = nameFirst + nameLast;
 
-                InputCategoryList();
-                tbCategoryName.Text = "";
+                    List<string> categoryNames = new List<string>();
+                    categoryNames = categoryService.InputCategory();
+
+                    if (Validator.CategoryNotExist(categoryNames, name))
+                    {
+                        categoryService.Create(name);
+
+                        InputCategoryList();
+                        tbCategoryName.Text = "";
+                    }
+
+                }
+
+                //foreach (string categoryName in categoryNames)
+                //{
+                //    if (categoryName.Equals(nameFirst + nameLast))
+                //    {
+                //        exist = true;
+                //    }
+                //}
+                //if (exist == false)
+                //{
+                //    categoryService.Create(nameFirst + nameLast);
+
+                //    InputCategoryList();
+                //    tbCategoryName.Text = "";
+                //}
+                //else
+                //{
+                //    lblCategoryMsg.Text = "Denna kategori finns redan!";
+                //}
             }
-            else
+            catch (Exception ex)
             {
-                lblCategoryMsg.Text = "Denna kategori finns redan!";
+                lblCategoryMsg.Text = ex.Message;
             }
         }
 
@@ -295,96 +317,156 @@ namespace RssApplication
         {
             try
             {
-                //bryta ut detta till en egen metod som kallas på vid knapptryck? 
-
-                bool newCategoryExist = false;
-                string newCategoryName = tbCategoryName.Text;
-                string newCategoryNameFirst = newCategoryName.Substring(0, 1).ToUpperInvariant();
-                string newCategoryNameLast = newCategoryName.Substring(1).ToLowerInvariant();
-
-                List<string> categoryNames = new List<string>();
-                categoryNames = categoryService.InputCategory();
-                foreach (string categoryName in categoryNames)
+                if (Validator.IsSelected(lbCategory, "Välj en kategori att ändra.") &&
+                    Validator.TextBoxIsPresent(tbCategoryName, "Ange ett nytt kategori namn."))
                 {
-                    newCategoryExist = false;
-                    if (categoryName.Equals(newCategoryNameFirst + newCategoryNameLast))
+                    string inputNewCategoryName = tbCategoryName.Text;
+                    string newCategoryNameFirst = inputNewCategoryName.Substring(0, 1).ToUpperInvariant();
+                    string newCategoryNameLast = inputNewCategoryName.Substring(1).ToLowerInvariant();
+                    string newCategoryName = newCategoryNameFirst + newCategoryNameLast;
+
+                    List<string> categoryNames = new List<string>();
+                    categoryNames = categoryService.InputCategory();
+
+                    if (Validator.CategoryNotExist(categoryNames, newCategoryName))
                     {
-                        newCategoryExist = true;
+                        string oldCategoryName = lbCategory.GetItemText(lbCategory.SelectedItem);
+                        categoryService.ChangeCategoryName(oldCategoryName, newCategoryName);
+
+                        InputCategoryList();
+                        tbCategoryName.Text = "";
+
+                        List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(oldCategoryName);
+
+                        foreach (Feed item in listOfFeedInCategory)
+                        {
+                            feedService.ChangeFeed(
+                                item.Name,
+                                item.TimeInterval,
+                                newCategoryNameFirst + newCategoryNameLast,
+                                item.FileName);
+                        }
+
+                        DisplaySubscribeList(feedService.GetListOfFeeds());
                     }
                 }
-                if (newCategoryExist == true)
-                {
-                    lblCategoryMsg.Text = "Denna kategori finns redan!";
-                }
-                if (lbCategory.SelectedIndex == -1)
-                {
-                    lblCategoryMsg.Text = "Välj en kategori att ändra!";
-                }
-                if (newCategoryExist == false && lbCategory.SelectedIndex != -1)
-                {
-                    string oldCategoryName = lbCategory.GetItemText(lbCategory.SelectedItem);
-                    categoryService.ChangeCategoryName(oldCategoryName, newCategoryNameFirst + newCategoryNameLast);
 
-                    InputCategoryList();
-                    tbCategoryName.Text = "";
+                //bool newCategoryExist = false;
+                //string newCategoryName = tbCategoryName.Text;
+                //string newCategoryNameFirst = newCategoryName.Substring(0, 1).ToUpperInvariant();
+                //string newCategoryNameLast = newCategoryName.Substring(1).ToLowerInvariant();
 
-                    List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(oldCategoryName);
+                //List<string> categoryNames = new List<string>();
+                //categoryNames = categoryService.InputCategory();
+                //foreach (string categoryName in categoryNames)
+                //{
+                //    newCategoryExist = false;
+                //    if (categoryName.Equals(newCategoryNameFirst + newCategoryNameLast))
+                //    {
+                //        newCategoryExist = true;
+                //    }
+                //}
+                //if (newCategoryExist == true)
+                //{
+                //    lblCategoryMsg.Text = "Denna kategori finns redan!";
+                //}
+                //if (lbCategory.SelectedIndex == -1)
+                //{
+                //    lblCategoryMsg.Text = "Välj en kategori att ändra!";
+                //}
+                //if (newCategoryExist == false && lbCategory.SelectedIndex != -1)
+                //{
+                //    string oldCategoryName = lbCategory.GetItemText(lbCategory.SelectedItem);
+                //    categoryService.ChangeCategoryName(oldCategoryName, newCategoryNameFirst + newCategoryNameLast);
 
-                    foreach (Feed item in listOfFeedInCategory)
-                    {
-                        feedService.ChangeFeed(
-                            item.Name,
-                            item.TimeInterval,
-                            newCategoryNameFirst + newCategoryNameLast,
-                            item.FileName);
-                    }
+                //    InputCategoryList();
+                //    tbCategoryName.Text = "";
 
-                    DisplaySubscribeList(feedService.GetListOfFeeds());
-                }
+                //    List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(oldCategoryName);
+
+                //    foreach (Feed item in listOfFeedInCategory)
+                //    {
+                //        feedService.ChangeFeed(
+                //            item.Name,
+                //            item.TimeInterval,
+                //            newCategoryNameFirst + newCategoryNameLast,
+                //            item.FileName);
+                //    }
+
+                //    DisplaySubscribeList(feedService.GetListOfFeeds());
+                //}
             }
-            catch (ArgumentOutOfRangeException)
+            catch (Exception ex)
             {
-                lblCategoryMsg.Text = "Ange ett nytt namn på en kategori!"; // Eller en validering ist? 
+                lblCategoryMsg.Text = ex.Message;
             }
         }
 
         private void btnCategoryDelete_Click(object sender, EventArgs e)
         {
-            if (lbCategory.SelectedIndex == -1)
+            try
             {
-                lblCategoryMsg.Text = "Välj en kategori att ta bort!";
-            }
-            if (lbCategory.SelectedIndex != -1)
-            {
-
-                string chosenCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
-                DialogResult popUp = MessageBox.Show("Vill du ta bort kategori: " + chosenCategory, "Är du säker?", MessageBoxButtons.YesNoCancel, 
-
-                MessageBoxIcon.Information);
-
-                if (popUp == DialogResult.Yes)
+                if (Validator.IsSelected(lbCategory, "Välj en kategori att ta bort."))
                 {
-                    categoryService.Delete(chosenCategory);
-                    InputCategoryList();
+                    string chosenCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
+                    DialogResult popUp = MessageBox.Show("Vill du ta bort kategori: " + chosenCategory, "Är du säker?", 
+                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
 
-                    List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(chosenCategory);
-                    foreach(Feed item in listOfFeedInCategory)
+                    if (popUp == DialogResult.Yes)
                     {
-                        feedService.DeleteFeed(item.FileName);
+                        categoryService.Delete(chosenCategory);
+                        InputCategoryList();
+
+                        List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(chosenCategory);
+
+                        foreach (Feed item in listOfFeedInCategory)
+                        {
+                            feedService.DeleteFeed(item.FileName);
+                        }
+
+                        DisplaySubscribeList(feedService.GetListOfFeeds());
                     }
-
-                    DisplaySubscribeList(feedService.GetListOfFeeds());
                 }
-            }
-        }
 
+            }
+            catch (Exception ex)
+            {
+                lblCategoryMsg.Text = ex.Message;
+            }
+
+
+            //if (lbCategory.SelectedIndex == -1)
+            //{
+            //    lblCategoryMsg.Text = "Välj en kategori att ta bort!";
+            //}
+            //if (lbCategory.SelectedIndex != -1)
+            //{
+
+            //    string chosenCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
+            //    DialogResult popUp = MessageBox.Show("Vill du ta bort kategori: " + chosenCategory, "Är du säker?", MessageBoxButtons.YesNoCancel, 
+
+            //    MessageBoxIcon.Information);
+
+            //    if (popUp == DialogResult.Yes)
+            //    {
+            //        categoryService.Delete(chosenCategory);
+            //        InputCategoryList();
+
+            //        List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(chosenCategory);
+            //        foreach(Feed item in listOfFeedInCategory)
+            //        {
+            //            feedService.DeleteFeed(item.FileName);
+            //        }
+
+            //        DisplaySubscribeList(feedService.GetListOfFeeds());
+            //    }
+        }
 
         private void lbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             string filterCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
             List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(filterCategory);
             DisplaySubscribeList(listOfFeedInCategory);
-
         }
 
         private void btnShowEpisodes_Click(object sender, EventArgs e)
@@ -407,6 +489,8 @@ namespace RssApplication
 
         private void lbEpisode_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Välja ett asvnitt för att ta fram beskrivningen
+            //tbEpisodeDescription.Text = "";
             try
             {
                 if (lvSubscribe.SelectedItems.Count > 0)
@@ -451,11 +535,12 @@ namespace RssApplication
                             tbEpisodeDescription.Text = "Det finns ingen beskrivning för ditt valda avsnitt";
                         }
                     }
+
+
+                    //DisplayEpisodeList(feedObject);
+                
                 }
-            } catch (Exception )
-            {
-                //Hantera exceptionet på något sätt?
-             }
+            } catch (Exception ) { }
          }
 
 

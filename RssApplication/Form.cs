@@ -342,28 +342,28 @@ namespace RssApplication
 
         }
 
-        private void btnShowEpisodes_Click(object sender, EventArgs e)
-        {
-            string fileName = "";
-            var selectedRow = this.lvSubscribe.SelectedItems;
-            //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
-            //var selectedIndex = this.lvSubscribe.SelectedItems;
+        //private void btnShowEpisodes_Click(object sender, EventArgs e)
+        //{
+        //    string fileName = "";
+        //    var selectedRow = this.lvSubscribe.SelectedItems;
+        //    //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
+        //    //var selectedIndex = this.lvSubscribe.SelectedItems;
 
-            foreach (ListViewItem item in selectedRow)
-            {
-                //Hämtar filnamnet från kolumnen som är hidden
-                fileName = item.SubItems[0].Text;
-                //tbEpisodeDescription.Text = fileName;
-            }
+        //    foreach (ListViewItem item in selectedRow)
+        //    {
+        //        //Hämtar filnamnet från kolumnen som är hidden
+        //        fileName = item.SubItems[0].Text;
+        //        //tbEpisodeDescription.Text = fileName;
+        //    }
 
-            Feed feedObject = feedService.GetFeed(fileName);
-            DisplayEpisodeList(feedObject);
-        }
+        //    Feed feedObject = feedService.GetFeed(fileName);
+        //    DisplayEpisodeList(feedObject);
+        //}
 
         private void lbEpisode_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Välja ett asvnitt för att ta fram beskrivningen
-            //tbEpisodeDescription.Text = "";
+            tbEpisodeDescription.Text = "";
             try
             {
                 if (lvSubscribe.SelectedItems.Count > 0)

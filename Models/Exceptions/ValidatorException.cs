@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Models.Exceptions
 {
-    //class ValidatorException : Exception
-    //{
-    //    public ValidatorException(string message) : base(message){ }
-    //}
+    public class ValidatorException : Exception
+    {
+        public ValidatorException(string message) : base(message) { }
+    }
 }

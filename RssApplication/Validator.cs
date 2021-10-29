@@ -32,16 +32,17 @@ namespace RssApplication
 
 		public static bool IsValidRSS(string url)
 		{
-			try
-			{
-				new XmlDocument().Load(url);
-				string msg = url + " är inte giltig";
-				throw new ValidatorException(msg);
-			}
-			catch (Exception)
-			{
-				return false;
-			}
+            try
+            {
+                new XmlDocument().Load(url);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                string msg = url + " är inte giltig";
+                throw new ValidatorException(msg);
+            }
 		}
 	}
 }

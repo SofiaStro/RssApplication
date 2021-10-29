@@ -119,7 +119,20 @@ namespace RssApplication
             lblDescriptionType.Text = episodeService.DisplayType(feedObject);
 
         }
-        
+
+        private string GetSelectedFeed()
+        {  
+                string fileName = "";
+                var selectedRow = lvSubscribe.SelectedItems;
+
+                foreach (ListViewItem item in selectedRow)
+                {
+                    //Hämtar filnamnet från kolumn som är hidden
+                    fileName = item.SubItems[0].Text;
+                }        
+                return fileName;
+        }
+
 
 
         private void btnSubcribeAdd_Click(object sender, EventArgs e)
@@ -162,19 +175,20 @@ namespace RssApplication
                     Validator.ComboBoxIsPresent(cbSubscribeCategory))
                 {
                 
-                    string fileName = "";
-                    var selectedRow = lvSubscribe.SelectedItems;
+                    //string fileName = "";
+                    //var selectedRow = lvSubscribe.SelectedItems;
 
-                    foreach (ListViewItem item in selectedRow)
-                    {
-                        //Hämtar filnamnet från kolumnen som är hidden
-                        fileName = item.SubItems[0].Text;
-                    }
+                    //foreach (ListViewItem item in selectedRow)
+                    //{
+                    //    //Hämtar filnamnet från kolumnen som är hidden
+                    //    fileName = item.SubItems[0].Text;
+                    //}
 
                     string name = tbSubscribeName.Text;
                     int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
                     string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
 
+                    string fileName = GetSelectedFeed();
                     feedService.ChangeFeed(name, timeInterval, category, fileName);
 
                     DisplaySubscribeList(feedService.GetListOfFeeds());
@@ -196,20 +210,25 @@ namespace RssApplication
         private void lvSubscribe_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if(lvSubscribe.SelectedItems.Count > 0)
+            //if(lvSubscribe.SelectedItems.Count > 0)
+            //{
+            //    string fileName = "";
+            //    var selectedRow = lvSubscribe.SelectedItems;
+
+            //    foreach (ListViewItem item in selectedRow)
+            //    {
+            //        //Hämtar filnamnet från kolumnen som är hidden
+            //        fileName = item.SubItems[0].Text;
+            //    }
+
+            //    Feed feedObject = feedService.GetFeed(fileName);
+            //    tbUrl.Text = feedObject.Url;
+
+            if (lvSubscribe.SelectedItems.Count > 0)
             {
-                string fileName = "";
-                var selectedRow = lvSubscribe.SelectedItems;
-
-                foreach (ListViewItem item in selectedRow)
-                {
-                    //Hämtar filnamnet från kolumnen som är hidden
-                    fileName = item.SubItems[0].Text;
-                }
-
+                string fileName = GetSelectedFeed();
                 Feed feedObject = feedService.GetFeed(fileName);
                 tbUrl.Text = feedObject.Url;
-                    
                 tbSubscribeName.Text = feedObject.Name;
                 cbTime.Text = Convert.ToString(feedObject.TimeInterval);
                 cbSubscribeCategory.Text = feedObject.Category;
@@ -220,6 +239,7 @@ namespace RssApplication
 
                 DisplayEpisodeList(feedObject);
             }
+            
         }
 
         private void btnCategoryAdd_Click(object sender, EventArgs e)
@@ -364,18 +384,18 @@ namespace RssApplication
 
         private void btnShowEpisodes_Click(object sender, EventArgs e)
         {
-            string fileName = "";
-            var selectedRow = this.lvSubscribe.SelectedItems;
+            //string fileName = "";
+            //var selectedRow = this.lvSubscribe.SelectedItems;
             //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
             //var selectedIndex = this.lvSubscribe.SelectedItems;
 
-            foreach (ListViewItem item in selectedRow)
-            {
-                //Hämtar filnamnet från kolumnen som är hidden
-                fileName = item.SubItems[0].Text;
-                //tbEpisodeDescription.Text = fileName;
-            }
-
+            //foreach (ListViewItem item in selectedRow)
+            //{
+            //    //Hämtar filnamnet från kolumnen som är hidden
+            //    fileName = item.SubItems[0].Text;
+            //    //tbEpisodeDescription.Text = fileName;
+            //}
+            string fileName = GetSelectedFeed();
             Feed feedObject = feedService.GetFeed(fileName);
             DisplayEpisodeList(feedObject);
         }
@@ -435,13 +455,14 @@ namespace RssApplication
 
         private void btnSubcribeDelete_Click(object sender, EventArgs e)
         {
-            string fileName = "";
-            var selectedRow = lvSubscribe.SelectedItems;
+            //string fileName = "";
+            //var selectedRow = lvSubscribe.SelectedItems;
 
-            foreach (ListViewItem item in selectedRow)
-            {
-                fileName = item.SubItems[0].Text;
-            }
+            //foreach (ListViewItem item in selectedRow)
+            //{
+            //    fileName = item.SubItems[0].Text;
+            //}
+            string fileName = GetSelectedFeed();
 
             feedService.DeleteFeed(fileName);
             DisplaySubscribeList(feedService.GetListOfFeeds());
@@ -452,18 +473,19 @@ namespace RssApplication
         public void Timer_Tick(object sender, EventArgs e)
         {
             List<Feed> listOfFeed = feedService.GetListOfFeeds();
-            string fileName = "";
+            //string fileName = "";
             foreach (Feed feedObject in listOfFeed)
             {
                 if (feedObject.NeedsUpdate)
                 {
                     feedService.ChangeFeed(feedObject.Name, feedObject.TimeInterval, feedObject.Category, feedObject.FileName);
                     feedObject.Update();
-                    var selectedRow = this.lvSubscribe.SelectedItems;
-                    foreach (ListViewItem item in selectedRow)
-                    {
-                        fileName = item.SubItems[0].Text;
-                    }
+                    //var selectedRow = this.lvSubscribe.SelectedItems;
+                    //foreach (ListViewItem item in selectedRow)
+                    //{
+                    //    fileName = item.SubItems[0].Text;
+                    //}
+                    string fileName = GetSelectedFeed();
 
                     if (fileName != "")
                     {

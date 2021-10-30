@@ -3,6 +3,7 @@ using Models.Classes;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace BusinessLayer.Services
 {
@@ -32,22 +33,25 @@ namespace BusinessLayer.Services
 
         public async Task<List<string>> InputCategoryAsync()
         {
-            List<string> catagoryNames = new List<string>();
+            //List<string> catagoryNames = new List<string>();
+            List<string> listOfCategoryNames = new List<string>();
             try
             {
                 List<Category> listOfCategorys = await categoryRepository.GetCurrentCategorysAsync();
-                
+                listOfCategoryNames = listOfCategorys.Select(category => category.Name).ToList();
+
                 //int index = 0;
 
-                foreach (Category item in listOfCategorys)
-                {
-                    catagoryNames.Add(item.Name);
-                    //index++;
-                }
+                //foreach (Category item in listOfCategorys)
+                //{
+                //    catagoryNames.Add(item.Name);
+                //    //index++;
+                //}
             }
             catch (Exception) { }
-            
-            return catagoryNames;
+
+            //return catagoryNames;
+            return listOfCategoryNames;
         }
 
         public async Task ChangeCategoryNameAsync(string oldName, string newName)

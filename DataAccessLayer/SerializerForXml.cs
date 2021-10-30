@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Models.Classes;
 using System.Xml.Serialization;
-using DataAccessLayer.Exceptions;
+using Models.Exceptions;
 
 
 namespace DataAccessLayer

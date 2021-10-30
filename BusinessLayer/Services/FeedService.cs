@@ -143,16 +143,18 @@ namespace BusinessLayer.Services
         {
             List<Feed> listOfFeedInCategory = new List<Feed>();
             List<Feed> listOfFeeds = await GetListOfFeedsAsync();
-
-            foreach (Feed item in listOfFeeds)
-            {
-                string inCategory = item.Category;
-                if (inCategory.Equals(filterCategory))
-                {
-                    listOfFeedInCategory.Add(item);
-                }
-            }
-            return listOfFeedInCategory;
+         
+            List<Feed> listOfFeedCategorys = listOfFeeds.Where(feed => feed.Category == filterCategory).ToList();
+            //foreach (Feed item in listOfFeeds)
+            //{
+            //    string inCategory = item.Category;
+            //    if (inCategory.Equals(filterCategory))
+            //    {
+            //        listOfFeedInCategory.Add(item);
+            //    }
+            //}
+            //return listOfFeedInCategory;
+            return listOfFeedCategorys;
         }
     }
 }

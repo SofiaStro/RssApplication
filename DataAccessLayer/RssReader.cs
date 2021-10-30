@@ -10,21 +10,33 @@ using System.Xml;
 using Models.Classes;
 using System.Timers;
 
+using Models.Exceptions;
+
 namespace DataAccessLayer
 {
     class RssReader
     {
         public async Task<Stream> GetRSSAsync(string url)
         {
-            return await Task.Run(() =>
-            {
-                using (var webClient = new WebClient()) //Tillåter avläsning av webb-länkar
+            try {
+               return await Task.Run(() =>
+               {
+                //Tillåter avläsning av webb-länkar
+                using (var webClient = new WebClient()) 
                 {
-                    Stream fs = webClient.OpenRead(url); //Öppnar en läsbar stream från data som är nedladdad från en källa
+                    //Öppnar en läsbar stream från data som är nedladdad från en källa
+                    Stream fs = webClient.OpenRead(url);
 
                     return fs;
                 }
-            });
+               });
+            }
+            catch (Exception)
+            {
+                throw new RssReaderException(url, "Url:en gick inte att läsa av");
+            }
+                }
+            
         }
     }
 

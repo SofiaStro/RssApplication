@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Models.Classes;
 
+
 namespace DataAccessLayer.Repositories
 {
     public class FeedRepository : IFeedRepository<Feed>
@@ -51,20 +52,24 @@ namespace DataAccessLayer.Repositories
 
         public async Task<List<Feed>> GetListOfFeedsAsync(List<string> listFileNames)
         {
+            //List<Feed> listOfFeedsDeserialized = new List<Feed>();
             List<Feed> listOfFeedsDeserialized = new List<Feed>();
             try
             {
+                listOfFeedsDeserialized = await listFileNames.Select(filename => serializerObject.DeserializeAsync(filename)).ToList();
                 //List<string> fileNames = listFileNames;
-                foreach(string fileName in listFileNames)
-                {
-                    listOfFeedsDeserialized.Add( await serializerObject.DeserializeAsync(fileName));
-                } 
+                
+                //foreach (string fileName in listFileNames)
+                //{
+                //    listOfFeedsDeserialized.Add(serializerObject.Deserialize(fileName));
+                //}
             }
             catch (Exception)
             {
                 throw new Exception();
 
             }
+            //return listOfFeedsDeserialized;
             return listOfFeedsDeserialized;
         }
 
@@ -100,8 +105,5 @@ namespace DataAccessLayer.Repositories
         //    return GetCurrentFeeds().FindIndex(e => e.Name.Equals(name));
 
         //}
-
-
-
     }
 }

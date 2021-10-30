@@ -51,6 +51,12 @@ namespace BusinessLayer.Services
 
             return counter;
         }
+
+        public string DisplayType (Feed feedObject)
+        {
+            string feedType = feedObject.Display();
+            return feedType;
+        }
     }
 }
 

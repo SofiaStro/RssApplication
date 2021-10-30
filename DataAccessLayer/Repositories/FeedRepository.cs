@@ -52,17 +52,20 @@ namespace DataAccessLayer.Repositories
 
         public async Task<List<Feed>> GetListOfFeedsAsync(List<string> listFileNames)
         {
-            //List<Feed> listOfFeedsDeserialized = new List<Feed>();
             List<Feed> listOfFeedsDeserialized = new List<Feed>();
             try
             {
-                listOfFeedsDeserialized = await listFileNames.Select(filename => serializerObject.DeserializeAsync(filename)).ToList();
-                //List<string> fileNames = listFileNames;
+                //var arrayOfFeedDeserialized = listFileNames.Select(async filename => await serializerObject.DeserializeAsync(filename));
+                //listOfFeedsDeserialized = await arrayOfFeedDeserialized.GetItemAsync().ToListAsync();
                 
+                listOfFeedsDeserialized = await listFileNames.Select(async filename => await serializerObject.DeserializeAsync(filename)).ToList();
+                //List<string> fileNames = listFileNames;
+
                 //foreach (string fileName in listFileNames)
                 //{
-                //    listOfFeedsDeserialized.Add(serializerObject.Deserialize(fileName));
+                //    listOfFeedsDeserialized.Add(await serializerObject.DeserializeAsync(fileName));
                 //}
+                return listOfFeedsDeserialized;
             }
             catch (Exception)
             {
@@ -70,7 +73,6 @@ namespace DataAccessLayer.Repositories
 
             }
             //return listOfFeedsDeserialized;
-            return listOfFeedsDeserialized;
         }
 
         public async Task<Feed> GetFeedAsync(string fileName)

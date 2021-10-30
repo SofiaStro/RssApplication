@@ -70,6 +70,7 @@ namespace DataAccessLayer.Repositories
         {
             //return await Task.Run(() =>
             //{
+            // Göra om foreach loopen till en LINQ? om det går?
             int index = 0;
             List<Category> listOfCategory = await GetCurrentCategorysAsync();
             foreach(Category category in listOfCategory)

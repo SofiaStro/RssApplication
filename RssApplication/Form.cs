@@ -36,7 +36,7 @@ namespace RssApplication
             cbType.Visible = true;
 
             DisplaySubscribeListAsync();
-            InputCategoryList();
+            InputCategoryListAsync();
             timer.Interval = 30000;
             timer.Tick += Timer_Tick;
             timer.Start();
@@ -198,7 +198,7 @@ namespace RssApplication
             }
         }
 
-        private void btnCategoryAdd_Click(object sender, EventArgs e)
+        private async void btnCategoryAdd_Click(object sender, EventArgs e)
         {
             bool exist = false;
             string name = tbCategoryName.Text;
@@ -206,7 +206,7 @@ namespace RssApplication
             string nameLast = name.Substring(1).ToLowerInvariant();
 
             List<string> categoryNames = new List<string>();
-            categoryNames = categoryService.InputCategory();
+            categoryNames = await categoryService.InputCategoryAsync();
 
             foreach (string categoryName in categoryNames)
             {
@@ -217,9 +217,9 @@ namespace RssApplication
             }
             if (exist == false)
             {
-                categoryService.Create(nameFirst + nameLast);
+                await categoryService.CreateAsync(nameFirst + nameLast);
 
-                InputCategoryList();
+                InputCategoryListAsync();
                 tbCategoryName.Text = "";
             }
             else
@@ -228,13 +228,13 @@ namespace RssApplication
             }
         }
 
-        private void InputCategoryList()
+        private async void InputCategoryListAsync()
         {
             cbSubscribeCategory.Items.Clear();
             lbCategory.Items.Clear();
 
             List<string> categoryNames = new List<string>();
-            categoryNames = categoryService.InputCategory();
+            categoryNames = await categoryService.InputCategoryAsync();
             if (categoryNames.Count != 0)
             {
                 foreach (string catagoryName in categoryNames)
@@ -255,7 +255,7 @@ namespace RssApplication
                 string newCategoryNameLast = newCategoryName.Substring(1).ToLowerInvariant();
 
                 List<string> categoryNames = new List<string>();
-                categoryNames = categoryService.InputCategory();
+                categoryNames = await categoryService.InputCategoryAsync();
                 foreach (string categoryName in categoryNames)
                 {
                     newCategoryExist = false;
@@ -275,9 +275,9 @@ namespace RssApplication
                 if (newCategoryExist == false && lbCategory.SelectedIndex != -1)
                 {
                     string oldCategoryName = lbCategory.GetItemText(lbCategory.SelectedItem);
-                    categoryService.ChangeCategoryName(oldCategoryName, newCategoryNameFirst + newCategoryNameLast);
+                    await categoryService.ChangeCategoryNameAsync(oldCategoryName, newCategoryNameFirst + newCategoryNameLast);
 
-                    InputCategoryList();
+                    InputCategoryListAsync();
                     tbCategoryName.Text = "";
 
                     List<Feed> listOfFeedInCategory = await feedService.GetFeedInCategoryAsync(oldCategoryName);
@@ -315,8 +315,8 @@ namespace RssApplication
 
                 if (popUp == DialogResult.Yes)
                 {
-                    categoryService.Delete(chosenCategory);
-                    InputCategoryList();
+                    await categoryService.DeleteAsync(chosenCategory);
+                    InputCategoryListAsync();
 
                     List<Feed> listOfFeedInCategory = await feedService.GetFeedInCategoryAsync(chosenCategory);
                     foreach(Feed item in listOfFeedInCategory)

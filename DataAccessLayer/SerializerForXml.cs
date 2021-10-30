@@ -63,16 +63,18 @@ namespace DataAccessLayer
             }
         }
 
-        public void CategorySerializer(List<Category> listOfCategorys)
+        public async Task CategorySerializerAsync(List<Category> listOfCategorys)
         {
             try
             { 
-                XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Category>));
-                using (FileStream fileStream = new FileStream("categoryObjects.xml", FileMode.Create, FileAccess.Write))
-                {
-                    xmlWriter.Serialize(fileStream, listOfCategorys);
-                }
-
+                await Task.Run(() =>
+                { 
+                    XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Category>));
+                    using (FileStream fileStream = new FileStream("categoryObjects.xml", FileMode.Create, FileAccess.Write))
+                    {
+                        xmlWriter.Serialize(fileStream, listOfCategorys);
+                    }
+                });
             }
             catch (Exception)
             {
@@ -80,16 +82,19 @@ namespace DataAccessLayer
             }
         }
 
-        public List<Category> CategoryDeserialize()
+        public async Task<List<Category>> CategoryDeserializeAsync()
         {
             try
             {
-                XmlSerializer xmlReader = new XmlSerializer(typeof(List<Category>));
-                using (FileStream fileStream = new FileStream("categoryObjects.xml", FileMode.Open,
-                    FileAccess.Read))
+                return await Task.Run(() =>
                 {
-                    return (List<Category>)xmlReader.Deserialize(fileStream);
-                }
+                    XmlSerializer xmlReader = new XmlSerializer(typeof(List<Category>));
+                    using (FileStream fileStream = new FileStream("categoryObjects.xml", FileMode.Open,
+                        FileAccess.Read))
+                    {
+                        return (List<Category>)xmlReader.Deserialize(fileStream);
+                    }
+                });
             }
             catch (Exception)
             {

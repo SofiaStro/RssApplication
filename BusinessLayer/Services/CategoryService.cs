@@ -2,6 +2,7 @@
 using Models.Classes;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BusinessLayer.Services
 {
@@ -14,27 +15,27 @@ namespace BusinessLayer.Services
             categoryRepository = new CategoryRepository();
         }
 
-        public void Create(string name)
+        public async Task CreateAsync(string name)
         {
             Category newCategory = null;
 
             newCategory = new Category(name);
 
-            categoryRepository.Create(newCategory);
+            await categoryRepository.CreateAsync(newCategory);
         }
 
-        public void Delete(string name)
+        public async Task DeleteAsync(string name)
         {
-            int index = categoryRepository.GetIndex(name);
-            categoryRepository.Delete(index);
+            int index = await categoryRepository.GetIndexAsync(name);
+            await categoryRepository.DeleteAsync(index);
         }
 
-        public List<string> InputCategory()
+        public async Task<List<string>> InputCategoryAsync()
         {
             List<string> catagoryNames = new List<string>();
             try
             {
-                List<Category> listOfCategorys = categoryRepository.GetCurrentCategorys();
+                List<Category> listOfCategorys = await categoryRepository.GetCurrentCategorysAsync();
                 
                 //int index = 0;
 
@@ -49,12 +50,12 @@ namespace BusinessLayer.Services
             return catagoryNames;
         }
 
-        public void ChangeCategoryName(string oldName, string newName)
+        public async Task ChangeCategoryNameAsync(string oldName, string newName)
         {
-            int index = categoryRepository.GetIndex(oldName);
+            int index = await categoryRepository.GetIndexAsync(oldName);
 
             Category newCategory = new Category(newName);
-            categoryRepository.Update(index, newCategory);
+            await categoryRepository.UpdateAsync(index, newCategory);
         }
     }    
 }

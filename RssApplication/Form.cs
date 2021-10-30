@@ -61,6 +61,8 @@ namespace RssApplication
         //    cbType.Text = "";
         //    listView1.SelectedItems.Clear();
         //}
+
+        // Behöver denna metod då rad 69 inte går att göra i konstuktorn (kontruktorn kan inte vara en async metod)
         private async void DisplaySubscribeListAsync()
         {
             lvSubscribe.Items.Clear();

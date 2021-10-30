@@ -16,10 +16,11 @@ namespace DataAccessLayer
 {
     class RssReader
     {
-        
-        public Stream GetRSS(string url)
+        public async Task<Stream> GetRSSAsync(string url)
         {
             try {
+               return await Task.Run(() =>
+               {
                 //Tillåter avläsning av webb-länkar
                 using (var webClient = new WebClient()) 
                 {
@@ -28,12 +29,14 @@ namespace DataAccessLayer
 
                     return fs;
                 }
+               });
             }
             catch (Exception)
             {
                 throw new RssReaderException(url, "Url:en gick inte att läsa av");
             }
-
+                }
+            
         }
     }
 

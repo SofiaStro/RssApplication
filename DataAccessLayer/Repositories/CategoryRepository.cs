@@ -18,26 +18,31 @@ namespace DataAccessLayer.Repositories
         {
             serializerCategoryObject = new SerializerForXml();
             listOfCategorys = new List<Category>();
-            listOfCategorys = GetCurrentCategorys();
+            SetCurrentCategorysToList();
         }
-        public void Create(Category categoryObject)
+        public async Task CreateAsync(Category categoryObject)
         {
             listOfCategorys.Add(categoryObject);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public void Delete(int index)
+        public async Task DeleteAsync(int index)
         {
             listOfCategorys.RemoveAt(index);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public List<Category> GetCurrentCategorys()
+        public async void SetCurrentCategorysToList()
+        {
+            listOfCategorys = await GetCurrentCategorysAsync();
+        }
+
+        public async Task<List<Category>> GetCurrentCategorysAsync()
         {
             List<Category> listOfCategorysDeserialized = new List<Category>();
             try
             {
-                listOfCategorysDeserialized = serializerCategoryObject.CategoryDeserialize();
+                listOfCategorysDeserialized = await serializerCategoryObject.CategoryDeserializeAsync();
             }
             catch (Exception)
             {
@@ -47,24 +52,37 @@ namespace DataAccessLayer.Repositories
             return listOfCategorysDeserialized;
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            serializerCategoryObject.CategorySerializer(listOfCategorys);
+            await serializerCategoryObject.CategorySerializerAsync(listOfCategorys);
         }
 
-        public void Update(int index, Category categoryObejct)
+        public async Task UpdateAsync(int index, Category categoryObejct)
         {
             if (index >= 0)
             {
                 listOfCategorys[index] = categoryObejct;
             }
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public int GetIndex(string name)
+        public async Task<int> GetIndexAsync(string name)
         {
-            return GetCurrentCategorys().FindIndex(c => c.Name.Equals(name));
-
+            //return await Task.Run(() =>
+            //{
+            int index = 0;
+            List<Category> listOfCategory = await GetCurrentCategorysAsync();
+            foreach(Category category in listOfCategory)
+            {
+                if (category.Name.Equals(name))
+                {
+                    break;
+                }
+                index++;
+            }
+            return index;
+            //return GetCurrentCategorysAsync().FindIndex(c => c.Name.Equals(name));
+            //});
         }
     }
 }

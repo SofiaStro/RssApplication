@@ -11,12 +11,12 @@ namespace DataAccessLayer.Repositories
     {
         //T GetByName(string name);
 
-        void Create(T instance);
-        void Delete(int index);
-        void Update(int index, T instance);
-        void SaveChanges();
-        int GetIndex(string name);
-        List<T> GetCurrentCategorys();
+        Task CreateAsync(T instance);
+        Task DeleteAsync(int index);
+        Task UpdateAsync(int index, T instance);
+        Task SaveChangesAsync();
+        Task<int> GetIndexAsync(string name);
+        Task<List<T>> GetCurrentCategorysAsync();
 
     }
 }

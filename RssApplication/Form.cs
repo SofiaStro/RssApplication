@@ -63,24 +63,24 @@ namespace RssApplication
         //private void DisplaySubscribeList()
         //{
 
-        //lvSubscribe.Items.Clear();
-        //List<Feed> listOfFeeds = feedService.DisplayFeed();
+            lvSubscribe.Items.Clear();
+            List<Feed> listOfFeeds = await feedService.GetListOfFeedsAsync();
 
-        //foreach (Feed item in listOfFeeds)
-        //{
-        //    String[] row = {
-        //        item.FileName,
-        //        Convert.ToString(item.NumberOfEpisodes),
-        //        item.Name,
-        //        Convert.ToString(item.TimeInterval),
-        //        item.Category};
+            foreach (Feed item in listOfFeeds)
+            {
+                String[] row = {
+                item.FileName,
+                Convert.ToString(item.NumberOfEpisodes),
+                item.Name,
+                Convert.ToString(item.TimeInterval),
+                item.Category};
 
-        //    ListViewItem List = new ListViewItem(row);
-        //    lvSubscribe.Items.Add(List);
-        //}
+                ListViewItem List = new ListViewItem(row);
+                lvSubscribe.Items.Add(List);
+            }
 
-        //    DisplaySubscribeList(listOfFeeds);
-        //}
+            //DisplaySubscribeList(listOfFeeds);
+        }
 
         public void DisplaySubscribeList(List<Feed> listOfFeeds)
         {
@@ -137,7 +137,7 @@ namespace RssApplication
 
 
 
-        private void btnSubcribeAdd_Click(object sender, EventArgs e)
+        private async void btnSubcribeAdd_Click(object sender, EventArgs e)
         {
             try
             {
@@ -165,7 +165,7 @@ namespace RssApplication
             }
         }
 
-        private void btnSubscribeChange_Click(object sender, EventArgs e)
+        private async void btnSubscribeChange_Click(object sender, EventArgs e)
         {
             try {
                 if (Validator.IsSelected(lvSubscribe, "Välj en prenumeration att ändra.") &&
@@ -202,7 +202,7 @@ namespace RssApplication
         }
 
 
-        private void lvSubscribe_SelectedIndexChanged(object sender, EventArgs e)
+        private async void lvSubscribe_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             //if(lvSubscribe.SelectedItems.Count > 0)
@@ -248,10 +248,8 @@ namespace RssApplication
             }
         }
 
-        private void btnCategoryAdd_Click(object sender, EventArgs e)
+        private async void btnCategoryAdd_Click(object sender, EventArgs e)
         {
-            try
-            {
                 if (Validator.TextBoxIsPresent(tbCategoryName, "Vänligen ange ett kategori namn."))
                 {
                     //bool exist = false;
@@ -298,13 +296,13 @@ namespace RssApplication
             }
         }
 
-        private void InputCategoryList()
+        private async void InputCategoryListAsync()
         {
             cbSubscribeCategory.Items.Clear();
             lbCategory.Items.Clear();
 
             List<string> categoryNames = new List<string>();
-            categoryNames = categoryService.InputCategory();
+            categoryNames = await categoryService.InputCategoryAsync();
             if (categoryNames.Count != 0)
             {
                 foreach (string categoryName in categoryNames)
@@ -315,7 +313,7 @@ namespace RssApplication
             }
         }
 
-        private void btnCategoryChange_Click(object sender, EventArgs e)
+        private async void btnCategoryChange_Click(object sender, EventArgs e)
         {
             try
             {
@@ -404,7 +402,7 @@ namespace RssApplication
             }
         }
 
-        private void btnCategoryDelete_Click(object sender, EventArgs e)
+        private async void btnCategoryDelete_Click(object sender, EventArgs e)
         {
             try
             {
@@ -464,14 +462,14 @@ namespace RssApplication
             //    }
         }
 
-        private void lbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        private async void lbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             string filterCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
-            List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(filterCategory);
+            List<Feed> listOfFeedInCategory = await feedService.GetFeedInCategoryAsync(filterCategory);
             DisplaySubscribeList(listOfFeedInCategory);
         }
 
-        private void btnShowEpisodes_Click(object sender, EventArgs e)
+        private async void btnShowEpisodes_Click(object sender, EventArgs e)
         {
             //string fileName = "";
             //var selectedRow = this.lvSubscribe.SelectedItems;
@@ -489,7 +487,7 @@ namespace RssApplication
             //DisplayEpisodeList(feedObject);
         }
 
-        private void lbEpisode_SelectedIndexChanged(object sender, EventArgs e)
+        private async void lbEpisode_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Välja ett asvnitt för att ta fram beskrivningen
             //tbEpisodeDescription.Text = "";
@@ -504,8 +502,7 @@ namespace RssApplication
 
                     episode = lbEpisode.GetItemText(lbEpisode.SelectedItem);
                     //var selectedRow = this.lvSubscribe.SelectedItems;
-
-
+                  
                     //foreach (ListViewItem item in selectedRow)
                     //{
                     //    //Hämtar filnamnet från kolumnen som är hidden
@@ -584,7 +581,7 @@ namespace RssApplication
 
         private Timer timer = new Timer();
 
-        public void Timer_Tick(object sender, EventArgs e)
+        public async void Timer_Tick(object sender, EventArgs e)
         {
             List<Feed> listOfFeed = feedService.GetListOfFeeds();
             //string fileName = "";
@@ -592,8 +589,9 @@ namespace RssApplication
             {
                 if (feedObject.NeedsUpdate)
                 {
-                    feedService.ChangeFeed(feedObject.Name, feedObject.TimeInterval, feedObject.Category, feedObject.FileName);
+                    await feedService.ChangeFeedAsync(feedObject.Name, feedObject.TimeInterval, feedObject.Category, feedObject.FileName);
                     feedObject.Update();
+                  
                     //var selectedRow = this.lvSubscribe.SelectedItems;
                     //foreach (ListViewItem item in selectedRow)
                     //{

@@ -41,6 +41,15 @@ namespace RssApplication
 			return true;
         }
 
+		public static bool IsSelected(ListView listView, string msg)
+		{
+			if(listView.SelectedItems.Count  == 0)
+            {
+				throw new ValidatorException(msg);
+            }
+			return true;
+		}
+
 		public static bool IsValidUrl(string url)
 		{
             try
@@ -51,7 +60,7 @@ namespace RssApplication
             }
             catch (Exception)
             {
-                string msg = url + "Angiven URL är inte giltig, vänligen ange en RSS-url.";
+                string msg = "Angiven URL är inte giltig, vänligen ange en RSS-url.";
                 throw new ValidatorException(msg);
             }
 		}

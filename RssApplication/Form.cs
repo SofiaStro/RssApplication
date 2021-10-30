@@ -58,6 +58,7 @@ namespace RssApplication
         //    cbTime.Text = "";
         //    cbSubscribeCategory.Text = "";
         //    cbType.Text = "";
+        //    listView1.SelectedItems.Clear();
         //}
         //private void DisplaySubscribeList()
         //{
@@ -167,7 +168,8 @@ namespace RssApplication
         private void btnSubscribeChange_Click(object sender, EventArgs e)
         {
             try {
-                if (Validator.TextBoxIsPresent(tbSubscribeName, "Vänligen ange ett namn.") &&
+                if (Validator.IsSelected(lvSubscribe, "Välj en prenumeration att ändra.") &&
+                    Validator.TextBoxIsPresent(tbSubscribeName, "Vänligen ange ett namn.") &&
                     Validator.ComboBoxIsPresent(cbTime, "Vänligen ange ett tidsintervall.") &&
                     Validator.ComboBoxIsPresent(cbSubscribeCategory, "Vänligen ange en kategori."))
                 {
@@ -493,6 +495,7 @@ namespace RssApplication
             //tbEpisodeDescription.Text = "";
             try
             {
+
                 if (lvSubscribe.SelectedItems.Count > 0)
                 {
                     //string fileName = "";
@@ -510,37 +513,46 @@ namespace RssApplication
                     //    //tbEpisodeDescription.Text = fileName;
                     //}
                     string fileName = GetSelectedFeed();
-                    Feed feedObject = feedService.GetFeed(fileName);
 
-                    string url = feedObject.Url;
-                    List<Episode> listEpisodes = episodeService.GetListOfEpisodes(url);
-
-                    foreach(Episode episodeObject in listEpisodes)
+                    if (Validator.FileNameExist(fileName))
                     {
-                        string title = episodeObject.Title;
-                        string description = episodeObject.Description;
+                        Feed feedObject = feedService.GetFeed(fileName);
 
-                        if (episode.Equals(title))
-                        {
-                            match = true;
-                        }
+                        string url = feedObject.Url;
+                        List<Episode> listEpisodes = episodeService.GetListOfEpisodes(url);
 
-                        if(match == true)
+                        foreach(Episode episodeObject in listEpisodes)
                         {
-                            tbEpisodeDescription.Text = description;
-                            break;
+                            string title = episodeObject.Title;
+                            string description = episodeObject.Description;
+
+                            if (episode.Equals(title))
+                            {
+                                match = true;
+                            }
+
+                            if (match == true)
+                            {
+                                tbEpisodeDescription.Text = description;
+                                break;
+                            }
+                            else
+                            {
+                                tbEpisodeDescription.Text = "Det finns ingen beskrivning för ditt valda avsnitt";
+                            }
                         }
-                        else
-                        {
-                            tbEpisodeDescription.Text = "Det finns ingen beskrivning för ditt valda avsnitt";
-                        }
+                    
                     }
 
 
                     //DisplayEpisodeList(feedObject);
                 
                 }
-            } catch (Exception ) { }
+            } 
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
          }
 
 
@@ -553,10 +565,21 @@ namespace RssApplication
             //{
             //    fileName = item.SubItems[0].Text;
             //}
-            string fileName = GetSelectedFeed();
+            try
+            {
+                if(Validator.IsSelected(lvSubscribe, "Välj en prenumeration att ta bort."))
+                {
+                    string fileName = GetSelectedFeed();
 
-            feedService.DeleteFeed(fileName);
-            DisplaySubscribeList(feedService.GetListOfFeeds());
+                    feedService.DeleteFeed(fileName);
+                    DisplaySubscribeList(feedService.GetListOfFeeds());
+                }
+            }
+            catch(Exception ex)
+            {
+                lblSubcribeMsg.Text = ex.Message;
+            }
+            
         }
 
         private Timer timer = new Timer();

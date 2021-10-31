@@ -57,7 +57,7 @@ namespace DataAccessLayer.Repositories
             {
                 //var arrayOfFeedDeserialized = listFileNames.Select(async filename => await serializerObject.DeserializeAsync(filename));
                 //listOfFeedsDeserialized = await arrayOfFeedDeserialized.GetItemAsync().ToListAsync();
-                
+ 
                 listOfFeedsDeserialized = await listFileNames.Select(async filename => await serializerObject.DeserializeAsync(filename)).ToList();
                 //List<string> fileNames = listFileNames;
 

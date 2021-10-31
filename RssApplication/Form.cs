@@ -31,8 +31,9 @@ namespace RssApplication
 
             FillComboboxes();
             //DisplaySubscribeList(feedService.GetListOfFeeds());
-            DisplaySubscribeListAsync();
-            InputCategoryListAsync();
+            //DisplaySubscribeListAsync();
+            Task.Run(async () => DisplaySubscribeList(await feedService.GetListOfFeedsAsync())).Wait();
+            Task.Run(() => this.InputCategoryListAsync()).Wait();
 
             timer.Interval = 30000;
             timer.Tick += Timer_Tick;
@@ -62,27 +63,26 @@ namespace RssApplication
         //    listView1.SelectedItems.Clear();
         //}
 
-        // Behöver denna metod då rad 69 inte går att göra i konstuktorn (kontruktorn kan inte vara en async metod)
-        private async void DisplaySubscribeListAsync()
-        {
-            lvSubscribe.Items.Clear();
-            List<Feed> listOfFeeds = await feedService.GetListOfFeedsAsync();
+        //private async Task DisplaySubscribeListAsync()
+        //{
+        //    lvSubscribe.Items.Clear();
+        //    List<Feed> listOfFeeds = await feedService.GetListOfFeedsAsync();
 
-            foreach (Feed item in listOfFeeds)
-            {
-                String[] row = {
-                item.FileName,
-                Convert.ToString(item.NumberOfEpisodes),
-                item.Name,
-                Convert.ToString(item.TimeInterval),
-                item.Category};
+        //    foreach (Feed item in listOfFeeds)
+        //    {
+        //        String[] row = {
+        //        item.FileName,
+        //        Convert.ToString(item.NumberOfEpisodes),
+        //        item.Name,
+        //        Convert.ToString(item.TimeInterval),
+        //        item.Category};
 
-                ListViewItem List = new ListViewItem(row);
-                lvSubscribe.Items.Add(List);
-            }
+        //        ListViewItem List = new ListViewItem(row);
+        //        lvSubscribe.Items.Add(List);
+        //    }
 
-            DisplaySubscribeList(listOfFeeds);
-        }
+        //    DisplaySubscribeList(listOfFeeds);
+        //}
 
         public void DisplaySubscribeList(List<Feed> listOfFeeds)
         {
@@ -269,7 +269,7 @@ namespace RssApplication
                     {
                         await categoryService.CreateAsync(name);
 
-                        InputCategoryListAsync();
+                        await InputCategoryListAsync();
                         tbCategoryName.Text = "";
                     }
 
@@ -300,7 +300,7 @@ namespace RssApplication
             }
         }
 
-        private async void InputCategoryListAsync()
+        private async Task InputCategoryListAsync()
         {
             cbSubscribeCategory.Items.Clear();
             lbCategory.Items.Clear();
@@ -337,7 +337,7 @@ namespace RssApplication
                         string oldCategoryName = lbCategory.GetItemText(lbCategory.SelectedItem);
                         await categoryService.ChangeCategoryNameAsync(oldCategoryName, newCategoryName);
 
-                        InputCategoryListAsync();
+                        await InputCategoryListAsync();
                         tbCategoryName.Text = "";
 
                         List<Feed> listOfFeedInCategory = await feedService.GetFeedInCategoryAsync(oldCategoryName);
@@ -419,7 +419,7 @@ namespace RssApplication
                     if (popUp == DialogResult.Yes)
                     {
                         await categoryService.DeleteAsync(chosenCategory);
-                        InputCategoryListAsync();
+                        await InputCategoryListAsync ();
 
                         List<Feed> listOfFeedInCategory = await feedService.GetFeedInCategoryAsync(chosenCategory);
 

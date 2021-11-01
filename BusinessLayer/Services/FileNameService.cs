@@ -17,12 +17,12 @@ namespace BusinessLayer.Services
                 List<string> listOfFileNames = GetFileNameList();
                 if (listOfFileNames.Count == 0)
                 {
-                    number = 0;
+                    number = 10;
                 }
                 else
                 {
                     string latestFileName = listOfFileNames.Last();
-                    number = Convert.ToInt32(latestFileName.Substring(latestFileName.Length - 5, 1)); // Hämtar de fem sista tecknen i sökvägen och sparar det första tecknet av de fem, vilket kommer vara en siffra.
+                    number = Convert.ToInt32(latestFileName.Substring(latestFileName.Length - 6, 2)); // Hämtar de sex sista tecknen i sökvägen och sparar de två första tecknen, vilket kommer vara en siffra mellan 10-99.
                     number++;
                 }
                 fileName = "feed" + Convert.ToString(number) + ".xml";

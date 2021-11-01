@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Forms;
 using BusinessLayer.Services;
 using Models.Classes;
@@ -30,8 +23,7 @@ namespace RssApplication
             episodeService = new EpisodeService();
 
             FillComboboxes();
-            //DisplaySubscribeList(feedService.GetListOfFeedsAsync());
-            //DisplaySubscribeListAsync();
+
             Task.Run(async () => DisplaySubscribeList(await feedService.GetListOfFeedsAsync())).Wait();
             Task.Run(() => this.InputCategoryListAsync()).Wait();
 
@@ -63,27 +55,6 @@ namespace RssApplication
         //    listView1.SelectedItems.Clear();
         //}
 
-        //private async Task DisplaySubscribeListAsync()
-        //{
-        //    lvSubscribe.Items.Clear();
-        //    List<Feed> listOfFeeds = await feedService.GetListOfFeedsAsync();
-
-        //    foreach (Feed item in listOfFeeds)
-        //    {
-        //        String[] row = {
-        //        item.FileName,
-        //        Convert.ToString(item.NumberOfEpisodes),
-        //        item.Name,
-        //        Convert.ToString(item.TimeInterval),
-        //        item.Category};
-
-        //        ListViewItem List = new ListViewItem(row);
-        //        lvSubscribe.Items.Add(List);
-        //    }
-
-        //    DisplaySubscribeList(listOfFeeds);
-        //}
-
         public void DisplaySubscribeList(List<Feed> listOfFeeds)
         {
             lvSubscribe.Items.Clear();
@@ -105,9 +76,7 @@ namespace RssApplication
 
         private void DisplayEpisodeList(Feed feedObject)
         {
-
             lbEpisode.Items.Clear();
-
 
             List<Episode> episodeList = null;
             episodeList = new List<Episode>();
@@ -117,10 +86,8 @@ namespace RssApplication
             foreach (Episode episode in episodeList)
             {
                 lbEpisode.Items.Add(episode.Title);
-
             }
             lblDescriptionType.Text = episodeService.DisplayType(feedObject);
-
         }
 
         private string GetSelectedFeed()
@@ -128,12 +95,12 @@ namespace RssApplication
             string fileName = "";
             var selectedRow = lvSubscribe.SelectedItems;
 
-                foreach (ListViewItem item in selectedRow)
-                {
-                    //Hämtar filnamnet från kolumn som är hidden
-                    fileName = item.SubItems[0].Text;
-                }
-
+            foreach (ListViewItem item in selectedRow)
+            {
+                //Hämtar filnamnet från kolumn som är hidden
+                fileName = item.SubItems[0].Text;
+            }
+            
             return fileName;
         }
 
@@ -175,16 +142,6 @@ namespace RssApplication
                     Validator.ComboBoxIsPresent(cbTime, "Vänligen ange ett tidsintervall.") &&
                     Validator.ComboBoxIsPresent(cbSubscribeCategory, "Vänligen ange en kategori."))
                 {
-
-                    //string fileName = "";
-                    //var selectedRow = lvSubscribe.SelectedItems;
-
-                    //foreach (ListViewItem item in selectedRow)
-                    //{
-                    //    //Hämtar filnamnet från kolumnen som är hidden
-                    //    fileName = item.SubItems[0].Text;
-                    //}
-
                     string name = tbSubscribeName.Text;
                     int timeInterval = Convert.ToInt32(cbTime.SelectedItem);
                     string category = Convert.ToString(cbSubscribeCategory.SelectedItem);
@@ -206,20 +163,6 @@ namespace RssApplication
 
         private async void lvSubscribe_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            //if(lvSubscribe.SelectedItems.Count > 0)
-            //{
-            //    string fileName = "";
-            //    var selectedRow = lvSubscribe.SelectedItems;
-
-            //    foreach (ListViewItem item in selectedRow)
-            //    {
-            //        //Hämtar filnamnet från kolumnen som är hidden
-            //        fileName = item.SubItems[0].Text;
-            //    }
-
-            //    Feed feedObject = feedService.GetFeed(fileName);
-            //    tbUrl.Text = feedObject.Url;
             try
             {
                 tbEpisodeDescription.Text = "";
@@ -256,7 +199,6 @@ namespace RssApplication
             {
                 if (Validator.TextBoxIsPresent(tbCategoryName, "Vänligen ange ett kategori namn."))
                 {
-                    //bool exist = false;
                     string inputName = tbCategoryName.Text;
                     string nameFirst = inputName.Substring(0, 1).ToUpperInvariant();
                     string nameLast = inputName.Substring(1).ToLowerInvariant();
@@ -274,25 +216,6 @@ namespace RssApplication
                     }
 
                 }
-
-                //foreach (string categoryName in categoryNames)
-                //{
-                //    if (categoryName.Equals(nameFirst + nameLast))
-                //    {
-                //        exist = true;
-                //    }
-                //}
-                //if (exist == false)
-                //{
-                //    categoryService.Create(nameFirst + nameLast);
-
-                //    InputCategoryList();
-                //    tbCategoryName.Text = "";
-                //}
-                //else
-                //{
-                //    lblCategoryMsg.Text = "Denna kategori finns redan!";
-                //}
             }
             catch (Exception ex)
             {
@@ -354,51 +277,6 @@ namespace RssApplication
                         DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
                     }
                 }
-
-                //bool newCategoryExist = false;
-                //string newCategoryName = tbCategoryName.Text;
-                //string newCategoryNameFirst = newCategoryName.Substring(0, 1).ToUpperInvariant();
-                //string newCategoryNameLast = newCategoryName.Substring(1).ToLowerInvariant();
-
-                //List<string> categoryNames = new List<string>();
-                //categoryNames = categoryService.InputCategory();
-                //foreach (string categoryName in categoryNames)
-                //{
-                //    newCategoryExist = false;
-                //    if (categoryName.Equals(newCategoryNameFirst + newCategoryNameLast))
-                //    {
-                //        newCategoryExist = true;
-                //    }
-                //}
-                //if (newCategoryExist == true)
-                //{
-                //    lblCategoryMsg.Text = "Denna kategori finns redan!";
-                //}
-                //if (lbCategory.SelectedIndex == -1)
-                //{
-                //    lblCategoryMsg.Text = "Välj en kategori att ändra!";
-                //}
-                //if (newCategoryExist == false && lbCategory.SelectedIndex != -1)
-                //{
-                //    string oldCategoryName = lbCategory.GetItemText(lbCategory.SelectedItem);
-                //    categoryService.ChangeCategoryName(oldCategoryName, newCategoryNameFirst + newCategoryNameLast);
-
-                //    InputCategoryList();
-                //    tbCategoryName.Text = "";
-
-                //    List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(oldCategoryName);
-
-                //    foreach (Feed item in listOfFeedInCategory)
-                //    {
-                //        feedService.ChangeFeed(
-                //            item.Name,
-                //            item.TimeInterval,
-                //            newCategoryNameFirst + newCategoryNameLast,
-                //            item.FileName);
-                //    }
-
-                //    DisplaySubscribeList(feedService.GetListOfFeeds());
-                //}
             }
             catch (Exception ex)
             {
@@ -437,33 +315,6 @@ namespace RssApplication
             {
                 lblCategoryMsg.Text = ex.Message;
             }
-
-
-            //if (lbCategory.SelectedIndex == -1)
-            //{
-            //    lblCategoryMsg.Text = "Välj en kategori att ta bort!";
-            //}
-            //if (lbCategory.SelectedIndex != -1)
-            //{
-
-            //    string chosenCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
-            //    DialogResult popUp = MessageBox.Show("Vill du ta bort kategori: " + chosenCategory, "Är du säker?", MessageBoxButtons.YesNoCancel, 
-
-            //    MessageBoxIcon.Information);
-
-            //    if (popUp == DialogResult.Yes)
-            //    {
-            //        categoryService.Delete(chosenCategory);
-            //        InputCategoryList();
-
-            //        List<Feed> listOfFeedInCategory = feedService.GetFeedInCategory(chosenCategory);
-            //        foreach(Feed item in listOfFeedInCategory)
-            //        {
-            //            feedService.DeleteFeed(item.FileName);
-            //        }
-
-            //        DisplaySubscribeList(feedService.GetListOfFeeds());
-            //    }
         }
 
         private async void lbCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -473,47 +324,18 @@ namespace RssApplication
             DisplaySubscribeList(listOfFeedInCategory);
         }
 
-        private void btnShowEpisodes_Click(object sender, EventArgs e)
-        {
-            //string fileName = "";
-            //var selectedRow = this.lvSubscribe.SelectedItems;
-            //tbEpisodeDescription.Text = Convert.ToString(selectedRow);
-            //var selectedIndex = this.lvSubscribe.SelectedItems;
-
-            //foreach (ListViewItem item in selectedRow)
-            //{
-            //    //Hämtar filnamnet från kolumnen som är hidden
-            //    fileName = item.SubItems[0].Text;
-            //    //tbEpisodeDescription.Text = fileName;
-            //}
-            //string fileName = GetSelectedFeed();
-            //Feed feedObject = feedService.GetFeed(fileName);
-            //DisplayEpisodeList(feedObject);
-        }
-
         private async void lbEpisode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Välja ett asvnitt för att ta fram beskrivningen
-            //tbEpisodeDescription.Text = "";
             try
             {
 
                 if (lvSubscribe.SelectedItems.Count > 0)
                 {
-                    //string fileName = "";
                     string episode = "";
                     bool match = false;
 
                     episode = lbEpisode.GetItemText(lbEpisode.SelectedItem);
-                    //var selectedRow = this.lvSubscribe.SelectedItems;
-
-
-                    //foreach (ListViewItem item in selectedRow)
-                    //{
-                    //    //Hämtar filnamnet från kolumnen som är hidden
-                    //    fileName = item.SubItems[0].Text;
-                    //    //tbEpisodeDescription.Text = fileName;
-                    //}
+                    
                     string fileName = GetSelectedFeed();
 
                     if (Validator.FileNameExist(fileName))
@@ -545,9 +367,6 @@ namespace RssApplication
                         }
                     
                     }
-
-
-                    //DisplayEpisodeList(feedObject);
                 
                 }
             } 
@@ -560,21 +379,19 @@ namespace RssApplication
 
         private async void btnSubcribeDelete_Click(object sender, EventArgs e)
         {
-            //string fileName = "";
-            //var selectedRow = lvSubscribe.SelectedItems;
-
-            //foreach (ListViewItem item in selectedRow)
-            //{
-            //    fileName = item.SubItems[0].Text;
-            //}
             try
             {
                 if(Validator.IsSelected(lvSubscribe, "Välj en prenumeration att ta bort."))
                 {
                     string fileName = GetSelectedFeed();
+                    DialogResult popUp = MessageBox.Show("Vill du ta bort markerad prenumeration?", "Är du säker?",
+                       MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
 
-                    feedService.DeleteFeed(fileName);
-                    DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
+                    if (popUp == DialogResult.Yes)
+                    {
+                        feedService.DeleteFeed(fileName);
+                        DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
+                    }
                 }
             }
             catch(Exception ex)
@@ -589,18 +406,14 @@ namespace RssApplication
         public async void Timer_Tick(object sender, EventArgs e)
         {
             List<Feed> listOfFeed = await feedService .GetListOfFeedsAsync();
-            //string fileName = "";
+
             foreach (Feed feedObject in listOfFeed)
             {
                 if (feedObject.NeedsUpdate)
                 {
                     await feedService .ChangeFeedAsync(feedObject.Name, feedObject.TimeInterval, feedObject.Category, feedObject.FileName);
                     feedObject.Update();
-                    //var selectedRow = this.lvSubscribe.SelectedItems;
-                    //foreach (ListViewItem item in selectedRow)
-                    //{
-                    //    fileName = item.SubItems[0].Text;
-                    //}
+                   
                     string fileName = GetSelectedFeed();
 
                     if (fileName != "")
@@ -616,15 +429,6 @@ namespace RssApplication
                 }
             }
         }
-
-        //private void Form_Load(object sender, EventArgs e)
-        //{
-        //    if (this.lvSubscribe.SelectedIndices.Count > 0)
-        //        for (int i = 0; i < this.lvSubscribe.SelectedIndices.Count; i++)
-        //        {
-        //            this.lvSubscribe.Items[this.lvSubscribe.SelectedIndices[i]].Selected = false;
-        //        }
-        //}
     }
 
 }

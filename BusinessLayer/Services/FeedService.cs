@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Repositories;
 using Models.Classes;
-using Models;
 using System.IO;
 
 namespace BusinessLayer.Services
@@ -24,36 +22,6 @@ namespace BusinessLayer.Services
             fileNameService = new FileNameService();
         }
 
-
-        //public string SetNewFileName()
-        //{
-        //    int number;
-        //    string fileName;
-        //    List<string> listFileNames = GetFileNameList();
-        //    if (listFileNames.Count == 0)
-        //    {
-        //        number = 0;
-        //    }
-        //    else
-        //    {
-        //        string latestFileName = listFileNames.Last();
-        //        number = Convert.ToInt32(latestFileName.Substring(latestFileName.Length - 5, 1));
-        //        number++;
-        //    }
-        //    fileName = "feed" + Convert.ToString(number) + ".xml";
-        
-        //    return fileName;
-        //}
-
-        //public List<string> GetFileNameList()
-        //{
-        //    string localPath = Directory.GetCurrentDirectory();
-        //    List<string> fileNames = Directory.GetFiles(localPath, "feed*.xml").ToList();
-        //    //List<string> fileNames = Directory.GetFiles(@"C:\Users\moahe\OneDrive\Dokument\GitHub\RssApplication\RssApplication\bin\Debug", "*.xml").ToList();
-
-        //    return fileNames;
-
-        //}
         public async Task CreateFeedAsync(string url, string name, int timeInterval, string category, string type)
         {
             Feed newFeed = null;
@@ -109,33 +77,13 @@ namespace BusinessLayer.Services
         {
             List<string> listFileNames = fileNameService.GetFileNameList();
             List<Feed> listOfFeeds = await feedRepository.GetListOfFeedsAsync(listFileNames);
-            //Feed name = null;
-            ////string name = Convert.ToString(listOfFeeds.Select(listOfFeed => listOfFeed.Name));
-            //foreach (Feed item in listOfFeeds)
-            //{
-            //    name = item;
-            //}
-
 
             return listOfFeeds;
         }
 
         public async Task<Feed> GetFeedAsync (string fileName)
         {
-
-            //List<Feed> listOfFeeds = DisplayFeed();
-            //Feed feedObject = null;
             Feed feedObject = await feedRepository.GetFeedAsync(fileName);
-
-            //foreach (Feed item in listOfFeeds)
-
-            //{
-            //    if (fileName.Equals(item.FileName))
-            //    {
-            //        feedObject = item;
-            //    }
-
-            //}
             return feedObject;
         }
 
@@ -145,15 +93,7 @@ namespace BusinessLayer.Services
             List<Feed> listOfFeeds = await GetListOfFeedsAsync();
          
             List<Feed> listOfFeedCategorys = listOfFeeds.Where(feed => feed.Category == filterCategory).ToList();
-            //foreach (Feed item in listOfFeeds)
-            //{
-            //    string inCategory = item.Category;
-            //    if (inCategory.Equals(filterCategory))
-            //    {
-            //        listOfFeedInCategory.Add(item);
-            //    }
-            //}
-            //return listOfFeedInCategory;
+
             return listOfFeedCategorys;
         }
     }

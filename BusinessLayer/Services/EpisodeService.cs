@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataAccessLayer.Repositories;
 using Models.Classes;
@@ -25,20 +22,6 @@ namespace BusinessLayer.Services
 
             return listOfEpisodes;
         }
-        //private void DisplayEpisodeDescription(Feed feedObject)
-        //{
-        //    List<Episode> episodeList = null;
-        //    episodeList = new List<Episode>();
-
-        //    episodeList = feedObject.ListOfEpisodes;
-        //    var listE = new List<KeyValuePair<string, string>>();
-
-        //    foreach (Episode episode in episodeList)
-        //    {
-        //        new KeyValuePair<string, string>(episode.Title, episode.Description);
-
-        //    }
-        
         
         public int NumberOfEpisodes(List<Episode> listOfEpisodes)
         {

@@ -18,8 +18,8 @@ namespace DataAccessLayer
     {
         public async Task SerializerAsync(Feed listOfFeeds, string fileName)
         {
-            try
-            {
+            //try
+            //{
                 await Task.Run(() =>
                 {
                     if (File.Exists(fileName)) 
@@ -33,17 +33,17 @@ namespace DataAccessLayer
                         xmlWriter.Serialize(fileStream, listOfFeeds);
                     }
                 });           
-            }
-            catch (Exception)
-            {
-                throw new SerializerException(fileName, "Serializeringen av xml-filen misslyckades");
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    throw new SerializerException(fileName, "Serializeringen av xml-filen misslyckades");
+            //}
         }
 
         public async Task<Feed> DeserializeAsync(string fileName)
         {
-            try
-            {
+            //try
+            //{
                 return await Task.Run(() =>
                 {
                     XmlSerializer xmlReader = new XmlSerializer(typeof(Feed));
@@ -53,11 +53,11 @@ namespace DataAccessLayer
                         return (Feed)xmlReader.Deserialize(fileStream);
                     }
                 });
-            }
-            catch (Exception)
-            {
-                throw new SerializerException(fileName, "Deserializeringen av xml-filen misslyckades");
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    throw new SerializerException(fileName, "Deserializeringen av xml-filen misslyckades");
+            //}
         }
 
         public async Task CategorySerializerAsync(List<Category> listOfCategorys)

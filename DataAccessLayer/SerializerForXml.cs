@@ -15,7 +15,7 @@ namespace DataAccessLayer
             {
                 await Task.Run(() =>
                 {
-                    if (File.Exists(fileName)) 
+                    if (File.Exists(fileName)) // Kontrollerar om filnamnet redan finns och tar isådana fall bort filen med det namnet.
                     {
                         File.Delete(fileName);
                     }
@@ -27,7 +27,7 @@ namespace DataAccessLayer
                     }
                 });
             }
-            catch (Exception){}
+            catch (Exception) {}
         }
 
         public async Task<Feed> DeserializeAsync(string fileName)
@@ -82,6 +82,7 @@ namespace DataAccessLayer
                 });
             }
             catch (Exception) {}
+
             return listOfCategories;
         }
     }

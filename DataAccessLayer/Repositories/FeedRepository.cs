@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models.Classes;
 
-
 namespace DataAccessLayer.Repositories
 {
     public class FeedRepository : IFeedRepository<Feed>
@@ -32,13 +31,11 @@ namespace DataAccessLayer.Repositories
                     listOfFeedsDeserialized.Add(await serializerObject.DeserializeAsync(fileName));
                 }
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) {}
             return listOfFeedsDeserialized;
         }
 
-        public async Task<Feed> GetFeedAsync(string fileName)
+        public async Task<Feed> GetFeedObjectAsync(string fileName)
         {
             Feed feedObject = null;
 
@@ -46,11 +43,8 @@ namespace DataAccessLayer.Repositories
             {
                 feedObject = await serializerObject.DeserializeAsync(fileName);
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) {}
             return feedObject;
         }
-
     }
 }

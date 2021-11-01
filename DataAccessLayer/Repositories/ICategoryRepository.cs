@@ -10,7 +10,7 @@ namespace DataAccessLayer.Repositories
         Task DeleteCategoryAsync(int index);
         Task UpdateCategoryAsync(int index, T instance);
         Task SaveCategoryChangesAsync();
-        Task<int> GetIndexAsync(string name);
+        Task<int> GetCategoryIndexAsync(string name);
         Task<List<T>> GetCurrentCategoriesAsync();
     }
 }

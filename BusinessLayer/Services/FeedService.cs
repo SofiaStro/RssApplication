@@ -29,9 +29,8 @@ namespace BusinessLayer.Services
             {   Feed newFeed = null;
 
                 List<Episode> listOfEpisodes = await episodeService.GetListOfEpisodesAsync(url);
-                int numberOfEpisodes = episodeService.NumberOfEpisodes(listOfEpisodes);
-
-
+                int numberOfEpisodes = episodeService.GetNumberOfEpisodes(listOfEpisodes);
+                
                 string fileName = fileNameService.SetNewFileName();
 
                 if (type.Equals("Podcast"))
@@ -52,7 +51,7 @@ namespace BusinessLayer.Services
         {
             try
             {
-                Feed oldFeed = await feedRepository.GetFeedAsync(fileName);
+                Feed oldFeed = await feedRepository.GetFeedObjectAsync(fileName);
                 Feed newFeed = null;
 
                 string url = oldFeed.Url;
@@ -94,7 +93,7 @@ namespace BusinessLayer.Services
 
         public async Task<Feed> GetFeedAsync (string fileName)
         {
-            Feed feedObject = await feedRepository.GetFeedAsync(fileName);
+            Feed feedObject = await feedRepository.GetFeedObjectAsync(fileName);
             return feedObject;
         }
 
@@ -107,6 +106,7 @@ namespace BusinessLayer.Services
 
             return listOfFeedCategories;
         } 
+
         public string DisplayFeedType(Feed feedObject)
         {
             string feedType = feedObject.Display();

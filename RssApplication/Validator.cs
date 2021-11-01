@@ -8,7 +8,6 @@ namespace RssApplication
 {
 	public class Validator
 	{
-
 		public static bool TextBoxIsPresent(TextBox textBox, string msg)
 		{
 			if (textBox.Text == "")
@@ -50,7 +49,7 @@ namespace RssApplication
 		{
             try
             {
-                new XmlDocument().Load(url);
+                new XmlDocument().Load(url); // Kontrollerar om Url:en är en läsbar RSS-fil.
 
                 return true;
             }

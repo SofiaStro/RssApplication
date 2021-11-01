@@ -9,7 +9,7 @@ namespace Models.Classes
     [XmlInclude(typeof(News))]
     public abstract class Feed : INameable
     {
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1)] // Anger ordningen på elementet i Xml-filen.
         public string Url { get; set; }
         [XmlElement(Order = 2)]
         public string Name { get; set; }
@@ -26,8 +26,8 @@ namespace Models.Classes
         [XmlElement(Order = 8)]
         public string NextUpdate { get; set; }
 
+        public Feed() { } // En tom konstuktor för att kunna serialisera/deserialisera objectet. 
 
-        public Feed() {}
         public Feed(string url, string name, int numberOfEpisodes, int timeInterval, string category, 
             List<Episode> listOfEpisodes, string fileName)
         {
@@ -39,7 +39,6 @@ namespace Models.Classes
             ListOfEpisodes = listOfEpisodes;
             FileName = fileName;
             UpdateFeedContent();
-
         }
 
         public virtual string Display()
@@ -52,15 +51,14 @@ namespace Models.Classes
             get
             {
                 DateTime nextUpdate = Convert.ToDateTime(NextUpdate);
-                return nextUpdate <= DateTime.Now;
+                return nextUpdate <= DateTime.Now; // Kontrollerar om uppdateringstiden stämmer med nuvarande tidspunkt. Returnerar true/false.
             }
         }
 
         public void UpdateFeedContent()
         {
-            int intervalMilliSeconds = TimeInterval * 60 * 1000;
-            NextUpdate = DateTime.Now.AddMilliseconds(intervalMilliSeconds).ToString();
+            int intervalMilliSeconds = TimeInterval * 60 * 1000; // Tidintervall som anges i minuter räknas om till millisekunder. 
+            NextUpdate = DateTime.Now.AddMilliseconds(intervalMilliSeconds).ToString(); // Skapar tiden då objektet ska uppdateras nästa gång. 
         }
-
     }
 }

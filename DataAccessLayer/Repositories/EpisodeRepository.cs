@@ -22,11 +22,10 @@ namespace DataAccessLayer.Repositories
             List<Episode> listOfEpisodes = new List<Episode>();
             try
             {
-
-                using (Stream fs = await rssObject.GetRSSAsync(url)) //Öppnar en läsbar stream från data som är nedladdad från en källa
+                using (Stream stream = await rssObject.GetRSSAsync(url)) //Öppnar en läsbar stream från data som är nedladdad från en källa.
                 {
-                    XmlReader reader = XmlReader.Create(fs);
-                    SyndicationFeed feed = SyndicationFeed.Load(reader);
+                    XmlReader reader = XmlReader.Create(stream); // Skapar en "reader" som kan läsa av Xml-filer.
+                    SyndicationFeed feed = SyndicationFeed.Load(reader); // Underlättar avläsning av RSS-flöden
 
                     foreach (SyndicationItem item in feed.Items)
                     {
@@ -38,9 +37,8 @@ namespace DataAccessLayer.Repositories
                 }      
             }
             catch (Exception) { }
+
             return listOfEpisodes;
-
         }
-
     }
 }

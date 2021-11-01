@@ -27,11 +27,11 @@ namespace BusinessLayer.Services
 
         public async Task DeleteCategoryAsync(string name)
         {
-            int index = await categoryRepository.GetIndexAsync(name);
+            int index = await categoryRepository.GetCategoryIndexAsync(name);
             await categoryRepository.DeleteCategoryAsync(index);
         }
 
-        public async Task<List<string>> InputCategoryAsync()
+        public async Task<List<string>> GetListOfCategoryNamesAsync()
         {
             List<string> listOfCategoryNames = new List<string>();
             try
@@ -48,7 +48,7 @@ namespace BusinessLayer.Services
         {
             try
             {
-                int index = await categoryRepository.GetIndexAsync(oldName);
+                int index = await categoryRepository.GetCategoryIndexAsync(oldName);
 
                 Category newCategory = new Category(newName);
                 await categoryRepository.UpdateCategoryAsync(index, newCategory);

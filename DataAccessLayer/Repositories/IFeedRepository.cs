@@ -8,6 +8,6 @@ namespace DataAccessLayer.Repositories
     {
         Task SaveFeedAsync(T instance, string fileName);
         Task<List<T>> GetListOfFeedsAsync(List<string> list);
-        Task<Feed> GetFeedAsync(string fileName);
+        Task<Feed> GetFeedObjectAsync(string fileName);
     }
 }

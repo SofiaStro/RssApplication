@@ -6,7 +6,7 @@ namespace Models.Classes
     {
         public string Name { get; set; }
 
-        public Category() {}
+        public Category() {} // En tom konstuktor för att kunna serialisera/deserialisera objectet. 
 
         public Category(string name)
         {

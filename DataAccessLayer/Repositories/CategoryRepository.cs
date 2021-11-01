@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-
 namespace DataAccessLayer.Repositories
 {
     public class CategoryRepository : ICategoryRepository<Category>
@@ -20,7 +19,6 @@ namespace DataAccessLayer.Repositories
         }
         public async Task CreateCategoryAsync(Category categoryObject)
         {
-
             try
             {
                 listOfCategories.Add(categoryObject);
@@ -31,7 +29,6 @@ namespace DataAccessLayer.Repositories
 
         public async Task DeleteCategoryAsync(int index)
         {
-
             try
             {
                 listOfCategories.RemoveAt(index);
@@ -72,7 +69,7 @@ namespace DataAccessLayer.Repositories
             await SaveCategoryChangesAsync();
         }
 
-        public async Task<int> GetIndexAsync(string name)
+        public async Task<int> GetCategoryIndexAsync(string name)
         {
             int index = 0;
             List<Category> listOfCategory = await GetCurrentCategoriesAsync();

@@ -32,7 +32,7 @@ namespace BusinessLayer.Services
             return listOfEpisodes;
         }
         
-        public int NumberOfEpisodes(List<Episode> listOfEpisodes)
+        public int GetNumberOfEpisodes(List<Episode> listOfEpisodes)
         {
             int counter = 0;
 

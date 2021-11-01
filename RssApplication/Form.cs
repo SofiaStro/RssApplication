@@ -28,9 +28,9 @@ namespace RssApplication
             Task.Run(async () => DisplaySubscribeList(await feedService.GetListOfFeedsAsync())).Wait();
             Task.Run(() => this.InputCategoryListAsync()).Wait();
 
-            timer.Interval = 30000;
-            timer.Tick += Timer_Tick;
-            timer.Start();
+            timer.Interval = 30000; // Flöder checkas av varje 30:e sekund.  
+            timer.Tick += Timer_Tick; // Lägger till eventet på den inbygda delegaten i klassen "Timer".
+            timer.Start(); 
         }
 
         private void FillComboboxes()
@@ -77,7 +77,7 @@ namespace RssApplication
             foreach (Feed feedObject in listOfFeeds)
             {
                 String[] row = {
-                    feedObject.FileName,
+                    feedObject.FileName, // Läggs till i en dold kolumn för att senare komma åt värdet. 
                     Convert.ToString(feedObject.NumberOfEpisodes),
                     feedObject.Name,
                     Convert.ToString(feedObject.TimeInterval),
@@ -111,7 +111,7 @@ namespace RssApplication
             cbSubscribeCategory.Items.Add("");
 
             List<string> listOfCategoryNames = new List<string>();
-            listOfCategoryNames = await categoryService.InputCategoryAsync();
+            listOfCategoryNames = await categoryService.GetListOfCategoryNamesAsync();
             if (listOfCategoryNames.Count != 0)
             {
                 foreach (string name in listOfCategoryNames)
@@ -129,7 +129,7 @@ namespace RssApplication
 
             foreach (ListViewItem item in selectedRow)
             {
-                //Hämtar filnamnet från kolumn som är hidden
+                //Hämtar filnamnet från kolumn som är dold.
                 fileName = item.SubItems[0].Text;
             }
 
@@ -262,7 +262,7 @@ namespace RssApplication
                     string name = nameFirst + nameLast;
 
                     List<string> listOfCategoryNames = new List<string>();
-                    listOfCategoryNames = await categoryService.InputCategoryAsync();
+                    listOfCategoryNames = await categoryService.GetListOfCategoryNamesAsync();
 
                     if (Validator.CategoryNotExist(listOfCategoryNames, name))
                     {
@@ -271,8 +271,7 @@ namespace RssApplication
                         await InputCategoryListAsync();
                         tbCategoryName.Text = "";
                         await ClearFieldsCategory();
-                    }
-                    
+                    }  
                 }
             }
             catch (Exception ex)
@@ -294,7 +293,7 @@ namespace RssApplication
                     string newCategoryName = newCategoryNameFirst + newCategoryNameLast;
 
                     List<string> listOfCategoryNames = new List<string>();
-                    listOfCategoryNames = await categoryService.InputCategoryAsync();
+                    listOfCategoryNames = await categoryService.GetListOfCategoryNamesAsync();
 
                     if (Validator.CategoryNotExist(listOfCategoryNames, newCategoryName))
                     {
@@ -432,7 +431,7 @@ namespace RssApplication
 
                     string fileName = GetSelectedFeed();
 
-                    if (fileName != "")
+                    if (fileName != "") // Kontrollerar om det finns en vald prenumeration markerad.
                     {
                         Feed selectedFeedObject = await feedService.GetFeedAsync(fileName);
 

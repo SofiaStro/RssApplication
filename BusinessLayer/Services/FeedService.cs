@@ -92,7 +92,7 @@ namespace BusinessLayer.Services
             List<Feed> listOfFeedInCategory = new List<Feed>();
             List<Feed> listOfFeeds = await GetListOfFeedsAsync();
          
-            List<Feed> listOfFeedCategorys = listOfFeeds.Where(feed => feed.Category == filterCategory).ToList();
+            List<Feed> listOfFeedCategorys = listOfFeeds.Where(feed => feed.Category.Equals(filterCategory)).ToList();
 
             return listOfFeedCategorys;
         }

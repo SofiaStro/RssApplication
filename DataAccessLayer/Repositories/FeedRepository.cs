@@ -10,11 +10,9 @@ namespace DataAccessLayer.Repositories
     {
         SerializerForXml serializerObject;
         
-
         public FeedRepository()
         {
             serializerObject = new SerializerForXml();
-
         }
 
         public async Task SaveFeedAsync(Feed feedObject, string fileName)

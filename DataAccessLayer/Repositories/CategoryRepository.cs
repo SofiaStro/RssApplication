@@ -20,14 +20,22 @@ namespace DataAccessLayer.Repositories
         }
         public async Task CreateAsync(Category categoryObject)
         {
-            listOfCategorys.Add(categoryObject);
-            await SaveChangesAsync();
+            try
+            {
+                listOfCategorys.Add(categoryObject);
+                await SaveChangesAsync();
+            }
+            catch(Exception) { }
         }
 
         public async Task DeleteAsync(int index)
         {
-            listOfCategorys.RemoveAt(index);
-            await SaveChangesAsync();
+            try
+            {
+                listOfCategorys.RemoveAt(index);
+                await SaveChangesAsync();
+            }
+            catch (Exception) { }
         }
 
         public async void SetCurrentCategorysToList()

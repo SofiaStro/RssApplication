@@ -36,15 +36,10 @@ namespace DataAccessLayer.Repositories
                         Episode episode = new Episode(title, description);
                         listOfEpisode.Add(episode);
                     }
-                }
-
-                
+                }      
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
             return listOfEpisode;
-
         }
 
     }

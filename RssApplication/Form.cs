@@ -14,6 +14,7 @@ namespace RssApplication
         FeedService feedService;
         CategoryService categoryService;
         EpisodeService episodeService;
+        private Timer timer = new Timer();
 
         public Form()
         {
@@ -103,6 +104,24 @@ namespace RssApplication
             lblDescriptionType.Text = feedService.DisplayFeedType(feedObject);
         }
 
+        private async Task InputCategoryListAsync()
+        {
+            cbSubscribeCategory.Items.Clear();
+            lbCategory.Items.Clear();
+            cbSubscribeCategory.Items.Add("");
+
+            List<string> listOfCategoryNames = new List<string>();
+            listOfCategoryNames = await categoryService.InputCategoryAsync();
+            if (listOfCategoryNames.Count != 0)
+            {
+                foreach (string name in listOfCategoryNames)
+                {
+                    cbSubscribeCategory.Items.Add(name);
+                    lbCategory.Items.Add(name);
+                }
+            }
+        }
+
         private string GetSelectedFeed()
         {
             string fileName = "";
@@ -174,6 +193,30 @@ namespace RssApplication
             }
         }
 
+        private async void btnSubcribeDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Validator.IsSelected(lvSubscribe, "Välj en prenumeration att ta bort."))
+                {
+                    string fileName = GetSelectedFeed();
+                    DialogResult popUp = MessageBox.Show("Vill du ta bort markerad prenumeration?", "Är du säker?",
+                       MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+
+                    if (popUp == DialogResult.Yes)
+                    {
+                        feedService.DeleteFeed(fileName);
+                        DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
+                        ClearFieldsFeed();
+                        ClearFieldsEpisode();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lblSubcribeMsg.Text = ex.Message;
+            }
+        }
 
         private async void lvSubscribe_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -235,24 +278,6 @@ namespace RssApplication
             catch (Exception ex)
             {
                 lblCategoryMsg.Text = ex.Message;
-            }
-        }
-
-        private async Task InputCategoryListAsync()
-        {
-            cbSubscribeCategory.Items.Clear();
-            lbCategory.Items.Clear();
-            cbSubscribeCategory.Items.Add("");
-
-            List<string> listOfCategoryNames = new List<string>();
-            listOfCategoryNames = await categoryService.InputCategoryAsync();
-            if (listOfCategoryNames.Count != 0)
-            {
-                foreach (string name in listOfCategoryNames)
-                {
-                    cbSubscribeCategory.Items.Add(name);
-                    lbCategory.Items.Add(name);
-                }
             }
         }
 
@@ -393,34 +418,6 @@ namespace RssApplication
                 MessageBox.Show(ex.Message);
             }
         }
-
-
-        private async void btnSubcribeDelete_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (Validator.IsSelected(lvSubscribe, "Välj en prenumeration att ta bort."))
-                {
-                    string fileName = GetSelectedFeed();
-                    DialogResult popUp = MessageBox.Show("Vill du ta bort markerad prenumeration?", "Är du säker?",
-                       MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
-
-                    if (popUp == DialogResult.Yes)
-                    {
-                        feedService.DeleteFeed(fileName);
-                        DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
-                        ClearFieldsFeed();
-                        ClearFieldsEpisode();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                lblSubcribeMsg.Text = ex.Message;
-            }        
-        }
-
-        private Timer timer = new Timer();
 
         public async void Timer_Tick(object sender, EventArgs e)
         {

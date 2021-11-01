@@ -106,6 +106,11 @@ namespace BusinessLayer.Services
             List<Feed> listOfFeedCategories = listOfFeeds.Where(feed => feed.Category.Equals(filterCategory)).ToList();
 
             return listOfFeedCategories;
+        } 
+        public string DisplayFeedType(Feed feedObject)
+        {
+            string feedType = feedObject.Display();
+            return feedType;
         }
     }
 }

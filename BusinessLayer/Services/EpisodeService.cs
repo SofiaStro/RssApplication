@@ -43,13 +43,6 @@ namespace BusinessLayer.Services
 
             return counter;
         }
-
-        // Ska inte denna ligga i feed? 
-        public string DisplayFeedType (Feed feedObject)
-        {
-            string feedType = feedObject.Display();
-            return feedType;
-        }
     }
 }
 

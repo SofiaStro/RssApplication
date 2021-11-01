@@ -56,6 +56,7 @@ namespace DataAccessLayer
             { 
                 await Task.Run(() =>
                 { 
+
                     XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Category>));
                     using (FileStream fileStream = new FileStream("categoryObjects.xml", FileMode.Create, FileAccess.Write))
                     {
@@ -69,15 +70,19 @@ namespace DataAccessLayer
         public async Task<List<Category>> CategoryDeserializeAsync()
         {
             List<Category> listOfCategories = new List<Category>();
+
             try
             {
                 await Task.Run(() =>
                 {
-                    XmlSerializer xmlReader = new XmlSerializer(typeof(List<Category>));
-                    using (FileStream fileStream = new FileStream("categoryObjects.xml", FileMode.Open,
-                        FileAccess.Read))
+                    if (File.Exists("categoryObjects.xml")) // Kontrollerar om filnamnet redan finns och tar isådana fall bort filen med det namnet.
                     {
-                        listOfCategories = (List<Category>)xmlReader.Deserialize(fileStream);
+                        XmlSerializer xmlReader = new XmlSerializer(typeof(List<Category>));
+                        using (FileStream fileStream = new FileStream("categoryObjects.xml", FileMode.Open,
+                            FileAccess.Read))
+                        {
+                            listOfCategories = (List<Category>)xmlReader.Deserialize(fileStream);
+                        }
                     }
                 });
             }

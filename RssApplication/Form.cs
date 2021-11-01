@@ -30,7 +30,7 @@ namespace RssApplication
             episodeService = new EpisodeService();
 
             FillComboboxes();
-            //DisplaySubscribeList(feedService.GetListOfFeeds());
+            //DisplaySubscribeList(feedService.GetListOfFeedsAsync());
             //DisplaySubscribeListAsync();
             Task.Run(async () => DisplaySubscribeList(await feedService.GetListOfFeedsAsync())).Wait();
             Task.Run(() => this.InputCategoryListAsync()).Wait();

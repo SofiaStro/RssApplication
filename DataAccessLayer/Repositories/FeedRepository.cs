@@ -57,14 +57,14 @@ namespace DataAccessLayer.Repositories
             {
                 //var arrayOfFeedDeserialized = listFileNames.Select(async filename => await serializerObject.DeserializeAsync(filename));
                 //listOfFeedsDeserialized = await arrayOfFeedDeserialized.GetItemAsync().ToListAsync();
- 
-                listOfFeedsDeserialized = await listFileNames.Select(async filename => await serializerObject.DeserializeAsync(filename)).ToList();
-                //List<string> fileNames = listFileNames;
 
-                //foreach (string fileName in listFileNames)
-                //{
-                //    listOfFeedsDeserialized.Add(await serializerObject.DeserializeAsync(fileName));
-                //}
+                //listOfFeedsDeserialized = await listFileNames.Select(async filename => await serializerObject.DeserializeAsync(filename)).ToList();
+                List<string> fileNames = listFileNames;
+
+                foreach (string fileName in listFileNames)
+                {
+                    listOfFeedsDeserialized.Add(await serializerObject.DeserializeAsync(fileName));
+                }
                 return listOfFeedsDeserialized;
             }
             catch (Exception)

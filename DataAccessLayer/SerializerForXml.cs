@@ -10,13 +10,12 @@ using System.Xml;
 using Models.Classes;
 using System.Xml.Serialization;
 using Models.Exceptions;
-
+using System.Threading;
 
 namespace DataAccessLayer
 {
     internal class SerializerForXml
     {
-       
         public async Task SerializerAsync(Feed listOfFeeds, string fileName)
         {
             try
@@ -33,9 +32,7 @@ namespace DataAccessLayer
                     {
                         xmlWriter.Serialize(fileStream, listOfFeeds);
                     }
-
-                });
-                
+                });           
             }
             catch (Exception)
             {

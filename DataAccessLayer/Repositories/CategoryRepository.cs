@@ -9,74 +9,84 @@ namespace DataAccessLayer.Repositories
     public class CategoryRepository : ICategoryRepository<Category>
     {
         SerializerForXml serializerCategoryObject;
-        List<Category> listOfCategorys;
+        List<Category> listOfCategories;
 
 
         public CategoryRepository()
         {
             serializerCategoryObject = new SerializerForXml();
-            listOfCategorys = new List<Category>();
-            SetCurrentCategorysToList();
+            listOfCategories = new List<Category>();
+            SetCurrentCategoriesToList();
         }
-        public async Task CreateAsync(Category categoryObject)
+        public async Task CreateCategoryAsync(Category categoryObject)
         {
+<<<<<<< Updated upstream
             try
             {
                 listOfCategorys.Add(categoryObject);
                 await SaveChangesAsync();
             }
             catch(Exception) { }
+=======
+            listOfCategories.Add(categoryObject);
+            await SaveCategoryChangesAsync();
+>>>>>>> Stashed changes
         }
 
-        public async Task DeleteAsync(int index)
+        public async Task DeleteCategoryAsync(int index)
         {
+<<<<<<< Updated upstream
             try
             {
                 listOfCategorys.RemoveAt(index);
                 await SaveChangesAsync();
             }
             catch (Exception) { }
+=======
+            listOfCategories.RemoveAt(index);
+            await SaveCategoryChangesAsync();
+>>>>>>> Stashed changes
         }
 
-        public async void SetCurrentCategorysToList()
+        public async void SetCurrentCategoriesToList()
         {
-            listOfCategorys = await GetCurrentCategorysAsync();
+            listOfCategories = await GetCurrentCategoriesAsync();
         }
 
-        public async Task<List<Category>> GetCurrentCategorysAsync()
+        public async Task<List<Category>> GetCurrentCategoriesAsync()
         {
-            List<Category> listOfCategorysDeserialized = new List<Category>();
+            List<Category> listOfCategoriesDeserialized = new List<Category>();
             try
             {
-                listOfCategorysDeserialized = await serializerCategoryObject.CategoryDeserializeAsync();
+                listOfCategoriesDeserialized = await serializerCategoryObject.CategoryDeserializeAsync();
             }
             catch (Exception)
             {
             }
-            return listOfCategorysDeserialized;
+            return listOfCategoriesDeserialized;
         }
 
-        public async Task SaveChangesAsync()
+        public async Task SaveCategoryChangesAsync()
         {
-            await serializerCategoryObject.CategorySerializerAsync(listOfCategorys);
+            await serializerCategoryObject.CategorySerializerAsync(listOfCategories);
         }
 
-        public async Task UpdateAsync(int index, Category categoryObejct)
+        public async Task UpdateCategoryAsync(int index, Category categoryObejct)
         {
             if (index >= 0)
             {
-                listOfCategorys[index] = categoryObejct;
+                listOfCategories[index] = categoryObejct;
             }
-            await SaveChangesAsync();
+            await SaveCategoryChangesAsync();
         }
 
         public async Task<int> GetIndexAsync(string name)
         {
             int index = 0;
-            List<Category> listOfCategory = await GetCurrentCategorysAsync();
-            foreach(Category category in listOfCategory)
+            List<Category> listOfCategory = await GetCurrentCategoriesAsync();
+            foreach(Category categoryObject in listOfCategory)
             {
-                if (category.Name.Equals(name))
+                if (categoryObject.Name.Equals(name))
                 {
                     break;
                 }

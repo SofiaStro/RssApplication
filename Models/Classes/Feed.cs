@@ -27,9 +27,7 @@ namespace Models.Classes
         public string NextUpdate { get; set; }
 
 
-        public Feed()
-        {
-        }
+        public Feed() {}
         public Feed(string url, string name, int numberOfEpisodes, int timeInterval, string category, 
             List<Episode> listOfEpisodes, string fileName)
         {
@@ -40,7 +38,7 @@ namespace Models.Classes
             Category = category;
             ListOfEpisodes = listOfEpisodes;
             FileName = fileName;
-            Update();
+            UpdateFeedContent();
 
         }
 
@@ -49,7 +47,7 @@ namespace Models.Classes
             return "Här visas en beskrivning för ditt valda avsnitt för din: ";
         }
 
-        public bool NeedsUpdate
+        public bool FeedNeedsUpdate
         {
             get
             {
@@ -58,7 +56,7 @@ namespace Models.Classes
             }
         }
 
-        public void Update()
+        public void UpdateFeedContent()
         {
             int intervalMilliSeconds = TimeInterval * 60 * 1000;
             NextUpdate = DateTime.Now.AddMilliseconds(intervalMilliSeconds).ToString();

@@ -6,12 +6,11 @@ namespace DataAccessLayer.Repositories
 {
     public interface ICategoryRepository<T> where T : Category
     {
-        Task CreateAsync(T instance);
-        Task DeleteAsync(int index);
-        Task UpdateAsync(int index, T instance);
-        Task SaveChangesAsync();
+        Task CreateCategoryAsync(T instance);
+        Task DeleteCategoryAsync(int index);
+        Task UpdateCategoryAsync(int index, T instance);
+        Task SaveCategoryChangesAsync();
         Task<int> GetIndexAsync(string name);
-        Task<List<T>> GetCurrentCategorysAsync();
-
+        Task<List<T>> GetCurrentCategoriesAsync();
     }
 }

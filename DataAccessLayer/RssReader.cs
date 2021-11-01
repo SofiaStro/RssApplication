@@ -25,9 +25,7 @@ namespace DataAccessLayer
                     }
                 });
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) {}
             return fs;
         }
     }

@@ -16,11 +16,10 @@ namespace DataAccessLayer.Repositories
         {
             rssObject = new RssReader();
         }
-
      
         public async Task<List<Episode>> GetCurrentEpisodesAsync(string url)
         {
-            List<Episode> listOfEpisode = new List<Episode>();
+            List<Episode> listOfEpisodes = new List<Episode>();
             try
             {
 
@@ -34,12 +33,20 @@ namespace DataAccessLayer.Repositories
                         string title = item.Title.Text;
                         string description = item.Summary.Text;
                         Episode episode = new Episode(title, description);
-                        listOfEpisode.Add(episode);
+                        listOfEpisodes.Add(episode);
                     }
+<<<<<<< Updated upstream
                 }      
             }
             catch (Exception) { }
             return listOfEpisode;
+=======
+                }
+            }
+            catch (Exception) {}
+
+            return listOfEpisodes;
+>>>>>>> Stashed changes
         }
 
     }

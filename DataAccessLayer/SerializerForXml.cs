@@ -27,8 +27,7 @@ namespace DataAccessLayer
                     }
                 });
             }
-            catch (Exception)
-            { }
+            catch (Exception){}
         }
 
         public async Task<Feed> DeserializeAsync(string fileName)
@@ -46,13 +45,12 @@ namespace DataAccessLayer
                     }
                 });
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception){}
+
             return feed;
         }
 
-        public async Task CategorySerializerAsync(List<Category> listOfCategorys)
+        public async Task CategorySerializerAsync(List<Category> listOfCategories)
         {
             try
             { 
@@ -61,13 +59,11 @@ namespace DataAccessLayer
                     XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Category>));
                     using (FileStream fileStream = new FileStream("categoryObjects.xml", FileMode.Create, FileAccess.Write))
                     {
-                        xmlWriter.Serialize(fileStream, listOfCategorys);
+                        xmlWriter.Serialize(fileStream, listOfCategories);
                     }
                 });
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception){}
         }
 
         public async Task<List<Category>> CategoryDeserializeAsync()
@@ -85,9 +81,7 @@ namespace DataAccessLayer
                     }
                 });
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) {}
             return listOfCategories;
         }
     }

@@ -59,35 +59,34 @@ namespace RssApplication
         {
             lvSubscribe.Items.Clear();
 
-            foreach (Feed item in listOfFeeds)
+            foreach (Feed feedObject in listOfFeeds)
             {
                 String[] row = {
-                    item.FileName,
-                    Convert.ToString(item.NumberOfEpisodes),
-                    item.Name,
-                    Convert.ToString(item.TimeInterval),
-                    item.Category};
+                    feedObject.FileName,
+                    Convert.ToString(feedObject.NumberOfEpisodes),
+                    feedObject.Name,
+                    Convert.ToString(feedObject.TimeInterval),
+                    feedObject.Category};
 
                 ListViewItem List = new ListViewItem(row);
                 lvSubscribe.Items.Add(List);
             }
-
         }
 
         private void DisplayEpisodeList(Feed feedObject)
         {
             lbEpisode.Items.Clear();
 
-            List<Episode> episodeList = null;
-            episodeList = new List<Episode>();
+            List<Episode> listOfEpisodes = null;
+            listOfEpisodes = new List<Episode>();
 
-            episodeList = feedObject.ListOfEpisodes;
+            listOfEpisodes = feedObject.ListOfEpisodes;
 
-            foreach (Episode episode in episodeList)
+            foreach (Episode episodeObject in listOfEpisodes)
             {
-                lbEpisode.Items.Add(episode.Title);
+                lbEpisode.Items.Add(episodeObject.Title);
             }
-            lblDescriptionType.Text = episodeService.DisplayType(feedObject);
+            lblDescriptionType.Text = episodeService.DisplayFeedType(feedObject);
         }
 
         private string GetSelectedFeed()
@@ -100,11 +99,9 @@ namespace RssApplication
                 //Hämtar filnamnet från kolumn som är hidden
                 fileName = item.SubItems[0].Text;
             }
-            
+
             return fileName;
         }
-
-
 
         private async void btnSubcribeAdd_Click(object sender, EventArgs e)
         {
@@ -136,7 +133,8 @@ namespace RssApplication
 
         private async void btnSubscribeChange_Click(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 if (Validator.IsSelected(lvSubscribe, "Välj en prenumeration att ändra.") &&
                     Validator.TextBoxIsPresent(tbSubscribeName, "Vänligen ange ett namn.") &&
                     Validator.ComboBoxIsPresent(cbTime, "Vänligen ange ett tidsintervall.") &&
@@ -149,7 +147,7 @@ namespace RssApplication
                     string fileName = GetSelectedFeed();
                     await feedService.ChangeFeedAsync(name, timeInterval, category, fileName);
 
-                    DisplaySubscribeList( await feedService.GetListOfFeedsAsync());
+                    DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
 
                 }
             }
@@ -157,7 +155,6 @@ namespace RssApplication
             {
                 lblSubcribeMsg.Text = ex.Message;
             }
-
         }
 
 
@@ -204,12 +201,12 @@ namespace RssApplication
                     string nameLast = inputName.Substring(1).ToLowerInvariant();
                     string name = nameFirst + nameLast;
 
-                    List<string> categoryNames = new List<string>();
-                    categoryNames = await categoryService.InputCategoryAsync();
+                    List<string> listOfCategoryNames = new List<string>();
+                    listOfCategoryNames = await categoryService.InputCategoryAsync();
 
-                    if (Validator.CategoryNotExist(categoryNames, name))
+                    if (Validator.CategoryNotExist(listOfCategoryNames, name))
                     {
-                        await categoryService.CreateAsync(name);
+                        await categoryService.CreateCategoryAsync(name);
 
                         await InputCategoryListAsync();
                         tbCategoryName.Text = "";
@@ -228,14 +225,14 @@ namespace RssApplication
             cbSubscribeCategory.Items.Clear();
             lbCategory.Items.Clear();
 
-            List<string> categoryNames = new List<string>();
-            categoryNames = await categoryService.InputCategoryAsync();
-            if (categoryNames.Count != 0)
+            List<string> listOfCategoryNames = new List<string>();
+            listOfCategoryNames = await categoryService.InputCategoryAsync();
+            if (listOfCategoryNames.Count != 0)
             {
-                foreach (string categoryName in categoryNames)
+                foreach (string name in listOfCategoryNames)
                 {
-                    cbSubscribeCategory.Items.Add(categoryName);
-                    lbCategory.Items.Add(categoryName);
+                    cbSubscribeCategory.Items.Add(name);
+                    lbCategory.Items.Add(name);
                 }
             }
         }
@@ -252,10 +249,10 @@ namespace RssApplication
                     string newCategoryNameLast = inputNewCategoryName.Substring(1).ToLowerInvariant();
                     string newCategoryName = newCategoryNameFirst + newCategoryNameLast;
 
-                    List<string> categoryNames = new List<string>();
-                    categoryNames = await categoryService.InputCategoryAsync();
+                    List<string> listOfCategoryNames = new List<string>();
+                    listOfCategoryNames = await categoryService.InputCategoryAsync();
 
-                    if (Validator.CategoryNotExist(categoryNames, newCategoryName))
+                    if (Validator.CategoryNotExist(listOfCategoryNames, newCategoryName))
                     {
                         string oldCategoryName = lbCategory.GetItemText(lbCategory.SelectedItem);
                         await categoryService.ChangeCategoryNameAsync(oldCategoryName, newCategoryName);
@@ -265,13 +262,13 @@ namespace RssApplication
 
                         List<Feed> listOfFeedInCategory = await feedService.GetFeedInCategoryAsync(oldCategoryName);
 
-                        foreach (Feed item in listOfFeedInCategory)
+                        foreach (Feed feedObject in listOfFeedInCategory)
                         {
                             await feedService.ChangeFeedAsync(
-                                item.Name,
-                                item.TimeInterval,
+                                feedObject.Name,
+                                feedObject.TimeInterval,
                                 newCategoryNameFirst + newCategoryNameLast,
-                                item.FileName);
+                                feedObject.FileName);
                         }
 
                         DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
@@ -290,26 +287,25 @@ namespace RssApplication
             {
                 if (Validator.IsSelected(lbCategory, "Välj en kategori att ta bort."))
                 {
-                    string chosenCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
-                    DialogResult popUp = MessageBox.Show("Vill du ta bort kategori: " + chosenCategory, "Är du säker?", 
+                    string selectedCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
+                    DialogResult popUp = MessageBox.Show("Vill du ta bort kategori: " + selectedCategory, "Är du säker?",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
 
                     if (popUp == DialogResult.Yes)
                     {
-                        await categoryService.DeleteAsync(chosenCategory);
-                        await InputCategoryListAsync ();
+                        await categoryService.DeleteCategoryAsync(selectedCategory);
+                        await InputCategoryListAsync();
 
-                        List<Feed> listOfFeedInCategory = await feedService.GetFeedInCategoryAsync(chosenCategory);
+                        List<Feed> listOfFeedInCategory = await feedService.GetFeedInCategoryAsync(selectedCategory);
 
-                        foreach (Feed item in listOfFeedInCategory)
+                        foreach (Feed feedObject in listOfFeedInCategory)
                         {
-                            feedService.DeleteFeed(item.FileName);
+                            feedService.DeleteFeed(feedObject.FileName);
                         }
 
                         DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -328,14 +324,13 @@ namespace RssApplication
         {
             try
             {
-
                 if (lvSubscribe.SelectedItems.Count > 0)
                 {
                     string episode = "";
                     bool match = false;
 
                     episode = lbEpisode.GetItemText(lbEpisode.SelectedItem);
-                    
+
                     string fileName = GetSelectedFeed();
 
                     if (Validator.FileNameExist(fileName))
@@ -343,9 +338,9 @@ namespace RssApplication
                         Feed feedObject = await feedService.GetFeedAsync(fileName);
 
                         string url = feedObject.Url;
-                        List<Episode> listEpisodes = await episodeService.GetListOfEpisodesAsync(url);
+                        List<Episode> listOfEpisodes = await episodeService.GetListOfEpisodesAsync(url);
 
-                        foreach(Episode episodeObject in listEpisodes)
+                        foreach (Episode episodeObject in listOfEpisodes)
                         {
                             string title = episodeObject.Title;
                             string description = episodeObject.Description;
@@ -365,23 +360,21 @@ namespace RssApplication
                                 tbEpisodeDescription.Text = "Det finns ingen beskrivning för ditt valda avsnitt";
                             }
                         }
-                    
                     }
-                
                 }
-            } 
-            catch (Exception ex) 
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-         }
+        }
 
 
         private async void btnSubcribeDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                if(Validator.IsSelected(lvSubscribe, "Välj en prenumeration att ta bort."))
+                if (Validator.IsSelected(lvSubscribe, "Välj en prenumeration att ta bort."))
                 {
                     string fileName = GetSelectedFeed();
                     DialogResult popUp = MessageBox.Show("Vill du ta bort markerad prenumeration?", "Är du säker?",
@@ -394,31 +387,30 @@ namespace RssApplication
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 lblSubcribeMsg.Text = ex.Message;
-            }
-            
+            }        
         }
 
         private Timer timer = new Timer();
 
         public async void Timer_Tick(object sender, EventArgs e)
         {
-            List<Feed> listOfFeed = await feedService .GetListOfFeedsAsync();
+            List<Feed> listOfFeed = await feedService.GetListOfFeedsAsync();
 
             foreach (Feed feedObject in listOfFeed)
             {
-                if (feedObject.NeedsUpdate)
+                if (feedObject.FeedNeedsUpdate)
                 {
-                    await feedService .ChangeFeedAsync(feedObject.Name, feedObject.TimeInterval, feedObject.Category, feedObject.FileName);
-                    feedObject.Update();
-                   
+                    await feedService.ChangeFeedAsync(feedObject.Name, feedObject.TimeInterval, feedObject.Category, feedObject.FileName);
+                    feedObject.UpdateFeedContent();
+
                     string fileName = GetSelectedFeed();
 
                     if (fileName != "")
                     {
-                        Feed selectedFeedObject = await feedService .GetFeedAsync(fileName);
+                        Feed selectedFeedObject = await feedService.GetFeedAsync(fileName);
 
                         if (feedObject.FileName.Equals(selectedFeedObject.FileName))
                         {
@@ -430,5 +422,4 @@ namespace RssApplication
             }
         }
     }
-
 }

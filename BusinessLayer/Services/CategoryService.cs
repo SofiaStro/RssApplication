@@ -16,19 +16,19 @@ namespace BusinessLayer.Services
             categoryRepository = new CategoryRepository();
         }
 
-        public async Task CreateAsync(string name)
+        public async Task CreateCategoryAsync(string name)
         {
             Category newCategory = null;
 
             newCategory = new Category(name);
 
-            await categoryRepository.CreateAsync(newCategory);
+            await categoryRepository.CreateCategoryAsync(newCategory);
         }
 
-        public async Task DeleteAsync(string name)
+        public async Task DeleteCategoryAsync(string name)
         {
             int index = await categoryRepository.GetIndexAsync(name);
-            await categoryRepository.DeleteAsync(index);
+            await categoryRepository.DeleteCategoryAsync(index);
         }
 
         public async Task<List<string>> InputCategoryAsync()
@@ -36,8 +36,8 @@ namespace BusinessLayer.Services
             List<string> listOfCategoryNames = new List<string>();
             try
             {
-                List<Category> listOfCategorys = await categoryRepository.GetCurrentCategorysAsync();
-                listOfCategoryNames = listOfCategorys.Select(category => category.Name).ToList();
+                List<Category> listOfCategories = await categoryRepository.GetCurrentCategoriesAsync();
+                listOfCategoryNames = listOfCategories.Select(category => category.Name).ToList();
             }
             catch (Exception) { }
 
@@ -50,10 +50,15 @@ namespace BusinessLayer.Services
             {
                 int index = await categoryRepository.GetIndexAsync(oldName);
 
+<<<<<<< Updated upstream
                 Category newCategory = new Category(newName);
                 await categoryRepository.UpdateAsync(index, newCategory);
             }
             catch (Exception) { }
+=======
+            Category newCategory = new Category(newName);
+            await categoryRepository.UpdateCategoryAsync(index, newCategory);
+>>>>>>> Stashed changes
         }
     }  
 }

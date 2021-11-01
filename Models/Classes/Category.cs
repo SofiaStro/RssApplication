@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Models.Interfaces;
+﻿using Models.Interfaces;
 
 namespace Models.Classes
 {
@@ -11,9 +6,7 @@ namespace Models.Classes
     {
         public string Name { get; set; }
 
-        public Category()
-        {
-        }
+        public Category() {}
 
         public Category(string name)
         {

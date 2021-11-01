@@ -24,11 +24,18 @@ namespace BusinessLayer.Services
 
         public async Task CreateFeedAsync(string url, string name, int timeInterval, string category, string type)
         {
+<<<<<<< Updated upstream
             try
             {   Feed newFeed = null;
 
                 List<Episode> listOfEpisodes = await episodeService.GetListOfEpisodesAsync(url);
                 int numberOfEpisodes = episodeService.NumberOfEpisodes(listOfEpisodes);
+=======
+            Feed newFeed = null;
+            
+            List<Episode> listOfEpisodes = await episodeService.GetListOfEpisodesAsync(url);
+            int numberOfEpisodes = episodeService.NumberOfEpisodes(listOfEpisodes);
+>>>>>>> Stashed changes
 
                 string fileName = fileNameService.SetNewFileName();
 
@@ -101,9 +108,13 @@ namespace BusinessLayer.Services
             List<Feed> listOfFeedInCategory = new List<Feed>();
             List<Feed> listOfFeeds = await GetListOfFeedsAsync();
          
+<<<<<<< Updated upstream
             List<Feed> listOfFeedCategorys = listOfFeeds.Where(feed => feed.Category.Equals(filterCategory)).ToList();
+=======
+            List<Feed> listOfFeedCategories = listOfFeeds.Where(feed => feed.Category == filterCategory).ToList();
+>>>>>>> Stashed changes
 
-            return listOfFeedCategorys;
+            return listOfFeedCategories;
         }
     }
 }

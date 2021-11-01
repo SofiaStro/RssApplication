@@ -75,7 +75,7 @@ namespace DataAccessLayer
             {
                 await Task.Run(() =>
                 {
-                    if (File.Exists("categoryObjects.xml")) // Kontrollerar om filnamnet redan finns och tar isådana fall bort filen med det namnet.
+                    if (File.Exists("categoryObjects.xml")) // Kontrollerar om filnamnet redan finns.
                     {
                         XmlSerializer xmlReader = new XmlSerializer(typeof(List<Category>));
                         using (FileStream fileStream = new FileStream("categoryObjects.xml", FileMode.Open,

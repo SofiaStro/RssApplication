@@ -87,7 +87,7 @@ namespace RssApplication
             {
                 lbEpisode.Items.Add(episode.Title);
             }
-            lblDescriptionType.Text = episodeService.DisplayType(feedObject);
+            lblDescriptionType.Text = episodeService.DisplayEpisodeType(feedObject);
         }
 
         private string GetSelectedFeed()

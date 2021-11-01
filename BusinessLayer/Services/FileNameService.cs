@@ -35,7 +35,7 @@ namespace BusinessLayer.Services
 
         public List<string> GetFileNameList()
         {
-             string localPath = Directory.GetCurrentDirectory();
+            string localPath = Directory.GetCurrentDirectory();
             List<string> fileNames = Directory.GetFiles(localPath, "feed*.xml").ToList();
             return fileNames;
         }

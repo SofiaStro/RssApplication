@@ -44,7 +44,7 @@ namespace BusinessLayer.Services
             return counter;
         }
 
-        public string DisplayType (Feed feedObject)
+        public string DisplayEpisodeType (Feed feedObject)
         {
             string feedType = feedObject.Display();
             return feedType;

@@ -60,9 +60,9 @@ namespace RssApplication
             this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.bgCategory = new System.Windows.Forms.Label();
+            this.bgFeed = new System.Windows.Forms.Label();
+            this.bgEpisode = new System.Windows.Forms.Label();
             this.cbType = new System.Windows.Forms.ComboBox();
             this.lblType = new System.Windows.Forms.Label();
             this.lblDescriptionType = new System.Windows.Forms.Label();
@@ -364,29 +364,32 @@ namespace RssApplication
             this.chCategory.Text = "Kategori";
             this.chCategory.Width = 100;
             // 
-            // label7
+            // bgCategory
             // 
-            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label7.Location = new System.Drawing.Point(13, 387);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(747, 246);
-            this.label7.TabIndex = 70;
+            this.bgCategory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.bgCategory.Location = new System.Drawing.Point(13, 387);
+            this.bgCategory.Name = "bgCategory";
+            this.bgCategory.Size = new System.Drawing.Size(747, 246);
+            this.bgCategory.TabIndex = 70;
+            this.bgCategory.Click += new System.EventHandler(this.bgCategory_Click);
             // 
-            // label6
+            // bgFeed
             // 
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.Location = new System.Drawing.Point(13, 9);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(747, 370);
-            this.label6.TabIndex = 59;
+            this.bgFeed.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.bgFeed.Location = new System.Drawing.Point(13, 9);
+            this.bgFeed.Name = "bgFeed";
+            this.bgFeed.Size = new System.Drawing.Size(747, 370);
+            this.bgFeed.TabIndex = 59;
+            this.bgFeed.Click += new System.EventHandler(this.bgFeed_Click);
             // 
-            // label5
+            // bgEpisode
             // 
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(770, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(505, 625);
-            this.label5.TabIndex = 72;
+            this.bgEpisode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.bgEpisode.Location = new System.Drawing.Point(770, 9);
+            this.bgEpisode.Name = "bgEpisode";
+            this.bgEpisode.Size = new System.Drawing.Size(505, 625);
+            this.bgEpisode.TabIndex = 72;
+            this.bgEpisode.Click += new System.EventHandler(this.bgEpisode_Click);
             // 
             // cbType
             // 
@@ -452,9 +455,9 @@ namespace RssApplication
             this.Controls.Add(this.tbSubscribeName);
             this.Controls.Add(this.lblUrl);
             this.Controls.Add(this.lvSubscribe);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.bgCategory);
+            this.Controls.Add(this.bgFeed);
+            this.Controls.Add(this.bgEpisode);
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "RSS Applikation";
@@ -491,9 +494,9 @@ namespace RssApplication
         private System.Windows.Forms.TextBox tbSubscribeName;
         private System.Windows.Forms.Label lblUrl;
         private System.Windows.Forms.ListView lvSubscribe;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label bgCategory;
+        private System.Windows.Forms.Label bgFeed;
+        private System.Windows.Forms.Label bgEpisode;
         private System.Windows.Forms.ComboBox cbType;
         private System.Windows.Forms.Label lblType;
         private System.Windows.Forms.ColumnHeader chEpisode;

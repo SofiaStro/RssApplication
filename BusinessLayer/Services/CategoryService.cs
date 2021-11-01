@@ -50,15 +50,11 @@ namespace BusinessLayer.Services
             {
                 int index = await categoryRepository.GetIndexAsync(oldName);
 
-<<<<<<< Updated upstream
                 Category newCategory = new Category(newName);
-                await categoryRepository.UpdateAsync(index, newCategory);
+                await categoryRepository.UpdateCategoryAsync(index, newCategory);
             }
             catch (Exception) { }
-=======
-            Category newCategory = new Category(newName);
-            await categoryRepository.UpdateCategoryAsync(index, newCategory);
->>>>>>> Stashed changes
+
         }
     }  
 }

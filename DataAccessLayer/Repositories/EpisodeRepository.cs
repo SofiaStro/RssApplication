@@ -35,18 +35,11 @@ namespace DataAccessLayer.Repositories
                         Episode episode = new Episode(title, description);
                         listOfEpisodes.Add(episode);
                     }
-<<<<<<< Updated upstream
                 }      
             }
             catch (Exception) { }
-            return listOfEpisode;
-=======
-                }
-            }
-            catch (Exception) {}
-
             return listOfEpisodes;
->>>>>>> Stashed changes
+
         }
 
     }

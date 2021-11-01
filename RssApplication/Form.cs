@@ -34,26 +34,40 @@ namespace RssApplication
 
         private void FillComboboxes()
         {
+            cbTime.Items.Add("");
             cbTime.Items.Add("1");
             cbTime.Items.Add("15");
             cbTime.Items.Add("30");
+            cbType.Items.Add("");
             cbType.Items.Add("Nyhet");
             cbType.Items.Add("Podcast");
         }
 
-        //private void ClearFields()
-        //{
-        //    tbUrl.ReadOnly = false;
-        //    lblType.Visible = true;
-        //    cbType.Visible = true;
+        private void ClearFieldsFeed()
+        {
+            tbUrl.ReadOnly = false;
+            lblType.Visible = true;
+            cbType.Visible = true;
 
-        //    tbUrl.Text = "";
-        //    tbSubscribeName.Text = "";
-        //    cbTime.Text = "";
-        //    cbSubscribeCategory.Text = "";
-        //    cbType.Text = "";
-        //    listView1.SelectedItems.Clear();
-        //}
+            tbUrl.Text = "";
+            tbSubscribeName.Text = "";
+            cbTime.Text = "";
+            cbSubscribeCategory.Text = "";
+            cbType.Text = "";
+            lvSubscribe.SelectedItems.Clear();
+        }
+        private async Task ClearFieldsCategory()
+        {
+            tbCategoryName.Text = "";
+            lbCategory.ClearSelected();
+            DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
+        }
+        private void ClearFieldsEpisode()
+        {
+            lbEpisode.Items.Clear();
+            lblDescriptionType.Text = "";
+            tbEpisodeDescription.Text = "";
+        }
 
         public void DisplaySubscribeList(List<Feed> listOfFeeds)
         {
@@ -123,6 +137,8 @@ namespace RssApplication
                     await feedService.CreateFeedAsync(url, name, timeInterval, category, type);
 
                     DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
+                    ClearFieldsFeed();
+                    ClearFieldsEpisode();
                 }
             }
             catch (ValidatorException ex)
@@ -147,8 +163,9 @@ namespace RssApplication
                     string fileName = GetSelectedFeed();
                     await feedService.ChangeFeedAsync(name, timeInterval, category, fileName);
 
-                    DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
-
+                    DisplaySubscribeList( await feedService.GetListOfFeedsAsync());
+                    ClearFieldsFeed();
+                    ClearFieldsEpisode();
                 }
             }
             catch (ValidatorException ex)
@@ -210,8 +227,9 @@ namespace RssApplication
 
                         await InputCategoryListAsync();
                         tbCategoryName.Text = "";
+                        await ClearFieldsCategory();
                     }
-
+                    
                 }
             }
             catch (Exception ex)
@@ -224,6 +242,7 @@ namespace RssApplication
         {
             cbSubscribeCategory.Items.Clear();
             lbCategory.Items.Clear();
+            cbSubscribeCategory.Items.Add("");
 
             List<string> listOfCategoryNames = new List<string>();
             listOfCategoryNames = await categoryService.InputCategoryAsync();
@@ -272,6 +291,7 @@ namespace RssApplication
                         }
 
                         DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
+                        await ClearFieldsCategory();
                     }
                 }
             }
@@ -288,7 +308,9 @@ namespace RssApplication
                 if (Validator.IsSelected(lbCategory, "Välj en kategori att ta bort."))
                 {
                     string selectedCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
-                    DialogResult popUp = MessageBox.Show("Vill du ta bort kategori: " + selectedCategory, "Är du säker?",
+
+                    DialogResult popUp = MessageBox.Show("Vill du ta bort kategorin " + selectedCategory + " och alla prenumerationer med denna kategori?", "Är du säker?", 
+
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
 
                     if (popUp == DialogResult.Yes)
@@ -304,6 +326,7 @@ namespace RssApplication
                         }
 
                         DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
+                        await ClearFieldsCategory();
                     }
                 }
             }
@@ -315,6 +338,8 @@ namespace RssApplication
 
         private async void lbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ClearFieldsFeed();
+            ClearFieldsEpisode();
             string filterCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
             List<Feed> listOfFeedInCategory = await feedService.GetFeedInCategoryAsync(filterCategory);
             DisplaySubscribeList(listOfFeedInCategory);
@@ -384,6 +409,8 @@ namespace RssApplication
                     {
                         feedService.DeleteFeed(fileName);
                         DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
+                        ClearFieldsFeed();
+                        ClearFieldsEpisode();
                     }
                 }
             }
@@ -420,6 +447,27 @@ namespace RssApplication
                     }
                 }
             }
+        }
+
+        private async void bgFeed_Click(object sender, EventArgs e)
+        {
+            ClearFieldsFeed();
+            ClearFieldsEpisode();
+            await ClearFieldsCategory();
+        }
+
+        private async void bgCategory_Click(object sender, EventArgs e)
+        {
+            ClearFieldsFeed();
+            ClearFieldsEpisode();
+            await ClearFieldsCategory();
+        }
+
+        private async void bgEpisode_Click(object sender, EventArgs e)
+        {
+            ClearFieldsFeed();
+            ClearFieldsEpisode();
+            await ClearFieldsCategory();
         }
     }
 }

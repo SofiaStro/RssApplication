@@ -56,10 +56,13 @@ namespace RssApplication
             cbSubscribeCategory.Text = "";
             cbType.Text = "";
             lvSubscribe.SelectedItems.Clear();
+
+            lblSubcribeMsg.Text = "";
         }
         private async Task ClearFieldsCategory()
         {
             tbCategoryName.Text = "";
+            lblCategoryMsg.Text = "";
             lbCategory.ClearSelected();
             DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
         }
@@ -158,6 +161,7 @@ namespace RssApplication
                     DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
                     ClearFieldsFeed();
                     ClearFieldsEpisode();
+                    lblSubcribeMsg.Text = "";
                 }
             }
             catch (ValidatorException ex)
@@ -185,6 +189,7 @@ namespace RssApplication
                     DisplaySubscribeList( await feedService.GetListOfFeedsAsync());
                     ClearFieldsFeed();
                     ClearFieldsEpisode();
+                    lblSubcribeMsg.Text = "";
                 }
             }
             catch (ValidatorException ex)
@@ -209,6 +214,7 @@ namespace RssApplication
                         DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
                         ClearFieldsFeed();
                         ClearFieldsEpisode();
+                        lblSubcribeMsg.Text = "";
                     }
                 }
             }
@@ -239,6 +245,7 @@ namespace RssApplication
                         tbUrl.ReadOnly = true;
                         lblType.Visible = false;
                         cbType.Visible = false;
+                        lblSubcribeMsg.Text = "";
 
                         DisplayEpisodeList(feedObject);
                     }
@@ -271,6 +278,7 @@ namespace RssApplication
                         await InputCategoryListAsync();
                         tbCategoryName.Text = "";
                         await ClearFieldsCategory();
+                        lblCategoryMsg.Text = "";
                     }  
                 }
             }
@@ -316,6 +324,7 @@ namespace RssApplication
 
                         DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
                         await ClearFieldsCategory();
+                        lblCategoryMsg.Text = "";
                     }
                 }
             }
@@ -351,6 +360,7 @@ namespace RssApplication
 
                         DisplaySubscribeList(await feedService.GetListOfFeedsAsync());
                         await ClearFieldsCategory();
+                        lblCategoryMsg.Text = "";
                     }
                 }
             }
@@ -367,6 +377,7 @@ namespace RssApplication
             string filterCategory = lbCategory.GetItemText(lbCategory.SelectedItem);
             List<Feed> listOfFeedInCategory = await feedService.GetFeedInCategoryAsync(filterCategory);
             DisplaySubscribeList(listOfFeedInCategory);
+            lblCategoryMsg.Text = "";
         }
 
         private async void lbEpisode_SelectedIndexChanged(object sender, EventArgs e)

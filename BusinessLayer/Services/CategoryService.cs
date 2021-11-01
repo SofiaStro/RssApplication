@@ -3,6 +3,7 @@ using Models.Classes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 namespace BusinessLayer.Services
 {
@@ -33,12 +34,12 @@ namespace BusinessLayer.Services
         public async Task<List<string>> InputCategoryAsync()
         {
             List<string> listOfCategoryNames = new List<string>();
-            //try
-            //{
+            try
+            {
                 List<Category> listOfCategorys = await categoryRepository.GetCurrentCategorysAsync();
                 listOfCategoryNames = listOfCategorys.Select(category => category.Name).ToList();
-            //}
-            //catch (Exception) { }
+            }
+            catch (Exception) { }
 
             return listOfCategoryNames;
         }

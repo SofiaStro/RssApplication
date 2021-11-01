@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessLayer.Repositories;
-using Models.Classes;
-using Models;
 using System.IO;
 
 namespace BusinessLayer.Services
@@ -36,7 +31,6 @@ namespace BusinessLayer.Services
         {
             string localPath = Directory.GetCurrentDirectory();
             List<string> fileNames = Directory.GetFiles(localPath, "feed*.xml").ToList();
-            //List<string> fileNames = Directory.GetFiles(@"C:\Users\moahe\OneDrive\Dokument\GitHub\RssApplication\RssApplication\bin\Debug", "*.xml").ToList();
 
             return fileNames;
 

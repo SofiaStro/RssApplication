@@ -51,8 +51,6 @@
     <Compile Include="Classes\Feed.cs" />
     <Compile Include="Classes\News.cs" />
     <Compile Include="Classes\Podcast.cs" />
-    <Compile Include="Exceptions\RssReaderException.cs" />
-    <Compile Include="Exceptions\SerializerException.cs" />
     <Compile Include="Exceptions\ValidatorException.cs" />
     <Compile Include="Interfaces\INameable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

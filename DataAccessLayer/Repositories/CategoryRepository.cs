@@ -1,10 +1,8 @@
 ﻿using Models.Classes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
+
 
 namespace DataAccessLayer.Repositories
 {
@@ -46,8 +44,6 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception)
             {
-                //FIXA DENNA!! 
-
             }
             return listOfCategorysDeserialized;
         }
@@ -68,9 +64,6 @@ namespace DataAccessLayer.Repositories
 
         public async Task<int> GetIndexAsync(string name)
         {
-            //return await Task.Run(() =>
-            //{
-            // Göra om foreach loopen till en LINQ? om det går?
             int index = 0;
             List<Category> listOfCategory = await GetCurrentCategorysAsync();
             foreach(Category category in listOfCategory)
@@ -82,8 +75,6 @@ namespace DataAccessLayer.Repositories
                 index++;
             }
             return index;
-            //return GetCurrentCategorysAsync().FindIndex(c => c.Name.Equals(name));
-            //});
         }
     }
 }

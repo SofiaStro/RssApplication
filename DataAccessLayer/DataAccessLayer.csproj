@@ -55,7 +55,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FeedRepository.cs" />
     <Compile Include="Repositories\IFeedRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -8,7 +8,7 @@ using System;
 namespace BusinessLayer.Services
 {
     public class CategoryService
-    { 
+    {
         ICategoryRepository<Category> categoryRepository;
 
         public CategoryService()
@@ -46,10 +46,14 @@ namespace BusinessLayer.Services
 
         public async Task ChangeCategoryNameAsync(string oldName, string newName)
         {
-            int index = await categoryRepository.GetIndexAsync(oldName);
+            try
+            {
+                int index = await categoryRepository.GetIndexAsync(oldName);
 
-            Category newCategory = new Category(newName);
-            await categoryRepository.UpdateAsync(index, newCategory);
+                Category newCategory = new Category(newName);
+                await categoryRepository.UpdateAsync(index, newCategory);
+            }
+            catch (Exception) { }
         }
-    }    
+    }  
 }

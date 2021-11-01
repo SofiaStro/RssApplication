@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataAccessLayer.Repositories;
 using Models.Classes;
@@ -18,7 +19,15 @@ namespace BusinessLayer.Services
 
         public async Task<List<Episode>> GetListOfEpisodesAsync(string url)
         {
-            List<Episode> listOfEpisodes = await episodeRepository.GetCurrentEpisodesAsync(url);
+            List<Episode> listOfEpisodes = new List<Episode>();
+
+            try
+            {
+                listOfEpisodes = await episodeRepository.GetCurrentEpisodesAsync(url);
+
+                return listOfEpisodes;
+
+            } catch (Exception) { }
 
             return listOfEpisodes;
         }

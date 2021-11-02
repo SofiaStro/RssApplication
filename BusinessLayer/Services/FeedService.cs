@@ -67,7 +67,7 @@ namespace BusinessLayer.Services
                 }
                 else if (oldFeed is News)
                 {
-                    newFeed = new Podcast(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
+                    newFeed = new News(url, name, numberOfEpisodes, timeInterval, category, listOfEpisodes, fileName);
                 }
 
                 await feedRepository.SaveFeedAsync(newFeed, fileName);

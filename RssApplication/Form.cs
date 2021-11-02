@@ -244,7 +244,7 @@ namespace RssApplication
 
                         tbUrl.ReadOnly = true;
                         lblType.Visible = false;
-                        cbType.Visible = false;
+                        //cbType.Visible = false;
                         lblSubcribeMsg.Text = "";
 
                         DisplayEpisodeList(feedObject);
